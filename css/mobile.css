@@ -1282,45 +1282,131 @@ main,
 }
 
 /* ================================================================
-   FIX: Mobile nav — ensure full scrollability & bottom not cut off
+   FIX: Mobile nav — readability, scroll, dark theme contrast
    ================================================================ */
 @media (max-width: 900px) {
+
+  /* --- Dark/solid background for mobile nav --- */
   .mobile-nav {
-    /* Ensure content is scrollable and bottom items visible */
-    height: 100vh !important;
-    height: 100dvh !important;
-    max-height: 100vh !important;
-    max-height: 100dvh !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px)) !important;
-    box-sizing: border-box !important;
+    background: var(--bg-primary, #0f0f23) !important;
   }
 
-  /* Push the auth button to bottom with auto margin */
+  /* --- All nav links: high contrast text --- */
+  .mobile-nav .mobile-nav-link,
+  .mobile-nav a {
+    color: var(--text-primary, #e2e8f0) !important;
+    font-size: 1.05rem !important;
+    font-weight: 500 !important;
+    padding: 14px 24px !important;
+    border-radius: 12px !important;
+    margin: 2px 12px !important;
+    transition: background 0.2s, color 0.2s !important;
+    text-decoration: none !important;
+    flex-shrink: 0 !important;
+  }
+
+  .mobile-nav .mobile-nav-link:hover,
+  .mobile-nav a:hover {
+    background: rgba(99, 102, 241, 0.15) !important;
+    color: #a5b4fc !important;
+  }
+
+  .mobile-nav .mobile-nav-link.active,
+  .mobile-nav a.active {
+    background: linear-gradient(135deg, rgba(99,102,241,0.25), rgba(139,92,246,0.2)) !important;
+    color: #c4b5fd !important;
+    font-weight: 600 !important;
+  }
+
+  /* --- Divider --- */
+  .mobile-nav .mobile-nav-divider {
+    height: 1px !important;
+    background: rgba(255,255,255,0.1) !important;
+    margin: 8px 24px !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* --- Auth button at bottom --- */
   .mobile-nav .btn-primary,
   .mobile-nav #open-auth-mobile {
-    margin-top: auto !important;
+    margin: auto 16px 0 16px !important;
     flex-shrink: 0 !important;
+    font-size: 1rem !important;
+    padding: 14px 24px !important;
+    border-radius: 14px !important;
   }
 
-  /* Ensure divider doesn't eat space */
-  .mobile-nav .mobile-nav-divider {
-    flex-shrink: 0 !important;
-  }
-
-  /* All links — don't shrink */
-  .mobile-nav a,
-  .mobile-nav .mobile-nav-link {
-    flex-shrink: 0 !important;
+  /* --- Ensure full scroll --- */
+  .mobile-nav {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: calc(80px + env(safe-area-inset-bottom, 20px)) !important;
   }
 }
 
-/* iOS Safari fix — bottom bar overlap */
+/* --- Light theme overrides for mobile nav --- */
+[data-theme="light"] .mobile-nav,
+:root:not([data-theme="dark"]) .mobile-nav {
+  background: rgba(255, 255, 255, 0.97) !important;
+}
+
+[data-theme="light"] .mobile-nav .mobile-nav-link,
+[data-theme="light"] .mobile-nav a,
+:root:not([data-theme="dark"]) .mobile-nav .mobile-nav-link,
+:root:not([data-theme="dark"]) .mobile-nav a {
+  color: #1e293b !important;
+}
+
+[data-theme="light"] .mobile-nav .mobile-nav-link:hover,
+[data-theme="light"] .mobile-nav a:hover {
+  background: rgba(99, 102, 241, 0.08) !important;
+  color: #4f46e5 !important;
+}
+
+[data-theme="light"] .mobile-nav .mobile-nav-link.active,
+[data-theme="light"] .mobile-nav a.active {
+  background: rgba(99, 102, 241, 0.12) !important;
+  color: #4338ca !important;
+}
+
+[data-theme="light"] .mobile-nav .mobile-nav-divider,
+:root:not([data-theme="dark"]) .mobile-nav .mobile-nav-divider {
+  background: rgba(0,0,0,0.08) !important;
+}
+
+/* iOS Safari bottom bar fix */
 @supports (-webkit-touch-callout: none) {
   @media (max-width: 900px) {
     .mobile-nav {
-      padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px)) !important;
+      padding-bottom: calc(100px + env(safe-area-inset-bottom, 20px)) !important;
     }
+  }
+}
+
+/* ================================================================
+   FIX: FAQ section on index.html — last items cut off on mobile
+   ================================================================ */
+@media (max-width: 900px) {
+  .faq-section,
+  .faq,
+  section:has(.faq-item):last-of-type {
+    padding-bottom: 60px !important;
+  }
+
+  /* Ensure FAQ items don't overflow */
+  .faq-item {
+    overflow: visible !important;
+  }
+
+  /* Last FAQ item — extra bottom margin */
+  .faq-item:last-child {
+    margin-bottom: 40px !important;
+  }
+
+  /* General page bottom padding for safe area */
+  main,
+  .main-content,
+  [role="main"] {
+    padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px)) !important;
   }
 }

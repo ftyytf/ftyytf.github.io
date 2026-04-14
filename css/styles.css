@@ -278,7 +278,7 @@ h1,h2,h3,h4 { color:var(--text-bright); line-height:1.3; }
 .btn-lg { padding:14px 32px; font-size:0.95rem; border-radius:var(--radius-md); }
 .btn-full { width:100%; }
 
-.user-name { font-weight:600; color:#fff !important; font-size:0.92rem; }
+.user-name { font-weight:600; color:#1a1a2e !important; font-size:0.92rem; }
 
 /* ================================================================
    HERO SECTION
@@ -2155,15 +2155,49 @@ main {
 
 /* === END DROPDOWN FIX v4 === */
 
-/* === FIX: Account name visibility === */
+
+/* === FIX: Account name + header text for BOTH themes === */
+.user-name {
+  font-weight: 600 !important;
+  font-size: 0.92rem !important;
+  color: #1a1a2e !important;
+}
 .user-menu-btn {
-  color: #fff !important;
+  color: #1a1a2e !important;
 }
 .user-menu-btn svg {
+  color: #1a1a2e !important;
+  stroke: #1a1a2e !important;
+}
+
+/* Dark theme overrides */
+[data-theme="dark"] .user-name,
+.dark .user-name,
+body.dark .user-name {
+  color: #fff !important;
+}
+[data-theme="dark"] .user-menu-btn,
+.dark .user-menu-btn,
+body.dark .user-menu-btn {
+  color: #fff !important;
+}
+[data-theme="dark"] .user-menu-btn svg,
+.dark .user-menu-btn svg,
+body.dark .user-menu-btn svg {
   color: #fff !important;
   stroke: #fff !important;
 }
-.header-actions .btn-ghost,
-.header-actions a {
+
+/* Header navigation links for light theme */
+.nav-link {
+  color: #1a1a2e !important;
+}
+.nav-link.active {
+  color: #6366f1 !important;
+}
+[data-theme="dark"] .nav-link {
   color: #fff !important;
+}
+[data-theme="dark"] .nav-link.active {
+  color: #a78bfa !important;
 }

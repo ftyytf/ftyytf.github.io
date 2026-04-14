@@ -84,7 +84,7 @@ var Auth = (function () {
       ".user-menu-btn{display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 14px;border-radius:12px;transition:background .2s;background:none;border:none;color:inherit;font-family:inherit}",
       ".user-menu-btn:hover{background:rgba(255,255,255,.05)}",
       ".user-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#a855f7);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;color:#fff;flex-shrink:0}",
-      ".user-name{color:#fff;font-weight:500;font-size:.92rem}",
+      ".user-name{color:inherit;font-weight:500;font-size:.92rem}",
       ".user-dropdown{position:absolute;top:calc(100% + 8px);right:0;background:#1e1b2e;border:1px solid rgba(139,92,246,.2);border-radius:16px;padding:8px;min-width:220px;opacity:0;visibility:hidden;transform:translateY(-10px);transition:all .25s;z-index:99999;box-shadow:0 15px 40px rgba(0,0,0,.4)}",
       ".user-dropdown.open{opacity:1;visibility:visible;transform:translateY(0)}",
       ".user-dropdown-item{display:flex;align-items:center;gap:10px;padding:12px 16px;color:#ccc;text-decoration:none;border-radius:10px;font-size:.9rem;transition:all .2s;border:none;background:none;width:100%;cursor:pointer;font-family:inherit;box-sizing:border-box}",

@@ -278,7 +278,7 @@ h1,h2,h3,h4 { color:var(--text-bright); line-height:1.3; }
 .btn-lg { padding:14px 32px; font-size:0.95rem; border-radius:var(--radius-md); }
 .btn-full { width:100%; }
 
-.user-name { font-weight:600; }
+.user-name { font-weight:600; color:#fff !important; font-size:0.92rem; }
 
 /* ================================================================
    HERO SECTION
@@ -2154,3 +2154,16 @@ main {
 }
 
 /* === END DROPDOWN FIX v4 === */
+
+/* === FIX: Account name visibility === */
+.user-menu-btn {
+  color: #fff !important;
+}
+.user-menu-btn svg {
+  color: #fff !important;
+  stroke: #fff !important;
+}
+.header-actions .btn-ghost,
+.header-actions a {
+  color: #fff !important;
+}

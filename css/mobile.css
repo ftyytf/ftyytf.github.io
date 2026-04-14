@@ -1280,3 +1280,47 @@ main,
     min-width: 360px !important;
   }
 }
+
+/* ================================================================
+   FIX: Mobile nav — ensure full scrollability & bottom not cut off
+   ================================================================ */
+@media (max-width: 900px) {
+  .mobile-nav {
+    /* Ensure content is scrollable and bottom items visible */
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-height: 100vh !important;
+    max-height: 100dvh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px)) !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Push the auth button to bottom with auto margin */
+  .mobile-nav .btn-primary,
+  .mobile-nav #open-auth-mobile {
+    margin-top: auto !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Ensure divider doesn't eat space */
+  .mobile-nav .mobile-nav-divider {
+    flex-shrink: 0 !important;
+  }
+
+  /* All links — don't shrink */
+  .mobile-nav a,
+  .mobile-nav .mobile-nav-link {
+    flex-shrink: 0 !important;
+  }
+}
+
+/* iOS Safari fix — bottom bar overlap */
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 900px) {
+    .mobile-nav {
+      padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px)) !important;
+    }
+  }
+}

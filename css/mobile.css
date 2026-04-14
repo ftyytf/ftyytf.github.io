@@ -790,3 +790,354 @@
     background: #fff;
   }
 }
+
+/* ================================================================
+   🔧 MOBILE FIXES v2 — Burger visibility, Hero badge, FAQ header
+   ================================================================ */
+
+/* === FIX 1: БУРГЕР КНОПКА — КРУПНЕЕ И ЗАМЕТНЕЕ === */
+@media (max-width: 900px) {
+  /* Burger button — bigger, more visible */
+  .burger,
+  #burger-btn {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 5px !important;
+    width: 44px !important;
+    height: 44px !important;
+    background: rgba(99, 102, 241, 0.12) !important;
+    border: 1.5px solid rgba(99, 102, 241, 0.3) !important;
+    border-radius: 10px !important;
+    cursor: pointer !important;
+    padding: 8px !important;
+    position: relative !important;
+    z-index: 2001 !important;
+    transition: all 0.3s ease !important;
+    flex-shrink: 0 !important;
+  }
+  .burger:active,
+  #burger-btn:active {
+    background: rgba(99, 102, 241, 0.25) !important;
+    transform: scale(0.95) !important;
+  }
+
+  /* Burger lines — THICKER and more visible */
+  .burger span,
+  #burger-btn span {
+    display: block !important;
+    width: 20px !important;
+    height: 2.5px !important;
+    background: #a78bfa !important;
+    border-radius: 3px !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+    transform: none !important;
+  }
+
+  /* Reset any absolute positioning that might break layout */
+  .burger span,
+  #burger-btn span {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+  }
+
+  /* Burger active state (X shape) */
+  .burger.active,
+  #burger-btn.active {
+    background: rgba(99, 102, 241, 0.2) !important;
+  }
+  .burger.active span:nth-child(1),
+  #burger-btn.active span:nth-child(1) {
+    transform: translateY(7.5px) rotate(45deg) !important;
+  }
+  .burger.active span:nth-child(2),
+  #burger-btn.active span:nth-child(2) {
+    opacity: 0 !important;
+    transform: scaleX(0) !important;
+  }
+  .burger.active span:nth-child(3),
+  #burger-btn.active span:nth-child(3) {
+    transform: translateY(-7.5px) rotate(-45deg) !important;
+  }
+
+  /* Dark theme burger */
+  [data-theme="dark"] .burger,
+  [data-theme="dark"] #burger-btn {
+    background: rgba(167, 139, 250, 0.15) !important;
+    border-color: rgba(167, 139, 250, 0.3) !important;
+  }
+  [data-theme="dark"] .burger span,
+  [data-theme="dark"] #burger-btn span {
+    background: #c4b5fd !important;
+  }
+
+  /* Header layout — ensure burger is visible and aligned */
+  .header-inner {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    padding: 0 12px !important;
+    min-height: 60px !important;
+  }
+
+  /* Logo shrink on mobile */
+  .logo {
+    flex-shrink: 1 !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+  .logo-text {
+    font-size: 0.82rem !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 140px !important;
+  }
+
+  /* Header right side — compact */
+  .header-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Theme toggle smaller */
+  .theme-toggle {
+    width: 34px !important;
+    height: 34px !important;
+    font-size: 1rem !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Auth button compact */
+  .auth-trigger,
+  .header-actions .btn {
+    padding: 8px 14px !important;
+    font-size: 0.78rem !important;
+    border-radius: 10px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+}
+
+/* === FIX 2: HERO BADGE — "МГНОВЕННЫЙ ОБМЕН" НЕ ОБРЕЗАЕТСЯ === */
+@media (max-width: 768px) {
+  .hero {
+    padding-top: 100px !important;
+    padding-bottom: 40px !important;
+  }
+
+  /* Hero badge (пульсирующая метка) — полностью видна */
+  .hero-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 8px 16px !important;
+    font-size: 0.78rem !important;
+    margin-bottom: 16px !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    max-width: 100% !important;
+  }
+
+  .hero-title {
+    font-size: 1.6rem !important;
+    margin-bottom: 12px !important;
+  }
+  .hero-subtitle {
+    font-size: 0.88rem !important;
+    margin-bottom: 20px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero {
+    padding-top: 90px !important;
+  }
+  .hero-badge {
+    font-size: 0.72rem !important;
+    padding: 6px 12px !important;
+  }
+  .hero-badge span:first-child {
+    width: 6px !important;
+    height: 6px !important;
+  }
+  .hero-title {
+    font-size: 1.35rem !important;
+  }
+}
+
+/* === FIX 3: FAQ И ВСЕ СТРАНИЦЫ — ОТСТУП ОТ HEADER === */
+
+/* Все main-content секции должны начинаться ниже фиксированного хедера */
+main,
+#main-content,
+[role="main"] {
+  padding-top: 0; /* Сброс — управляем через first-child */
+}
+
+/* Первая секция на странице — отступ от хедера */
+@media (max-width: 768px) {
+  main > section:first-child,
+  #main-content > section:first-child,
+  [role="main"] > section:first-child {
+    padding-top: 80px !important;
+  }
+
+  /* Hero — свой отступ (уже задан выше) */
+  main > section.hero:first-child,
+  #main-content > section.hero:first-child {
+    padding-top: 100px !important;
+  }
+
+  /* Page headers (FAQ, About, Contacts и т.д.) */
+  .page-header,
+  .page-hero,
+  .faq-header,
+  .about-hero,
+  .contacts-header,
+  .legal-header,
+  .rates-header,
+  .exchange-header,
+  .markets-header {
+    padding-top: 85px !important;
+  }
+
+  /* Section title не обрезается */
+  .section-title,
+  .page-title {
+    font-size: 1.5rem !important;
+    line-height: 1.3 !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+}
+
+/* === FIX 4: FAQ КАРТОЧКИ — ПОЛНОСТЬЮ ВИДНЫ === */
+@media (max-width: 768px) {
+  .faq-list,
+  .faq-container {
+    padding: 0 !important;
+    gap: 12px !important;
+  }
+  .faq-item {
+    border-radius: 12px !important;
+    overflow: hidden !important;
+  }
+  .faq-question {
+    padding: 16px 14px !important;
+    font-size: 0.9rem !important;
+    line-height: 1.4 !important;
+    min-height: 52px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  .faq-answer {
+    padding: 0 14px 16px !important;
+    font-size: 0.85rem !important;
+    line-height: 1.6 !important;
+  }
+
+  /* FAQ chevron/arrow */
+  .faq-icon,
+  .faq-question svg,
+  .faq-question::after {
+    flex-shrink: 0 !important;
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+
+/* === FIX 5: EXCHANGE CARD НА ГЛАВНОЙ — ПОЛНОСТЬЮ ВИДНО === */
+@media (max-width: 480px) {
+  .exchange-card,
+  .hero-inner > .exchange-card,
+  #heroCalc {
+    margin-left: -4px !important;
+    margin-right: -4px !important;
+    border-radius: 16px !important;
+    padding: 20px 14px !important;
+  }
+
+  .exchange-row {
+    margin-bottom: 12px !important;
+  }
+  .exchange-label {
+    font-size: 0.75rem !important;
+    letter-spacing: 0.05em !important;
+    margin-bottom: 8px !important;
+  }
+  .exchange-input-group {
+    border-radius: 12px !important;
+    padding: 10px !important;
+  }
+}
+
+/* === FIX 6: МОБИЛЬНАЯ НАВИГАЦИЯ — КРАСИВАЯ ПАНЕЛЬ === */
+@media (max-width: 900px) {
+  .mobile-nav {
+    padding-top: 72px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    gap: 4px !important;
+  }
+
+  .mobile-nav-link {
+    padding: 14px 16px !important;
+    border-radius: 12px !important;
+    font-size: 0.95rem !important;
+    font-weight: 500 !important;
+    min-height: 48px !important;
+    transition: background 0.2s ease !important;
+  }
+  .mobile-nav-link:active {
+    background: rgba(99, 102, 241, 0.15) !important;
+  }
+  .mobile-nav-link.active {
+    background: rgba(99, 102, 241, 0.1) !important;
+    color: #6366f1 !important;
+    font-weight: 600 !important;
+  }
+
+  /* Dark theme mobile nav */
+  [data-theme="dark"] .mobile-nav-link.active {
+    background: rgba(167, 139, 250, 0.15) !important;
+    color: #a78bfa !important;
+  }
+
+  /* Mobile nav auth button */
+  .mobile-nav .btn-primary,
+  #open-auth-mobile {
+    margin-top: 16px !important;
+    padding: 14px 24px !important;
+    font-size: 1rem !important;
+    border-radius: 12px !important;
+    min-height: 52px !important;
+    text-align: center !important;
+  }
+}
+
+/* === FIX 7: FOOTER НЕ ОБРЕЗАЕТСЯ НИЖНЕЙ ПАНЕЛЬЮ БРАУЗЕРА === */
+@media (max-width: 768px) {
+  .footer-bottom {
+    padding-bottom: 20px !important;
+  }
+
+  /* Extra padding for mobile browser bottom bar */
+  body::after {
+    content: '';
+    display: block;
+    height: 60px; /* Space for browser bottom bar */
+  }
+}

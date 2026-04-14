@@ -201,7 +201,7 @@ h1,h2,h3,h4 { color:var(--text-bright); line-height:1.3; }
    MOBILE NAV
    ================================================================ */
 .mobile-nav {
-  position:fixed; top:0; right:-100%; width:min(320px,85vw); height:100vh;
+  position:fixed; top:0; right:-100%; width:min(320px,85vw); height:100vh; height:100dvh;
   z-index:2000;
   background:var(--glass-strong);
   backdrop-filter:blur(var(--blur-strong));
@@ -209,7 +209,7 @@ h1,h2,h3,h4 { color:var(--text-bright); line-height:1.3; }
   border-left:1px solid var(--glass-border);
   box-shadow:var(--shadow-lg);
   transition:right var(--transition-md);
-  display:flex; flex-direction:column;
+  display:flex; flex-direction:column; overflow-y:auto; -webkit-overflow-scrolling:touch;
 }
 .mobile-nav.active { right:0; }
 

@@ -1,0 +1,49 @@
+﻿
+/* ============================================
+   DROPDOWN FIX — ensure links are clickable
+   ============================================ */
+.user-dropdown {
+  pointer-events: auto !important;
+  z-index: 99999 !important;
+  position: absolute !important;
+}
+.user-dropdown a,
+.user-dropdown button {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 16px !important;
+  position: relative !important;
+  z-index: 100000 !important;
+  text-decoration: none;
+  color: inherit;
+  background: transparent;
+  border: none;
+  font-size: 0.9rem;
+}
+.user-dropdown a:hover,
+.user-dropdown button:hover {
+  background: rgba(139, 92, 246, 0.15) !important;
+  color: #a78bfa !important;
+}
+.user-menu-wrap {
+  position: relative !important;
+  z-index: 9999 !important;
+}
+/* Make sure nothing overlays the dropdown */
+.header-inner {
+  overflow: visible !important;
+}
+.header {
+  overflow: visible !important;
+}
+.header-actions {
+  overflow: visible !important;
+}
+#authContainer {
+  overflow: visible !important;
+  position: relative !important;
+}

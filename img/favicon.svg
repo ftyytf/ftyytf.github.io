@@ -1,0 +1,56 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0A0A1A"/>
+      <stop offset="100%" style="stop-color:#12102B"/>
+    </linearGradient>
+    <linearGradient id="mainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D2FF"/>
+      <stop offset="40%" style="stop-color:#7B61FF"/>
+      <stop offset="100%" style="stop-color:#FF6B9D"/>
+    </linearGradient>
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D2FF;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#7B61FF;stop-opacity:0.3"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="108" fill="url(#bgGrad)"/>
+
+  <!-- Decorative outer ring -->
+  <circle cx="256" cy="240" r="195" fill="none" stroke="url(#ringGrad)" stroke-width="1.5" opacity="0.4"/>
+  <circle cx="256" cy="240" r="175" fill="none" stroke="url(#ringGrad)" stroke-width="0.8" opacity="0.2" stroke-dasharray="8 12"/>
+
+  <!-- Ambient glow spots -->
+  <circle cx="150" cy="150" r="80" fill="#00D2FF" opacity="0.04" filter="url(#softGlow)"/>
+  <circle cx="380" cy="300" r="100" fill="#7B61FF" opacity="0.05" filter="url(#softGlow)"/>
+  <circle cx="256" cy="420" r="60" fill="#FF6B9D" opacity="0.03" filter="url(#softGlow)"/>
+
+  <!-- Main "CF" text -->
+  <text x="256" y="285" text-anchor="middle" font-family="'Segoe UI','Arial Black',sans-serif" font-size="200" font-weight="900" fill="url(#mainGrad)" filter="url(#glow)" letter-spacing="-8">CF</text>
+
+  <!-- "by Muravsky" subtitle -->
+  <text x="256" y="440" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="42" font-weight="300" fill="#8B85A8" letter-spacing="6" opacity="0.9">MURAVSKY</text>
+
+  <!-- Small decorative line under subtitle -->
+  <line x1="176" y1="460" x2="336" y2="460" stroke="url(#mainGrad)" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/>
+
+  <!-- Star particles -->
+  <circle cx="120" cy="110" r="3" fill="#00D2FF" opacity="0.7"/>
+  <circle cx="400" cy="130" r="2.5" fill="#7B61FF" opacity="0.8"/>
+  <circle cx="90" cy="340" r="2" fill="#FF6B9D" opacity="0.6"/>
+  <circle cx="430" cy="380" r="3.5" fill="#00D2FF" opacity="0.5"/>
+  <circle cx="350" cy="90" r="1.5" fill="#FF6B9D" opacity="0.9"/>
+  <circle cx="160" cy="400" r="2" fill="#7B61FF" opacity="0.7"/>
+  <circle cx="380" cy="200" r="1.5" fill="#00D2FF" opacity="0.4"/>
+  <circle cx="130" cy="250" r="2.5" fill="#FF6B9D" opacity="0.3"/>
+</svg>

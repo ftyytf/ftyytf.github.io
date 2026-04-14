@@ -1,0 +1,6 @@
+﻿node_modules/
+.env
+*.bak*
+*_backup*
+data/users.json
+qwe.html

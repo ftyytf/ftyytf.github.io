@@ -1,0 +1,334 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+    <title>Настройки — CryptoFlow by Muravsky</title>
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Настройки аккаунта CryptoFlow by Muravsky. Безопасность, уведомления.">
+    <meta name="keywords" content="настройки, аккаунт, безопасность, профиль">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Настройки — CryptoFlow by Muravsky">
+    <meta property="og:description" content="Настройки аккаунта CryptoFlow by Muravsky. Безопасность, уведомления.">
+    <meta property="og:site_name" content="CryptoFlow by Muravsky">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:image" content="img/og-cover.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Настройки — CryptoFlow by Muravsky">
+    <meta name="twitter:description" content="Настройки аккаунта CryptoFlow by Muravsky. Безопасность, уведомления.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dropdown-fix.css">
+<style id="preloader-style">
+  /* === PRELOADER === */
+  .nx-preloader {
+    position: fixed; inset: 0; z-index: 99999;
+    background: #0F0B1E;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 24px;
+    transition: opacity 0.5s, visibility 0.5s;
+  }
+  .nx-preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  .nx-preloader-logo {
+    width: 72px; height: 72px;
+    animation: nx-pulse 1.5s ease-in-out infinite;
+  }
+  .nx-preloader-bar {
+    width: 200px; height: 3px; background: rgba(108,92,231,0.2);
+    border-radius: 4px; overflow: hidden;
+  }
+  .nx-preloader-bar::after {
+    content: ''; display: block; height: 100%; width: 40%;
+    background: linear-gradient(90deg, #6C5CE7, #06B6D4);
+    border-radius: 4px;
+    animation: nx-slide 1s ease-in-out infinite;
+  }
+  @keyframes nx-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.08); opacity: 0.7; }
+  }
+  @keyframes nx-slide {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(350%); }
+  }
+</style>
+<style id="zfix-global">
+  /* Global z-index fix — контент поверх particles canvas */
+  header, .header, nav, .navbar, main, .main,
+  section, .container, .content, footer, .footer,
+  .modal, .overlay, form, button, a, input,
+  select, textarea, details, summary {
+    position: relative;
+    z-index: 2;
+  }
+  #nxParticles {
+    z-index: 0 !important;
+    pointer-events: none !important;
+  }
+  .nx-preloader.hidden {
+    pointer-events: none !important;
+  }
+</style>
+    <link rel="canonical" href="https://cryptoflow-muravsky.com/settings">
+</head>
+<body>
+<!-- PRELOADER -->
+<div class="nx-preloader" id="nxPreloader">
+  <img src="img/favicon.svg" alt="CryptoFlow by Muravsky" class="nx-preloader-logo">
+  <div class="nx-preloader-bar"></div>
+</div>
+<script>
+window.addEventListener('load', function() {
+  var p = document.getElementById('nxPreloader');
+  if (p) { setTimeout(function(){ p.classList.add('hidden'); }, 400); }
+});
+</script>
+  <!-- ========== HEADER ========== -->
+
+  <!-- ========== MOBILE NAV ========== -->
+
+    <main id="main-content" role="main">
+
+  <section class="section settings-section" data-reveal>
+    <div class="container">
+      <div class="section-header" style="text-align:center;margin-bottom:48px;">
+        <h1 class="section-title" data-reveal>Настройки</h1>
+        <p class="section-subtitle">Управляйте профилем и параметрами аккаунта</p>
+      </div>
+
+      <div class="settings-layout">
+
+        <!-- Sidebar -->
+        <div class="settings-sidebar">
+          <button class="settings-nav-item active" data-stab="profile">
+            <span class="sn-icon">&#128100;</span> Профиль
+          </button>
+          <button class="settings-nav-item" data-stab="security">
+            <span class="sn-icon">&#128274;</span> Безопасность
+          </button>
+          <button class="settings-nav-item" data-stab="notifications">
+            <span class="sn-icon">&#128276;</span> Уведомления
+          </button>
+          <button class="settings-nav-item" data-stab="display">
+            <span class="sn-icon">&#127912;</span> Отображение
+          </button>
+          <div class="settings-nav-divider"></div>
+          <button class="settings-nav-item danger-item" onclick="if(confirm('Удалить аккаунт? Это необратимо.')){NX.logout();}">
+            <span class="sn-icon">&#128465;</span> Удалить аккаунт
+          </button>
+        </div>
+
+        <!-- Content -->
+        <div class="settings-content">
+
+          <!-- Profile -->
+          <div class="settings-panel active" id="stab-profile">
+            <div class="settings-card" data-reveal>
+              <h2 class="settings-card-title">Личные данные</h2>
+              <form id="profileForm">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="modal-label">Имя</label>
+                    <input type="text" class="modal-input" id="settingsName" placeholder="Ваше имя">
+                  </div>
+                  <div class="form-group">
+                    <label class="modal-label">Email</label>
+                    <input type="email" class="modal-input" id="settingsEmail" placeholder="Email" readonly style="opacity:0.6;">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="modal-label">Телефон</label>
+                    <input type="tel" class="modal-input" id="settingsPhone" placeholder="+7 (___) ___-__-__">
+                  </div>
+                  <div class="form-group">
+                    <label class="modal-label">Страна</label>
+                    <select class="modal-input" id="settingsCountry">
+                      <option value="">Выберите страну</option>
+                      <option value="RU">Россия</option>
+                      <option value="KZ">Казахстан</option>
+                      <option value="BY">Беларусь</option>
+                      <option value="UA">Украина</option>
+                      <option value="UZ">Узбекистан</option>
+                      <option value="US">США</option>
+                      <option value="DE">Германия</option>
+                      <option value="OTHER">Другая</option>
+                    </select>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top:12px;">Сохранить изменения</button>
+              </form>
+              <div class="settings-toast" id="profileToast" style="display:none;">Изменения сохранены!</div>
+            </div>
+          </div>
+
+          <!-- Security -->
+          <div class="settings-panel" id="stab-security">
+            <div class="settings-card" data-reveal>
+              <h2 class="settings-card-title">Смена пароля</h2>
+              <form id="passwordForm">
+                <div class="form-group">
+                  <label class="modal-label">Текущий пароль</label>
+                  <input type="password" class="modal-input" placeholder="Текущий пароль" required>
+                </div>
+                <div class="form-group">
+                  <label class="modal-label">Новый пароль</label>
+                  <input type="password" class="modal-input" id="newPass" placeholder="Минимум 8 символов" required>
+                </div>
+                <div class="form-group">
+                  <label class="modal-label">Подтверждение пароля</label>
+                  <input type="password" class="modal-input" id="confirmPass" placeholder="Повторите пароль" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top:12px;">Обновить пароль</button>
+              </form>
+              <div class="settings-toast" id="passToast" style="display:none;">Пароль обновлён!</div>
+            </div>
+            <div class="settings-card" data-reveal style="margin-top:24px;">
+              <h2 class="settings-card-title">Двухфакторная аутентификация</h2>
+              <p style="color:rgba(255,255,255,0.6);font-size:14px;margin-bottom:16px;">Повысьте безопасность аккаунта с помощью Google Authenticator</p>
+              <div class="toggle-row">
+                <span>Включить 2FA</span>
+                <label class="switch"><input type="checkbox" id="toggle2fa"><span class="slider"></span></label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notifications -->
+          <div class="settings-panel" id="stab-notifications">
+            <div class="settings-card" data-reveal>
+              <h2 class="settings-card-title">Уведомления</h2>
+              <div class="toggle-row">
+                <div><strong>Email-уведомления</strong><br><small style="color:rgba(255,255,255,0.4);">Обмены, безопасность, новости</small></div>
+                <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+              </div>
+              <div class="toggle-row">
+                <div><strong>Ценовые оповещения</strong><br><small style="color:rgba(255,255,255,0.4);">Резкие изменения курсов</small></div>
+                <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+              </div>
+              <div class="toggle-row">
+                <div><strong>Маркетинговые рассылки</strong><br><small style="color:rgba(255,255,255,0.4);">Акции и спецпредложения</small></div>
+                <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+              </div>
+              <div class="toggle-row">
+                <div><strong>Push-уведомления</strong><br><small style="color:rgba(255,255,255,0.4);">В браузере</small></div>
+                <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Display -->
+          <div class="settings-panel" id="stab-display">
+            <div class="settings-card" data-reveal>
+              <h2 class="settings-card-title">Отображение</h2>
+              <div class="form-group">
+                <label class="modal-label">Валюта отображения</label>
+                <select class="modal-input" id="displayCurrency">
+                  <option value="USD">USD ($)</option>
+                  <option value="EUR">EUR (&#8364;)</option>
+                  <option value="RUB">RUB (&#8381;)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="modal-label">Язык</label>
+                <select class="modal-input">
+                  <option value="ru">Русский</option>
+                  <option value="en">English</option>
+                </select>
+              </div>
+              <div class="toggle-row">
+                <div><strong>Тёмная тема</strong><br><small style="color:rgba(255,255,255,0.4);">Можно переключить иконкой в шапке</small></div>
+                <label class="switch"><input type="checkbox" id="toggleDark" checked><span class="slider"></span></label>
+              </div>
+              <div class="toggle-row">
+                <div><strong>Анимации</strong><br><small style="color:rgba(255,255,255,0.4);">Плавные переходы и эффекты</small></div>
+                <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+    </main>
+
+  <script src="js/components.js"></script>
+<script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+  (function(){
+    /* Redirect if not logged in */
+    var u = JSON.parse(localStorage.getItem('nxUser')||'null');
+    if(!u){ window.location.href='index.html'; return; }
+
+    /* Fill profile fields */
+    var nameEl = document.getElementById('settingsName');
+    var emailEl = document.getElementById('settingsEmail');
+    if(nameEl && u.name) nameEl.value = u.name;
+    if(emailEl && u.email) emailEl.value = u.email;
+
+    /* Tabs */
+    var tabs = document.querySelectorAll('.settings-nav-item[data-stab]');
+    var panels = document.querySelectorAll('.settings-panel');
+    tabs.forEach(function(tab){
+      tab.addEventListener('click', function(){
+        tabs.forEach(function(t){ t.classList.remove('active'); });
+        panels.forEach(function(p){ p.classList.remove('active'); });
+        tab.classList.add('active');
+        var target = document.getElementById('stab-' + tab.getAttribute('data-stab'));
+        if(target) target.classList.add('active');
+      });
+    });
+
+    /* Profile form */
+    var pf = document.getElementById('profileForm');
+    if(pf) pf.addEventListener('submit', function(e){
+      e.preventDefault();
+      var newName = nameEl.value.trim();
+      if(newName){
+        u.name = newName;
+        localStorage.setItem('nxUser', JSON.stringify(u));
+        /* Update header */
+        document.querySelectorAll('.user-name').forEach(function(el){ el.textContent = newName; });
+      }
+      var toast = document.getElementById('profileToast');
+      toast.style.display = 'block';
+      setTimeout(function(){ toast.style.display = 'none'; }, 3000);
+    });
+
+    /* Password form */
+    var passForm = document.getElementById('passwordForm');
+    if(passForm) passForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      var np = document.getElementById('newPass').value;
+      var cp = document.getElementById('confirmPass').value;
+      if(np !== cp){ alert('Пароли не совпадают!'); return; }
+      if(np.length < 8){ alert('Минимум 8 символов!'); return; }
+      var toast = document.getElementById('passToast');
+      toast.style.display = 'block';
+      passForm.reset();
+      setTimeout(function(){ toast.style.display = 'none'; }, 3000);
+    });
+  })();
+  </script>
+<script src="js/particles.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

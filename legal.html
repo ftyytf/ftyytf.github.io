@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+  <title>Правовая информация — CryptoFlow by Muravsky</title>
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Условия использования и политика конфиденциальности CryptoFlow by Muravsky.">
+  <meta name="keywords" content="правовая информация, условия, конфиденциальность, CryptoFlow by Muravsky">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Правовая информация — CryptoFlow by Muravsky">
+  <meta property="og:description" content="Условия использования и политика конфиденциальности CryptoFlow by Muravsky.">
+  <meta property="og:site_name" content="CryptoFlow by Muravsky">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:image" content="img/og-cover.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Правовая информация — CryptoFlow by Muravsky">
+  <meta name="twitter:description" content="Условия использования и политика конфиденциальности CryptoFlow by Muravsky.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dropdown-fix.css">
+
+<style id="preloader-style">
+  .nx-preloader {
+    position: fixed; inset: 0; z-index: 99999;
+    background: #0F0B1E;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 24px;
+    transition: opacity 0.5s, visibility 0.5s;
+  }
+  .nx-preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  .nx-preloader-logo { width: 72px; height: 72px; animation: nx-pulse 1.5s ease-in-out infinite; }
+  .nx-preloader-bar { width: 200px; height: 3px; background: rgba(108,92,231,0.2); border-radius: 4px; overflow: hidden; }
+  .nx-preloader-bar::after {
+    content: ''; display: block; height: 100%; width: 40%;
+    background: linear-gradient(90deg, #6C5CE7, #06B6D4);
+    border-radius: 4px; animation: nx-slide 1s ease-in-out infinite;
+  }
+  @keyframes nx-pulse { 0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.08);opacity:.7} }
+  @keyframes nx-slide { 0%{transform:translateX(-100%)}100%{transform:translateX(350%)} }
+</style>
+
+<style id="zfix-global">
+  header,.header,nav,.navbar,main,.main,section,.container,.content,footer,.footer,
+  .modal,.overlay,form,button,a,input,select,textarea,details,summary {
+    position: relative; z-index: 2;
+  }
+  #nxParticles { z-index: 0 !important; pointer-events: none !important; }
+  .nx-preloader.hidden { pointer-events: none !important; }
+</style>
+
+<style id="legal-styles">
+  /* ===== LEGAL PAGE STYLES ===== */
+  .legal-section { padding: 80px 0 60px; }
+
+  .legal-tabs {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    justify-content: center; margin-bottom: 40px;
+  }
+  .legal-tab {
+    padding: 12px 24px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.55);
+    font-size: 0.92rem; font-weight: 500; cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .legal-tab:hover {
+    background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8);
+    border-color: rgba(255,255,255,0.2);
+  }
+  .legal-tab.active {
+    background: linear-gradient(135deg, #6C5CE7, #8B5CF6);
+    color: #fff; border-color: transparent;
+    box-shadow: 0 4px 20px rgba(108,92,231,0.3);
+  }
+
+  /* Контент табов */
+  .legal-content {
+    display: none;
+    max-width: 900px; margin: 0 auto;
+    animation: legalFadeIn 0.4s ease;
+  }
+  .legal-content.active { display: block !important; }
+
+  @keyframes legalFadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .legal-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px; padding: 40px;
+    backdrop-filter: blur(10px);
+  }
+
+  .legal-updated {
+    display: inline-block; padding: 6px 16px;
+    background: rgba(108,92,231,0.12); border: 1px solid rgba(108,92,231,0.25);
+    border-radius: 8px; color: #a78bfa; font-size: 0.82rem;
+    font-weight: 500; margin-bottom: 32px;
+  }
+
+  .legal-heading {
+    font-size: 1.25rem; font-weight: 700; color: #f1f5f9;
+    margin: 32px 0 16px; padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .legal-heading:first-of-type { margin-top: 0; }
+
+  .legal-text {
+    color: #94a3b8; font-size: 0.95rem; line-height: 1.8;
+    margin-bottom: 16px;
+  }
+
+  .legal-list {
+    list-style: none; padding: 0; margin: 12px 0 24px;
+  }
+  .legal-list li {
+    position: relative; padding-left: 24px; margin-bottom: 10px;
+    color: #94a3b8; font-size: 0.93rem; line-height: 1.7;
+  }
+  .legal-list li::before {
+    content: ''; position: absolute; left: 0; top: 10px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: linear-gradient(135deg, #6C5CE7, #06B6D4);
+  }
+  .legal-list li strong { color: #e2e8f0; }
+
+  .legal-risk-alert {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 20px 24px; border-radius: 14px;
+    background: rgba(239,68,68,0.06);
+    border: 1px solid rgba(239,68,68,0.2);
+    margin: 16px 0 28px;
+  }
+  .legal-risk-alert .risk-icon { font-size: 1.6rem; flex-shrink: 0; }
+  .legal-risk-alert p { color: #fca5a5; font-size: 0.93rem; line-height: 1.7; margin: 0; }
+
+  @media (max-width: 640px) {
+    .legal-tabs { gap: 6px; }
+    .legal-tab { padding: 10px 16px; font-size: 0.82rem; }
+    .legal-card { padding: 24px 20px; }
+    .legal-heading { font-size: 1.1rem; }
+  }
+</style>
+    <link rel="canonical" href="https://cryptoflow-muravsky.com/legal">
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div class="nx-preloader" id="nxPreloader">
+  <img src="img/favicon.svg" alt="CryptoFlow by Muravsky" class="nx-preloader-logo">
+  <div class="nx-preloader-bar"></div>
+</div>
+<script>
+window.addEventListener('load', function() {
+  var p = document.getElementById('nxPreloader');
+  if (p) { setTimeout(function(){ p.classList.add('hidden'); }, 400); }
+});
+</script>
+
+  <!-- ========== HEADER ========== -->
+  <!-- ========== MOBILE NAV ========== -->
+
+    <main id="main-content" role="main">
+
+  <section class="section legal-section" data-reveal>
+    <div class="container">
+      <div class="section-header" style="text-align:center;margin-bottom:48px;">
+        <h1 class="section-title" data-reveal>Правовая информация</h1>
+        <p class="section-subtitle">Условия использования, политика конфиденциальности и правовые уведомления</p>
+      </div>
+
+      <div class="legal-tabs">
+        <button class="legal-tab active" data-tab="terms">Условия использования</button>
+        <button class="legal-tab" data-tab="privacy">Конфиденциальность</button>
+        <button class="legal-tab" data-tab="aml">AML / KYC</button>
+        <button class="legal-tab" data-tab="risks">Риски</button>
+      </div>
+
+      <!-- TAB: Условия использования -->
+      <div class="legal-content active" id="tab-terms">
+        <div class="legal-card" data-reveal>
+          <div class="legal-updated">Последнее обновление: 15 января 2025</div>
+          <h2 class="legal-heading">1. Общие положения</h2>
+          <p class="legal-text">Настоящие Условия регулируют отношения между платформой CryptoFlow by Muravsky и пользователем при использовании сервисов обмена криптовалют. Используя Платформу, вы подтверждаете принятие Условий в полном объёме.</p>
+          <h2 class="legal-heading">2. Регистрация и аккаунт</h2>
+          <p class="legal-text">Для использования сервисов обмена необходимо создать учётную запись. При регистрации вы обязуетесь:</p>
+          <ul class="legal-list">
+            <li>Предоставить достоверную и актуальную информацию</li>
+            <li>Поддерживать актуальность данных аккаунта</li>
+            <li>Обеспечить конфиденциальность данных для входа</li>
+            <li>Немедленно уведомить нас о несанкционированном доступе</li>
+            <li>Не передавать аккаунт третьим лицам</li>
+          </ul>
+          <h2 class="legal-heading">3. Услуги обмена</h2>
+          <p class="legal-text">Платформа предоставляет услуги обмена криптовалют по рыночным курсам. Мы оставляем за собой право изменять курсы, устанавливать лимиты, приостанавливать обмен и взимать комиссию.</p>
+          <h2 class="legal-heading">4. Ограничение ответственности</h2>
+          <p class="legal-text">Платформа предоставляется как есть. Мы не несём ответственности за убытки от колебаний курсов, технических сбоев или действий третьих сторон.</p>
+          <h2 class="legal-heading">5. Применимое право</h2>
+          <p class="legal-text">Настоящие Условия регулируются действующим законодательством. Все споры подлежат разрешению в установленном законом порядке.</p>
+        </div>
+      </div>
+
+      <!-- TAB: Конфиденциальность -->
+      <div class="legal-content" id="tab-privacy">
+        <div class="legal-card" data-reveal>
+          <div class="legal-updated">Последнее обновление: 15 января 2025</div>
+          <h2 class="legal-heading">1. Собираемые данные</h2>
+          <ul class="legal-list">
+            <li><strong>Идентификационные:</strong> имя, фамилия, дата рождения</li>
+            <li><strong>Контактные:</strong> email, номер телефона</li>
+            <li><strong>Верификация:</strong> документы KYC</li>
+            <li><strong>Технические:</strong> IP-адрес, браузер, устройство</li>
+            <li><strong>Транзакционные:</strong> история обменов, адреса кошельков</li>
+          </ul>
+          <h2 class="legal-heading">2. Цели обработки</h2>
+          <p class="legal-text">Данные обрабатываются для предоставления услуг, выполнения KYC/AML, улучшения платформы и обеспечения безопасности.</p>
+          <h2 class="legal-heading">3. Хранение и защита</h2>
+          <p class="legal-text">Применяются стандарты AES-256, TLS 1.3. Данные хранятся на защищённых серверах с ограниченным доступом.</p>
+          <h2 class="legal-heading">4. Права пользователя</h2>
+          <p class="legal-text">Вы можете запрашивать доступ, исправление или удаление данных. Обращайтесь через форму обратной связи на странице контактов.</p>
+        </div>
+      </div>
+
+      <!-- TAB: AML / KYC -->
+      <div class="legal-content" id="tab-aml">
+        <div class="legal-card" data-reveal>
+          <div class="legal-updated">Последнее обновление: 15 января 2025</div>
+          <h2 class="legal-heading">Политика AML</h2>
+          <p class="legal-text">CryptoFlow by Muravsky соблюдает международные стандарты противодействия отмыванию денег и финансированию терроризма.</p>
+          <h2 class="legal-heading">Процедура KYC</h2>
+          <ul class="legal-list">
+            <li><strong>Уровень 1:</strong> Email + телефон — лимит до $1,000/день</li>
+            <li><strong>Уровень 2:</strong> Документ удостоверяющий личность — до $50,000/день</li>
+            <li><strong>Уровень 3:</strong> Подтверждение адреса + селфи — без лимитов</li>
+          </ul>
+          <h2 class="legal-heading">Мониторинг</h2>
+          <p class="legal-text">Все транзакции проходят автоматический мониторинг. Подозрительные операции приостанавливаются для проверки.</p>
+        </div>
+      </div>
+
+      <!-- TAB: Риски -->
+      <div class="legal-content" id="tab-risks">
+        <div class="legal-card" data-reveal>
+          <div class="legal-updated">Последнее обновление: 15 января 2025</div>
+          <h2 class="legal-heading">Предупреждение о рисках</h2>
+          <div class="legal-risk-alert">
+            <span class="risk-icon">&#9888;</span>
+            <p>Торговля криптовалютами сопряжена с высоким уровнем риска. Стоимость цифровых активов может значительно колебаться. Вы можете потерять часть или все инвестированные средства.</p>
+          </div>
+          <h2 class="legal-heading">Виды рисков</h2>
+          <ul class="legal-list">
+            <li><strong>Рыночный риск:</strong> цены криптовалют могут резко измениться в любое время</li>
+            <li><strong>Технологический риск:</strong> уязвимости блокчейна, ошибки смарт-контрактов</li>
+            <li><strong>Регуляторный риск:</strong> изменения законодательства могут повлиять на доступность сервисов</li>
+            <li><strong>Операционный риск:</strong> ошибки при вводе адресов кошельков необратимы</li>
+            <li><strong>Риск ликвидности:</strong> некоторые активы могут быть трудно продать по справедливой цене</li>
+          </ul>
+          <h2 class="legal-heading">Рекомендации</h2>
+          <ul class="legal-list">
+            <li>Инвестируйте только те средства, потерю которых можете себе позволить</li>
+            <li>Диверсифицируйте портфель</li>
+            <li>Проводите собственное исследование (DYOR) перед каждой сделкой</li>
+            <li>Используйте двухфакторную аутентификацию</li>
+            <li>Храните крупные суммы на холодных кошельках</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+    </main>
+
+  <script src="js/components.js"></script>
+<script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <!-- Legal tabs handled by main.js -->
+  <script src="js/particles.js"></script>
+</body>
+</html>
+
+
+
+

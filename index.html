@@ -1,0 +1,396 @@
+﻿<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+    <meta name="description" content="CryptoFlow by Muravsky — надёжная платформа для обмена криптовалют. Мгновенные транзакции, лучшие курсы, безопасность 24/7.">
+    <meta name="keywords" content="криптовалюта, обмен, биткоин, эфириум, крипто обменник, CryptoFlow by Muravsky">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="CryptoFlow by Muravsky — Мгновенный обмен криптовалют">
+    <meta property="og:description" content="CryptoFlow by Muravsky — надёжная платформа для обмена криптовалют. Мгновенные транзакции, лучшие курсы, безопасность 24/7.">
+    <meta property="og:site_name" content="CryptoFlow by Muravsky">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:image" content="img/og-cover.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CryptoFlow by Muravsky — Мгновенный обмен криптовалют">
+    <meta name="twitter:description" content="CryptoFlow by Muravsky — надёжная платформа для обмена криптовалют. Мгновенные транзакции, лучшие курсы, безопасность 24/7.">
+<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+    <title>CryptoFlow by Muravsky — Мгновенный обмен криптовалют</title>
+<link rel="stylesheet" href="css/styles.css?v=99">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/components.css">
+<style id="preloader-style">
+  /* === PRELOADER === */
+  .nx-preloader {
+    position: fixed; inset: 0; z-index: 99999;
+    background: #0F0B1E;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 24px;
+    transition: opacity 0.5s, visibility 0.5s;
+  }
+  .nx-preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  .nx-preloader-logo {
+    width: 72px; height: 72px;
+    animation: nx-pulse 1.5s ease-in-out infinite;
+  }
+  .nx-preloader-bar {
+    width: 200px; height: 3px; background: rgba(108,92,231,0.2);
+    border-radius: 4px; overflow: hidden;
+  }
+  .nx-preloader-bar::after {
+    content: ''; display: block; height: 100%; width: 40%;
+    background: linear-gradient(90deg, #6C5CE7, #06B6D4);
+    border-radius: 4px;
+    animation: nx-slide 1s ease-in-out infinite;
+  }
+  @keyframes nx-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.08); opacity: 0.7; }
+  }
+  @keyframes nx-slide {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(350%); }
+  }
+</style>
+<style id="zfix-global">
+  /* Global z-index fix v2 — header excluded, managed by dropdown-fix.css?v=99 */
+  main, .main, section, .container, .content,
+  footer, .footer, .modal, .overlay, form {
+    position: relative;
+    z-index: 2;
+  }
+  #nxParticles {
+    z-index: 0 !important;
+    pointer-events: none !important;
+  }
+  .nx-preloader.hidden {
+    pointer-events: none !important;
+  }
+</style>
+<style id="calc-fix-css">
+  /* Moved to css/dropdown-fix.css?v=99 — unified z-index management */
+</style>
+<style id="hero-calc-position">
+  /* Calculator in hero — right column */
+  .hero-inner > .exchange-card {
+    margin: 0;
+    max-width: 460px;
+    width: 100%;
+  }
+  @media (max-width: 768px) {
+    .hero-inner > .exchange-card {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+  }
+</style>
+    <link rel="canonical" href="https://cryptoflow-muravsky.com/">
+<style id="dropdown-fix-final">
+/* === ULTIMATE DROPDOWN FIX === */
+#authContainer,
+.user-menu-wrap {
+  position: relative !important;
+  z-index: 99999 !important;
+  overflow: visible !important;
+}
+.user-dropdown {
+  position: absolute !important;
+  z-index: 999999 !important;
+  pointer-events: auto !important;
+}
+.user-dropdown.open {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+.user-dropdown a.user-dropdown-item,
+.user-dropdown button.user-dropdown-item {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  position: relative !important;
+  z-index: 9999999 !important;
+  display: flex !important;
+  width: 100% !important;
+}
+/* Убиваем глобальный z-index с a и button */
+#zfix-global {
+  display: none !important;
+}
+/* Возвращаем z-index только контейнерам */
+header, .header, nav, .navbar, main, .main,
+section, .container, .content, footer, .footer {
+  position: relative;
+  z-index: 2;
+}
+#nxParticles {
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+</style>
+<link rel="stylesheet" href="css/critical-fix.css?v=1">
+</head>
+<body>
+<!-- PRELOADER -->
+<div class="nx-preloader" id="nxPreloader">
+  <img src="img/favicon.svg" alt="CryptoFlow by Muravsky" class="nx-preloader-logo">
+  <div class="nx-preloader-bar"></div>
+</div>
+<script>
+window.addEventListener('load', function() {
+  var p = document.getElementById('nxPreloader');
+  if (p) { setTimeout(function(){ p.classList.add('hidden'); }, 400); }
+});
+</script>
+  <!-- ========== HEADER ========== -->
+
+  <!-- ========== MOBILE NAV ========== -->
+
+    <main id="main-content" role="main">
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="container hero-inner">
+    <!-- LEFT: Text content -->
+    <div class="hero-content" data-reveal>
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        <span>Более 250 000 обменов выполнено</span>
+      </div>
+      <h1 class="hero-title">
+        Обменивайте крипто<br>
+        <span class="gradient-text">со скоростью света</span>
+      </h1>
+      <p class="hero-subtitle">
+        CryptoFlow by Muravsky — платформа нового поколения для мгновенного обмена криптовалют и фиата.
+        Лучшие курсы, минимальные комиссии, полная безопасность.
+      </p>
+      <div class="hero-buttons">
+        <a href="#heroCalc" class="btn btn-primary btn-lg">Начать обмен</a>
+        <a href="about.html" class="btn btn-ghost btn-lg">Узнать больше</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-value">$2.4B</div><div class="hero-stat-label">Объём за год</div></div>
+        <div class="hero-stat"><div class="hero-stat-value">250K+</div><div class="hero-stat-label">Пользователей</div></div>
+        <div class="hero-stat"><div class="hero-stat-value">0.5%</div><div class="hero-stat-label">Комиссия</div></div>
+        <div class="hero-stat"><div class="hero-stat-value">24/7</div><div class="hero-stat-label">Поддержка</div></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Exchange calculator -->
+    <div class="exchange-card" id="heroCalc">
+      <div class="exchange-row">
+        <label class="exchange-label">Вы отдаёте</label>
+        <div class="exchange-input-group">
+          <div class="ex-select" id="hFromSelect">
+            <button type="button" class="ex-select-btn" id="hFromSelectBtn">
+                    <span class="coin-icon-wrap"><span class="coin-icon coin-btc">₿</span></span>
+                    <span class="coin-name" id="hFromCoinName">BTC</span>
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M2 4l4 4 4-4"/></svg>
+                  </button>
+            <div class="ex-dropdown" id="hFromDropdown">
+              <div class="ex-dropdown-search">
+                <input type="text" id="hFromSearch" placeholder="Поиск валюты..." autocomplete="off">
+              </div>
+              <div class="ex-dropdown-list" id="hFromList"></div>
+            </div>
+          </div>
+          <input type="number" class="exchange-amount" id="hFromAmount" placeholder="0.00" step="any">
+        </div>
+      </div>
+      <div class="exchange-swap">
+        <button type="button" class="swap-btn" id="hSwapBtn" title="Поменять местами">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+        </button>
+      </div>
+      <div class="exchange-row">
+        <label class="exchange-label">Вы получаете</label>
+        <div class="exchange-input-group">
+          <div class="ex-select" id="hToSelect">
+            <button type="button" class="ex-select-btn" id="hToSelectBtn">
+                    <span class="coin-icon-wrap"><span class="coin-icon coin-usdt">₮</span></span>
+                    <span class="coin-name" id="hToCoinName">USDT</span>
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M2 4l4 4 4-4"/></svg>
+                  </button>
+            <div class="ex-dropdown" id="hToDropdown">
+              <div class="ex-dropdown-search">
+                <input type="text" id="hToSearch" placeholder="Поиск валюты..." autocomplete="off">
+              </div>
+              <div class="ex-dropdown-list" id="hToList"></div>
+            </div>
+          </div>
+          <input type="number" class="exchange-amount" id="hToAmount" placeholder="0.00" readonly>
+        </div>
+      </div>
+      <div class="exchange-info">
+        <div class="exchange-rate" id="hExchangeRate">1 BTC &#8776; 104,500 USDT</div>
+        <div class="exchange-fee">Комиссия: <span class="accent">0.5%</span></div>
+      </div>
+      <button class="btn btn-primary exchange-submit" id="hExchangeBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+        Обменять сейчас
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div class="section-badge">Почему CryptoFlow by Muravsky</div>
+      <h2 class="section-title">Преимущества платформы</h2>
+      <p class="section-subtitle">Мы объединили лучшие технологии, чтобы обмен криптовалют стал простым и выгодным</p>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="card" data-reveal>
+        <div class="card-icon">⚡</div>
+        <h3 class="card-title">Мгновенные обмены</h3>
+        <p class="card-text">Среднее время обмена — 3 минуты. Поддержка большинства сетей и токенов.</p>
+      </div>
+      <div class="card" data-reveal>
+        <div class="card-icon">🔒</div>
+        <h3 class="card-title">Безопасность</h3>
+        <p class="card-text">Холодное хранение, мультиподпись, регулярные аудиты смарт-контрактов и процедур.</p>
+      </div>
+      <div class="card" data-reveal>
+        <div class="card-icon">💎</div>
+        <h3 class="card-title">Лучшие курсы</h3>
+        <p class="card-text">Агрегируем курсы с топовых бирж в реальном времени. Без скрытых наценок.</p>
+      </div>
+      <div class="card" data-reveal>
+        <div class="card-icon">🌐</div>
+        <h3 class="card-title">Глобальный охват</h3>
+        <p class="card-text">Работаем с клиентами из 140+ стран. Поддержка 15+ фиатных валют.</p>
+      </div>
+      <div class="card" data-reveal>
+        <div class="card-icon">🎯</div>
+        <h3 class="card-title">Низкие комиссии</h3>
+        <p class="card-text">Всего 0.5% за обмен — одни из самых низких на рынке. Прозрачное ценообразование.</p>
+      </div>
+      <div class="card" data-reveal>
+        <div class="card-icon">💬</div>
+        <h3 class="card-title">Поддержка 24/7</h3>
+        <p class="card-text">Живая поддержка в любое время. Ответ в течение 2 минут на все обращения.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STEPS ============ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div class="section-badge">Как это работает</div>
+      <h2 class="section-title">4 простых шага</h2>
+      <p class="section-subtitle">От выбора валюты до получения средств — меньше 5 минут</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card" data-reveal>
+        <div class="step-num">1</div>
+        <h3 class="step-title">Выберите пару</h3>
+        <p class="step-text">Укажите какую валюту хотите отдать и какую получить. Курс обновляется в реальном времени.</p>
+      </div>
+      <div class="step-card" data-reveal>
+        <div class="step-num">2</div>
+        <h3 class="step-title">Введите сумму</h3>
+        <p class="step-text">Система мгновенно рассчитает итоговую сумму с учётом комиссии. Без скрытых платежей.</p>
+      </div>
+      <div class="step-card" data-reveal>
+        <div class="step-num">3</div>
+        <h3 class="step-title">Отправьте средства</h3>
+        <p class="step-text">Переведите криптовалюту на указанный адрес кошелька. Мы поддерживаем все популярные сети.</p>
+      </div>
+      <div class="step-card" data-reveal>
+        <div class="step-num">4</div>
+        <h3 class="step-title">Получите результат</h3>
+        <p class="step-text">Обменянные средства поступят на ваш кошелёк. Среднее время операции — 3 минуты.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq">
+  <div class="container container-narrow">
+    <div class="section-header" data-reveal>
+      <div class="section-badge">FAQ</div>
+      <h2 class="section-title">Частые вопросы</h2>
+      <p class="section-subtitle">Ответы на самые популярные вопросы о работе платформы</p>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item" data-reveal>
+        <button class="faq-question">Какие криптовалюты вы поддерживаете?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">Мы поддерживаем более 150 криптовалют, включая BTC, ETH, USDT, USDC, BNB, SOL, XRP, ADA, DOGE, TON и многие другие. Полный список доступен в виджете обмена.</div></div>
+      </div>
+      <div class="faq-item" data-reveal>
+        <button class="faq-question">Сколько времени занимает обмен?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">В среднем обмен занимает 3 минуты. Точное время зависит от сети блокчейна и текущей загрузки. Мы стремимся обрабатывать все заявки максимально быстро.</div></div>
+      </div>
+      <div class="faq-item" data-reveal>
+        <button class="faq-question">Какая комиссия за обмен?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">Наша комиссия составляет всего 0.5% от суммы обмена. Это одна из самых низких комиссий на рынке. Дополнительно может взиматься комиссия сети блокчейна.</div></div>
+      </div>
+      <div class="faq-item" data-reveal>
+        <button class="faq-question">Нужна ли регистрация и верификация?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">Для обменов до $1000 регистрация необязательна. Для крупных сумм требуется базовая верификация (KYC) согласно международным требованиям AML.</div></div>
+      </div>
+      <div class="faq-item" data-reveal>
+        <button class="faq-question">Безопасно ли использовать CryptoFlow by Muravsky?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">Да. Мы используем холодное хранение средств, мультиподпись и регулярно проходим независимые аудиты безопасности. Наши процедуры соответствуют международным стандартам.</div></div>
+      </div>
+      <div class="faq-item" data-reveal>
+        <button class="faq-question">Что делать, если обмен завис?</button>
+        <div class="faq-answer"><div class="faq-answer-inner">Свяжитесь с нашей службой поддержки 24/7 через форму на странице Контакты или email. Мы решаем подобные вопросы в течение 15 минут.</div></div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:40px" data-reveal>
+      <a href="faq.html" class="btn btn-secondary">Все вопросы и ответы</a>
+    </div>
+  </div>
+</section>
+
+    </main>
+
+
+
+<script src="js/components.js"></script>
+  <script src="js/main.js"></script>
+    <script src="js/app.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/particles.js"></script>
+  <script src="js/hero-calc.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

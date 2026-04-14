@@ -1,0 +1,101 @@
+﻿/* ============================================================
+   DROPDOWN-FIX.CSS v3 — ФИНАЛЬНЫЙ
+   Корневая причина: header z-index:2, hero-bg position:absolute
+   перекрывает дропдаун из-за stacking context
+   ============================================================ */
+
+/* === ХЕДЕР — МАКСИМАЛЬНЫЙ z-index === */
+header,
+.header,
+#site-header,
+header#site-header.header {
+  position: fixed !important;
+  z-index: 999999 !important;
+  overflow: visible !important;
+  width: 100% !important;
+  top: 0 !important;
+  left: 0 !important;
+}
+
+.header-inner,
+.container.header-inner {
+  position: relative !important;
+  z-index: 999999 !important;
+  overflow: visible !important;
+}
+
+.header-actions {
+  position: relative !important;
+  z-index: 999999 !important;
+  overflow: visible !important;
+}
+
+#authContainer {
+  position: relative !important;
+  z-index: 999999 !important;
+  overflow: visible !important;
+}
+
+.user-menu-wrap {
+  position: relative !important;
+  z-index: 999999 !important;
+}
+
+/* === DROPDOWN === */
+.user-dropdown {
+  position: absolute !important;
+  top: calc(100% + 8px) !important;
+  right: 0 !important;
+  z-index: 9999999 !important;
+  pointer-events: none !important;
+}
+
+.user-dropdown.open {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+  pointer-events: auto !important;
+}
+
+.user-dropdown .user-dropdown-item {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  position: relative !important;
+  z-index: 9999999 !important;
+  display: flex !important;
+}
+
+a.user-dropdown-item {
+  color: #ccc !important;
+  text-decoration: none !important;
+}
+
+a.user-dropdown-item:hover {
+  color: #fff !important;
+  background: rgba(139, 92, 246, 0.1) !important;
+}
+
+/* === hero-bg — не перекрывает === */
+.hero-bg {
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+
+/* === Контент ниже хедера === */
+main, section, .hero, .hero-section {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* === Обменник кликабелен === */
+.exchange-widget, .quick-exchange, .hero-exchange,
+[class*="exchange-widget"], [class*="calc"], [class*="swap-card"] {
+  position: relative !important;
+  z-index: 5 !important;
+  pointer-events: auto !important;
+}
+
+/* === Отступ для fixed header === */
+body {
+  padding-top: 80px !important;
+}

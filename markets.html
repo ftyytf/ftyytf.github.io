@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+    <meta name="description" content="Актуальные курсы криптовалют в реальном времени на CryptoFlow by Muravsky.">
+    <meta name="keywords" content="курсы криптовалют, рынки, графики, аналитика, цены">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Рынки и курсы — CryptoFlow by Muravsky">
+    <meta property="og:description" content="Актуальные курсы криптовалют в реальном времени на CryptoFlow by Muravsky.">
+    <meta property="og:site_name" content="CryptoFlow by Muravsky">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:image" content="img/og-cover.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Рынки и курсы — CryptoFlow by Muravsky">
+    <meta name="twitter:description" content="Актуальные курсы криптовалют в реальном времени на CryptoFlow by Muravsky.">
+<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+    <title>Рынки и курсы — CryptoFlow by Muravsky</title>
+<link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dropdown-fix.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+.markets-hero{padding-top:120px;padding-bottom:40px;text-align:center;}
+.markets-grid{display:grid;grid-template-columns:1fr;gap:24px;margin-bottom:40px;}
+.chart-card{border-radius:16px;padding:24px;background:var(--bg2, rgba(255,255,255,0.04));border:1px solid rgba(255,255,255,0.06);}
+.chart-card h3{margin-bottom:16px;font-size:1.1rem;}
+.chart-card canvas{width:100%!important;max-height:300px;}
+.market-table-wrap{overflow-x:auto;border-radius:16px;background:var(--bg2, rgba(255,255,255,0.04));border:1px solid rgba(255,255,255,0.06);}
+.market-table{width:100%;border-collapse:collapse;font-size:0.95rem;}
+.market-table th{padding:16px;text-align:left;font-weight:600;border-bottom:1px solid rgba(255,255,255,0.08);white-space:nowrap;}
+.market-table td{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.04);white-space:nowrap;}
+.market-table tr:hover td{background:rgba(99,102,241,0.05);}
+.coin-cell{display:flex;align-items:center;gap:10px;}
+.coin-icon{font-size:1.3rem;font-weight:bold;width:32px;text-align:center;}
+.coin-name{font-weight:600;}
+.coin-full{font-size:0.8rem;opacity:0.6;}
+.price-up{color:#22c55e;}
+.price-down{color:#ef4444;}
+.sparkline-cell canvas{width:100px;height:32px;}
+.refresh-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;}
+.refresh-timer{display:flex;align-items:center;gap:8px;font-size:0.9rem;opacity:0.7;}
+.pulse-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+[data-theme="light"] .chart-card,[data-theme="light"] .market-table-wrap{background:#fff;border-color:#e5e7eb;}
+[data-theme="light"] .market-table th{border-color:#e5e7eb;}
+[data-theme="light"] .market-table td{border-color:#f3f4f6;}
+</style>
+<style id="preloader-style">
+  /* === PRELOADER === */
+  .nx-preloader {
+    position: fixed; inset: 0; z-index: 99999;
+    background: #0F0B1E;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 24px;
+    transition: opacity 0.5s, visibility 0.5s;
+  }
+  .nx-preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  .nx-preloader-logo {
+    width: 72px; height: 72px;
+    animation: nx-pulse 1.5s ease-in-out infinite;
+  }
+  .nx-preloader-bar {
+    width: 200px; height: 3px; background: rgba(108,92,231,0.2);
+    border-radius: 4px; overflow: hidden;
+  }
+  .nx-preloader-bar::after {
+    content: ''; display: block; height: 100%; width: 40%;
+    background: linear-gradient(90deg, #6C5CE7, #06B6D4);
+    border-radius: 4px;
+    animation: nx-slide 1s ease-in-out infinite;
+  }
+  @keyframes nx-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.08); opacity: 0.7; }
+  }
+  @keyframes nx-slide {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(350%); }
+  }
+</style>
+<style id="zfix-global">
+  /* Global z-index fix */
+  header, .header, nav, .navbar, main, .main,
+  section, .container, .content, footer, .footer,
+  .modal, .overlay, form {
+    position: relative;
+    z-index: 2;
+  }
+  /* Buttons and interactive elements — higher z-index */
+  #chartCoinBtns {
+    position: relative;
+    z-index: 50 !important;
+  }
+  #chartCoinBtns button {
+    position: relative;
+    z-index: 50 !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+  }
+  .chart-card {
+    position: relative;
+    z-index: 10;
+  }
+  #nxParticles {
+    z-index: 0 !important;
+    pointer-events: none !important;
+  }
+  .nx-preloader.hidden {
+    pointer-events: none !important;
+  }
+</style>
+    <link rel="canonical" href="https://cryptoflow-muravsky.com/markets">
+</head>
+<body>
+<!-- PRELOADER -->
+<div class="nx-preloader" id="nxPreloader">
+  <img src="img/favicon.svg" alt="CryptoFlow by Muravsky" class="nx-preloader-logo">
+  <div class="nx-preloader-bar"></div>
+</div>
+<script>
+window.addEventListener('load', function() {
+  var p = document.getElementById('nxPreloader');
+  if (p) { setTimeout(function(){ p.classList.add('hidden'); }, 400); }
+});
+</script>
+
+<main id="main-content" role="main">
+<section class="section markets-hero" data-reveal>
+<div class="container">
+  <span class="section-badge">Live Markets</span>
+  <h1 class="section-title" data-reveal>Курсы криптовалют</h1>
+  <p class="section-subtitle">Данные обновляются каждые 30 секунд с CoinGecko API</p>
+</div>
+</section>
+
+<section class="section" data-reveal style="padding-top:0;">
+<div class="container">
+
+  <div class="refresh-bar">
+    <div class="refresh-timer">
+      <span class="pulse-dot"></span>
+      <span id="marketStatus">Загрузка...</span>
+    </div>
+    <button class="btn btn-primary" id="refreshBtn" style="padding:8px 20px;font-size:0.9rem;">Обновить</button>
+  </div>
+
+  <!-- Charts -->
+  <div class="markets-grid" style="grid-template-columns:repeat(auto-fit,minmax(440px,1fr));">
+    <div class="chart-card" data-reveal>
+      <h3>Bitcoin (BTC) — 24ч</h3>
+      <canvas id="btcChart"></canvas>
+    </div>
+    <div class="chart-card" data-reveal>
+      <h3>Ethereum (ETH) — 24ч</h3>
+      <canvas id="ethChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Big chart -->
+  <div class="chart-card" data-reveal style="margin-bottom:32px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+      <h3 style="margin:0;">График курса</h3>
+      <div style="display:flex;gap:8px;" id="chartCoinBtns"></div>
+    </div>
+    <canvas id="mainChart" style="max-height:400px;"></canvas>
+  </div>
+
+  <!-- Table -->
+  <div class="market-table-wrap">
+    <table class="market-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Монета</th>
+          <th>Цена (USD)</th>
+          <th>24ч</th>
+          <th>Мини-график</th>
+        </tr>
+      </thead>
+      <tbody id="marketTableBody"></tbody>
+    </table>
+  </div>
+
+</div>
+</section>
+</main>
+  <!-- Auth Modal (unified) -->
+
+
+<script src="js/components.js"></script>
+  <script src="js/main.js"></script>
+<script src="js/exchange.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/markets.js"></script>
+<script src="js/particles.js"></script>
+
+</body>
+</html>
+

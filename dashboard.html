@@ -1,0 +1,1663 @@
+﻿<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+  <title>Личный кабинет — CryptoFlow by Muravsky</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Управляйте портфелем криптовалют в личном кабинете CryptoFlow by Muravsky.">
+    <meta name="keywords" content="криптовалюта портфель, личный кабинет, управление криптовалютами, баланс криптовалют, CryptoFlow dashboard">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Личный кабинет — CryptoFlow by Muravsky">
+  <meta property="og:description" content="Управляйте портфелем криптовалют в личном кабинете CryptoFlow by Muravsky.">
+  <meta property="og:site_name" content="CryptoFlow by Muravsky">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:image" content="img/og-cover.png">
+
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dropdown-fix.css">
+
+  <!-- Chart.js for portfolio chart -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <!-- ═══════════════════════════════════════
+       DASHBOARD STYLES — ALL-IN-ONE
+       ═══════════════════════════════════════ -->
+  <style>
+  /* ── Preloader ── */
+  .nx-preloader{position:fixed;inset:0;z-index:99999;background:#0F0B1E;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px;transition:opacity .5s,visibility .5s}
+  .nx-preloader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+  .nx-preloader-logo{width:72px;height:72px;animation:nx-pulse 1.5s ease-in-out infinite}
+  .nx-preloader-bar{width:200px;height:3px;background:rgba(108,92,231,.2);border-radius:4px;overflow:hidden}
+  .nx-preloader-bar::after{content:'';display:block;height:100%;width:40%;background:linear-gradient(90deg,#6C5CE7,#06B6D4);border-radius:4px;animation:nx-slide 1s ease-in-out infinite}
+  @keyframes nx-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.08);opacity:.7}}
+  @keyframes nx-slide{0%{transform:translateX(-100%)}100%{transform:translateX(350%)}}
+
+  /* ── Z-index fix ── */
+  header,.header,nav,.navbar,main,.main,section,.container,.content,footer,.footer,.modal,.overlay,form{position:relative;z-index:2}
+  #nxParticles{z-index:0!important;pointer-events:none!important}
+
+  /* ── Dashboard Layout ── */
+  .dash-section{padding:100px 0 60px;min-height:100vh}
+
+  /* Guard (not logged in) */
+  .dash-guard{text-align:center;padding:100px 0}
+  .dash-guard-icon{width:80px;height:80px;margin:0 auto 24px;border-radius:50%;background:rgba(108,92,231,.1);display:flex;align-items:center;justify-content:center;animation:guardPulse 3s ease-in-out infinite}
+  @keyframes guardPulse{0%,100%{box-shadow:0 0 0 0 rgba(108,92,231,.3)}50%{box-shadow:0 0 0 20px rgba(108,92,231,0)}}
+  .dash-guard h2{font-size:1.6rem;margin-bottom:12px;color:var(--text-bright,#f1f5f9)}
+  .dash-guard p{color:var(--text3,#64748b);margin-bottom:32px;max-width:400px;margin-left:auto;margin-right:auto}
+
+  /* Welcome Banner */
+  .dash-welcome{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:32px;padding:28px 32px;border-radius:20px;background:linear-gradient(135deg,rgba(108,92,231,.12) 0%,rgba(6,182,212,.08) 100%);border:1px solid rgba(108,92,231,.15);position:relative;overflow:hidden}
+  .dash-welcome::before{content:'';position:absolute;top:-50%;right:-20%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(108,92,231,.08),transparent 70%);pointer-events:none}
+  .dash-title{font-size:1.6rem;font-weight:700;color:var(--text-bright,#f1f5f9);margin-bottom:4px}
+  .dash-title span{background:linear-gradient(135deg,#6C5CE7,#06B6D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .dash-subtitle{font-size:.9rem;color:var(--text3,#64748b)}
+  .dash-welcome-actions{display:flex;gap:10px;flex-wrap:wrap}
+
+  /* Tabs Navigation */
+  .dash-tabs{display:flex;gap:4px;margin-bottom:28px;background:rgba(255,255,255,.03);border-radius:14px;padding:4px;border:1px solid rgba(255,255,255,.06);overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .dash-tab{padding:10px 20px;border-radius:10px;font-size:.88rem;font-weight:500;color:var(--text3,#94a3b8);cursor:pointer;transition:all .25s;white-space:nowrap;border:none;background:transparent;display:flex;align-items:center;gap:8px}
+  .dash-tab:hover{color:var(--text-bright,#f1f5f9);background:rgba(255,255,255,.05)}
+  .dash-tab.active{color:#fff;background:linear-gradient(135deg,#6C5CE7,#7C6CF7);box-shadow:0 4px 15px rgba(108,92,231,.3)}
+  .dash-tab svg{width:16px;height:16px;flex-shrink:0}
+  .dash-tab-badge{background:#ef4444;color:#fff;font-size:.7rem;padding:1px 6px;border-radius:10px;margin-left:4px}
+
+  /* Tab Content */
+  .dash-tab-content{display:none;animation:fadeUp .4s ease}
+  .dash-tab-content.active{display:block}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+  /* Stats Grid */
+  .dash-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:28px}
+  .dash-stat-card{display:flex;align-items:center;gap:16px;padding:20px 22px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);transition:all .3s;position:relative;overflow:hidden}
+  .dash-stat-card:hover{border-color:rgba(108,92,231,.2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+  .dash-stat-card::after{content:'';position:absolute;top:0;right:0;width:60px;height:60px;border-radius:50%;opacity:.04;pointer-events:none}
+  .dash-stat-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .dash-stat-info{flex:1;min-width:0}
+  .dash-stat-label{display:block;font-size:.78rem;color:var(--text3,#94a3b8);margin-bottom:4px}
+  .dash-stat-value{display:block;font-size:1.3rem;font-weight:700;color:var(--text-bright,#f1f5f9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .dash-stat-change{font-size:.78rem;font-weight:600;padding:3px 8px;border-radius:6px;white-space:nowrap}
+  .dash-stat-change.positive{color:#22c55e;background:rgba(34,197,94,.1)}
+  .dash-stat-change.negative{color:#ef4444;background:rgba(239,68,68,.1)}
+  .dash-stat-change.neutral{color:var(--text3,#94a3b8);background:rgba(148,163,184,.1)}
+
+  /* Cards */
+  .dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:20px;margin-bottom:28px}
+  .dash-grid-full{grid-template-columns:1fr}
+  .dash-card{border-radius:20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);overflow:hidden;transition:border-color .3s}
+  .dash-card:hover{border-color:rgba(108,92,231,.15)}
+  .dash-card-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px 16px;border-bottom:1px solid rgba(255,255,255,.05)}
+  .dash-card-title{font-size:1rem;font-weight:600;color:var(--text-bright,#f1f5f9);display:flex;align-items:center;gap:8px}
+  .dash-card-action{font-size:.82rem;color:#6C5CE7;cursor:pointer;text-decoration:none;transition:opacity .2s}
+  .dash-card-action:hover{opacity:.7}
+  .dash-card-body{padding:20px 24px}
+
+  /* Portfolio Items */
+  .dash-portfolio-item{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid rgba(255,255,255,.04);transition:background .2s;cursor:default}
+  .dash-portfolio-item:last-child{border-bottom:none}
+  .dash-portfolio-item:hover{background:rgba(108,92,231,.04)}
+  .dash-port-left{display:flex;align-items:center;gap:14px}
+  .dash-port-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;flex-shrink:0}
+  .dash-port-info{display:flex;flex-direction:column;gap:2px}
+  .dash-port-name{font-weight:600;font-size:.92rem;color:var(--text-bright,#f1f5f9)}
+  .dash-port-name small{font-weight:400;color:var(--text3,#94a3b8);margin-left:6px}
+  .dash-port-amount{font-size:.8rem;color:var(--text3,#94a3b8)}
+  .dash-port-right{text-align:right;display:flex;flex-direction:column;gap:4px;align-items:flex-end}
+  .dash-port-value{font-weight:600;font-size:.95rem;color:var(--text-bright,#f1f5f9)}
+  .dash-port-change{font-size:.78rem;font-weight:600;padding:2px 8px;border-radius:6px}
+  .dash-port-change.positive{color:#22c55e;background:rgba(34,197,94,.1)}
+  .dash-port-change.negative{color:#ef4444;background:rgba(239,68,68,.1)}
+  .dash-port-change.neutral{color:var(--text3,#94a3b8)}
+  .dash-port-bar{width:80px;height:4px;border-radius:2px;background:rgba(255,255,255,.06);overflow:hidden;margin-top:2px}
+  .dash-port-bar-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#6C5CE7,#06B6D4);transition:width .6s ease}
+
+  /* History Items */
+  .dash-history-item{display:flex;align-items:center;gap:14px;padding:14px 24px;border-bottom:1px solid rgba(255,255,255,.04);transition:background .2s}
+  .dash-history-item:last-child{border-bottom:none}
+  .dash-history-item:hover{background:rgba(108,92,231,.04)}
+  .dash-hist-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .dash-hist-icon.exchange{background:rgba(108,92,231,.12);color:#6C5CE7}
+  .dash-hist-icon.deposit{background:rgba(34,197,94,.12);color:#22c55e}
+  .dash-hist-icon.withdraw{background:rgba(239,68,68,.12);color:#ef4444}
+  .dash-hist-info{flex:1;min-width:0}
+  .dash-hist-pair{font-weight:600;font-size:.9rem;color:var(--text-bright,#f1f5f9);display:block}
+  .dash-hist-amount{font-size:.8rem;color:var(--text3,#94a3b8);display:block;margin-top:2px}
+  .dash-hist-meta{text-align:right;display:flex;flex-direction:column;gap:4px;align-items:flex-end}
+  .dash-hist-date{font-size:.78rem;color:var(--text3,#94a3b8)}
+  .dash-hist-status{font-size:.72rem;padding:2px 8px;border-radius:6px;font-weight:600}
+  .dash-hist-status.done{color:#22c55e;background:rgba(34,197,94,.1)}
+  .dash-hist-status.pending{color:#f59e0b;background:rgba(245,158,11,.1)}
+  .dash-hist-status.failed{color:#ef4444;background:rgba(239,68,68,.1)}
+
+  /* Chart Container */
+  .dash-chart-wrap{position:relative;height:300px;padding:20px 24px}
+  .dash-chart-wrap canvas{width:100%!important}
+
+  /* Donut Chart */
+  .dash-donut-wrap{display:flex;align-items:center;justify-content:center;gap:32px;padding:24px;flex-wrap:wrap}
+  .dash-donut-canvas{width:200px!important;height:200px!important;flex-shrink:0}
+  .dash-donut-legend{display:flex;flex-direction:column;gap:8px}
+  .dash-donut-item{display:flex;align-items:center;gap:10px;font-size:.85rem}
+  .dash-donut-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+  .dash-donut-label{color:var(--text3,#94a3b8)}
+  .dash-donut-val{font-weight:600;color:var(--text-bright,#f1f5f9);margin-left:auto}
+
+  /* Profile Section */
+  .dash-profile{max-width:600px}
+  .dash-profile-header{display:flex;align-items:center;gap:20px;margin-bottom:32px;padding:24px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
+  .dash-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#6C5CE7,#06B6D4);display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:700;color:#fff;flex-shrink:0}
+  .dash-profile-info h3{font-size:1.2rem;font-weight:600;color:var(--text-bright,#f1f5f9);margin-bottom:4px}
+  .dash-profile-info p{font-size:.85rem;color:var(--text3,#94a3b8)}
+  .dash-form-group{margin-bottom:20px}
+  .dash-form-group label{display:block;font-size:.82rem;font-weight:500;color:var(--text3,#94a3b8);margin-bottom:6px}
+  .dash-form-group input{width:100%;padding:12px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:var(--text-bright,#f1f5f9);font-size:.92rem;transition:border-color .2s}
+  .dash-form-group input:focus{outline:none;border-color:#6C5CE7}
+  .dash-form-group input:disabled{opacity:.5;cursor:not-allowed}
+  .dash-form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+  /* Settings */
+  .dash-settings-section{margin-bottom:28px}
+  .dash-settings-section h3{font-size:1rem;font-weight:600;color:var(--text-bright,#f1f5f9);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.06)}
+  .dash-toggle-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+  .dash-toggle-row:last-child{border-bottom:none}
+  .dash-toggle-info span{display:block;font-size:.9rem;font-weight:500;color:var(--text-bright,#f1f5f9)}
+  .dash-toggle-info small{font-size:.78rem;color:var(--text3,#94a3b8)}
+  .dash-toggle{width:44px;height:24px;border-radius:12px;background:rgba(255,255,255,.12);position:relative;cursor:pointer;transition:background .2s;border:none;flex-shrink:0}
+  .dash-toggle::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s}
+  .dash-toggle.on{background:#6C5CE7}
+  .dash-toggle.on::after{transform:translateX(20px)}
+
+  /* Referral */
+  .dash-ref-card{padding:24px;text-align:center}
+  .dash-ref-code{display:flex;align-items:center;gap:12px;margin:20px auto;max-width:400px;padding:12px 16px;border-radius:12px;background:rgba(108,92,231,.08);border:1px dashed rgba(108,92,231,.3)}
+  .dash-ref-code input{flex:1;background:transparent;border:none;color:var(--text-bright,#f1f5f9);font-size:.95rem;font-weight:600;text-align:center}
+  .dash-ref-code input:focus{outline:none}
+  .dash-ref-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+  .dash-ref-stat{padding:16px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
+  .dash-ref-stat span{display:block;font-size:1.4rem;font-weight:700;color:var(--text-bright,#f1f5f9)}
+  .dash-ref-stat small{font-size:.78rem;color:var(--text3,#94a3b8)}
+
+  /* Notifications */
+  .dash-notif-item{display:flex;gap:14px;padding:16px 24px;border-bottom:1px solid rgba(255,255,255,.04);transition:background .2s}
+  .dash-notif-item:hover{background:rgba(108,92,231,.04)}
+  .dash-notif-item.unread{border-left:3px solid #6C5CE7}
+  .dash-notif-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:5px}
+  .dash-notif-dot.info{background:#3b82f6}
+  .dash-notif-dot.success{background:#22c55e}
+  .dash-notif-dot.warning{background:#f59e0b}
+  .dash-notif-dot.error{background:#ef4444}
+  .dash-notif-content{flex:1}
+  .dash-notif-title{font-weight:600;font-size:.9rem;color:var(--text-bright,#f1f5f9);margin-bottom:2px}
+  .dash-notif-text{font-size:.82rem;color:var(--text3,#94a3b8)}
+  .dash-notif-time{font-size:.75rem;color:var(--text3,#94a3b8);white-space:nowrap;margin-top:4px}
+
+  /* Watchlist */
+  .dash-watch-item{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;border-bottom:1px solid rgba(255,255,255,.04);transition:background .2s}
+  .dash-watch-item:hover{background:rgba(108,92,231,.04)}
+  .dash-watch-left{display:flex;align-items:center;gap:12px}
+  .dash-watch-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700}
+  .dash-watch-right{text-align:right}
+  .dash-watch-price{font-weight:600;font-size:.92rem;color:var(--text-bright,#f1f5f9);display:block}
+  .dash-watch-change{font-size:.78rem;font-weight:600}
+
+  /* Empty state */
+  .dash-empty{padding:40px;text-align:center;color:var(--text3,#94a3b8);font-size:.9rem}
+  .dash-empty svg{margin-bottom:12px;opacity:.4}
+
+  /* ── Light theme ── */
+  [data-theme="light"] .dash-welcome{background:linear-gradient(135deg,rgba(108,92,231,.06) 0%,rgba(6,182,212,.04) 100%);border-color:rgba(108,92,231,.1)}
+  [data-theme="light"] .dash-stat-card,[data-theme="light"] .dash-card{background:#fff;border-color:#e5e7eb}
+  [data-theme="light"] .dash-stat-card:hover,[data-theme="light"] .dash-card:hover{border-color:rgba(108,92,231,.2)}
+  [data-theme="light"] .dash-portfolio-item:hover,[data-theme="light"] .dash-history-item:hover,[data-theme="light"] .dash-notif-item:hover{background:rgba(108,92,231,.03)}
+  [data-theme="light"] .dash-tabs{background:#f8fafc;border-color:#e5e7eb}
+  [data-theme="light"] .dash-form-group input{background:#f8fafc;border-color:#e5e7eb;color:#1e293b}
+  [data-theme="light"] .dash-profile-header{background:#f8fafc;border-color:#e5e7eb}
+  [data-theme="light"] .dash-toggle{background:#d1d5db}
+
+  /* ── Mobile ── */
+  @media(max-width:768px){
+    .dash-section{padding:80px 0 40px}
+    .dash-welcome{padding:20px}
+    .dash-title{font-size:1.2rem}
+    .dash-stats{grid-template-columns:1fr 1fr}
+    .dash-grid{grid-template-columns:1fr}
+    .dash-form-row{grid-template-columns:1fr}
+    .dash-donut-wrap{flex-direction:column}
+    .dash-ref-stats{grid-template-columns:1fr}
+    .dash-tabs{gap:2px;padding:3px}
+    .dash-tab{padding:8px 14px;font-size:.82rem}
+  }
+  @media(max-width:480px){
+    .dash-stats{grid-template-columns:1fr}
+    .dash-stat-card{padding:16px}
+    .dash-stat-value{font-size:1.1rem}
+  }
+  </style>
+    <link rel="canonical" href="https://cryptoflow-muravsky.com/dashboard">
+</head>
+<body>
+<!-- PRELOADER -->
+<div class="nx-preloader" id="nxPreloader">
+  <img src="img/favicon.svg" alt="CryptoFlow by Muravsky" class="nx-preloader-logo">
+  <div class="nx-preloader-bar"></div>
+</div>
+<script>
+window.addEventListener('load', function(){
+  var p = document.getElementById('nxPreloader');
+  if(p) setTimeout(function(){ p.classList.add('hidden'); }, 400);
+});
+</script>
+
+<!-- HEADER (injected by components.js) -->
+
+    <main id="main-content" role="main">
+
+<!-- ══════════════════════════════════════════
+     DASHBOARD SECTION
+     ══════════════════════════════════════════ -->
+<section class="section dash-section" data-reveal id="dash-section">
+<div class="container">
+
+  <!-- ▸ Guard (shown when not logged in) -->
+  <div id="dashGuard" class="dash-guard" style="display:none;">
+    <div class="dash-guard-icon">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#6C5CE7" stroke-width="1.5">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+    </div>
+    <h2>Необходимо войти в аккаунт</h2>
+    <p>Для доступа к личному кабинету авторизуйтесь или создайте аккаунт</p>
+    <button class="btn btn-primary btn-lg" id="dashLoginBtn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+      Войти
+    </button>
+  </div>
+
+  <!-- ▸ Dashboard Content (shown when logged in) -->
+  <div id="dashContent" style="display:none;">
+
+    <!-- Welcome Banner -->
+    <div class="dash-welcome">
+      <div class="dash-welcome-info">
+        <h1 class="dash-title">Добро пожаловать, <span id="dashName">—</span>!</h1>
+        <p class="dash-subtitle">Управляйте портфелем, следите за балансами и историей операций</p>
+      </div>
+      <div class="dash-welcome-actions">
+        <a href="exchange.html" class="btn btn-primary btn-sm" style="display:flex;align-items:center;gap:6px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+          Обменять
+        </a>
+        <a href="markets.html" class="btn btn-sm" style="display:flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/></svg>
+          Рынки
+        </a>
+      </div>
+    </div>
+
+       <!-- Tab Navigation -->
+    <div class="dash-tabs" id="dashTabs">
+      <button class="dash-tab active" data-tab="overview">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Обзор
+      </button>
+      <button class="dash-tab" data-tab="portfolio">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Портфель
+      </button>
+      <button class="dash-tab" data-tab="history">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
+        История
+        <span class="dash-tab-badge" id="histBadge">6</span>
+      </button>
+      <button class="dash-tab" data-tab="watchlist">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Избранное
+      </button>
+      <button class="dash-tab" data-tab="notifications">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Уведомления
+        <span class="dash-tab-badge" id="notifBadge">3</span>
+      </button>
+      <button class="dash-tab" data-tab="referral">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        Реферал
+      </button>
+      <button class="dash-tab" data-tab="profile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Профиль
+      </button>
+      <button class="dash-tab" data-tab="settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Настройки
+      </button>
+    </div>
+
+    <!-- ════════════════════════════════════
+         TAB: OVERVIEW
+         ════════════════════════════════════ -->
+    <div class="dash-tab-content active" id="tab-overview">
+
+      <!-- Stats -->
+      <div class="dash-stats">
+        <div class="dash-stat-card" data-reveal>
+          <div class="dash-stat-icon" style="background:rgba(108,92,231,.15);color:#6c5ce7;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div class="dash-stat-info">
+            <span class="dash-stat-label">Общий баланс</span>
+            <span class="dash-stat-value" id="statBalance">$0.00</span>
+          </div>
+          <span class="dash-stat-change positive" id="statBalanceChange">+0%</span>
+        </div>
+
+        <div class="dash-stat-card" data-reveal>
+          <div class="dash-stat-icon" style="background:rgba(34,197,94,.15);color:#22c55e;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          </div>
+          <div class="dash-stat-info">
+            <span class="dash-stat-label">Прибыль / Убыток</span>
+            <span class="dash-stat-value positive" id="statPnl">+$0.00</span>
+          </div>
+          <span class="dash-stat-change positive" id="statPnlChange">+0%</span>
+        </div>
+
+        <div class="dash-stat-card" data-reveal>
+          <div class="dash-stat-icon" style="background:rgba(247,147,26,.15);color:#f7931a;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+          </div>
+          <div class="dash-stat-info">
+            <span class="dash-stat-label">Всего сделок</span>
+            <span class="dash-stat-value" id="statTrades">0</span>
+          </div>
+          <span class="dash-stat-change neutral">за 30 дн.</span>
+        </div>
+
+        <div class="dash-stat-card" data-reveal>
+          <div class="dash-stat-icon" style="background:rgba(6,182,212,.15);color:#06B6D4;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="dash-stat-info">
+            <span class="dash-stat-label">Активов</span>
+            <span class="dash-stat-value" id="statAssets">0</span>
+          </div>
+          <span class="dash-stat-change neutral">монет</span>
+        </div>
+      </div>
+
+      <!-- Overview Grid: Balance Chart + Allocation Donut -->
+      <div class="dash-grid">
+        <div class="dash-card" data-reveal>
+          <div class="dash-card-header" data-reveal>
+            <span class="dash-card-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/></svg>
+              Баланс за 30 дней
+            </span>
+          </div>
+          <div class="dash-chart-wrap">
+            <canvas id="balanceLineChart"></canvas>
+          </div>
+        </div>
+
+        <div class="dash-card" data-reveal>
+          <div class="dash-card-header" data-reveal>
+            <span class="dash-card-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20"/></svg>
+              Распределение активов
+            </span>
+          </div>
+          <div class="dash-donut-wrap">
+            <canvas id="allocationDonut" class="dash-donut-canvas"></canvas>
+            <div class="dash-donut-legend" id="donutLegend"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Overview Grid: Top holdings + Recent history -->
+      <div class="dash-grid">
+        <div class="dash-card" data-reveal>
+          <div class="dash-card-header" data-reveal>
+            <span class="dash-card-title">Топ-активы</span>
+            <a class="dash-card-action" data-goto="portfolio">Все →</a>
+          </div>
+          <div id="overviewPortfolio"></div>
+        </div>
+
+        <div class="dash-card" data-reveal>
+          <div class="dash-card-header" data-reveal>
+            <span class="dash-card-title">Последние операции</span>
+            <a class="dash-card-action" data-goto="history">Все →</a>
+          </div>
+          <div id="overviewHistory"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════
+         TAB: PORTFOLIO (full)
+         ════════════════════════════════════ -->
+    <div class="dash-tab-content" id="tab-portfolio">
+      <div class="dash-card" data-reveal>
+        <div class="dash-card-header" data-reveal>
+          <span class="dash-card-title">Мой портфель</span>
+          <span class="dash-card-action" id="portSortBtn">Сортировка ↓</span>
+        </div>
+        <div id="fullPortfolio"></div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════
+         TAB: HISTORY (full)
+         ════════════════════════════════════ -->
+    <div class="dash-tab-content" id="tab-history">
+      <div class="dash-card" data-reveal>
+        <div class="dash-card-header" data-reveal>
+          <span class="dash-card-title">История операций</span>
+          <div style="display:flex;gap:8px;">
+            <select id="histFilter" style="padding:6px 12px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:inherit;font-size:.82rem;">
+              <option value="all">Все</option>
+              <option value="exchange">Обмены</option>
+              <option value="deposit">Пополнения</option>
+              <option value="withdraw">Выводы</option>
+            </select>
+          </div>
+        </div>
+        <div id="fullHistory"></div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════
+         TAB: WATCHLIST
+         ════════════════════════════════════ -->
+    <div class="dash-tab-content" id="tab-watchlist">
+      <div class="dash-card" data-reveal>
+        <div class="dash-card-header" data-reveal>
+          <span class="dash-card-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Избранные монеты
+          </span>
+          <span class="dash-card-action" id="addWatchBtn">+ Добавить</span>
+        </div>
+        <div id="watchlistContainer"></div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════
+         TAB: NOTIFICATIONS
+         ════════════════════════════════════ -->
+    <div class="dash-tab-content" id="tab-notifications">
+      <div class="dash-card" data-reveal>
+        <div class="dash-card-header" data-reveal>
+          <span class="dash-card-title">Уведомления</span>
+          <span class="dash-card-action" id="clearNotifBtn">Очистить все</span>
+        </div>
+        <div id="notificationsContainer"></div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════
+         TAB: REFERRAL
+         ════════════════════════════════════ -->
+    <div class="dash-tab-content" id="tab-referral">
+      <div class="dash-card" data-reveal>
+        <div class="dash-card-header" data-reveal>
+          <span class="dash-card-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+            Реферальная программа
+          </span>
+        </div>
+        <div class="dash-ref-card" data-reveal>
+          <h3 style="font-size:1.1rem;color:var(--text-bright,#f1f5f9);margin-bottom:8px;">Приглашайте друзей — получайте бонусы!</h3>
+          <p style="font-size:.88rem;color:var(--text3,#94a3b8);max-width:500px;margin:0 auto;">Поделитесь своей ссылкой и получайте 15% от комиссий приглашённых пользователей</p>
+
+          <div class="dash-ref-code">
+            <input type="text" id="refCodeInput" value="" readonly>
+            <button class="btn btn-primary btn-sm" id="copyRefBtn" style="white-space:nowrap;">Копировать</button>
+          </div>
+
+          <div class="dash-ref-stats">
+            <div class="dash-ref-stat">
+              <span id="refInvited">0</span>
+              <small>Приглашено</small>
+            </div>
+            <div class="dash-ref-stat">
+              <span id="refEarned">$0.00</span>
+              <small>Заработано</small>
+            </div>
+            <div class="dash-ref-stat">
+              <span>15%</span>
+              <small>Ваш бонус</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════
+         TAB: PROFILE
+         ════════════════════════════════════ -->
+    <div class="dash-tab-content" id="tab-profile">
+      <div class="dash-profile">
+        <div class="dash-profile-header">
+          <div class="dash-avatar" id="profileAvatar">?</div>
+          <div class="dash-profile-info">
+            <h3 id="profileName">—</h3>
+            <p id="profileEmail">—</p>
+            <p style="font-size:.78rem;margin-top:4px;">Зарегистрирован: <span id="profileJoined">—</span></p>
+          </div>
+        </div>
+
+        <form id="profileForm">
+          <div class="dash-form-row">
+            <div class="dash-form-group">
+              <label>Имя</label>
+              <input type="text" id="profName" placeholder="Ваше имя">
+            </div>
+            <div class="dash-form-group">
+              <label>Email</label>
+              <input type="email" id="profEmail" disabled>
+            </div>
+          </div>
+          <div class="dash-form-row">
+            <div class="dash-form-group">
+              <label>Телефон</label>
+              <input type="tel" id="profPhone" placeholder="+7 (___) ___-__-__">
+            </div>
+            <div class="dash-form-group">
+              <label>Telegram</label>
+              <input type="text" id="profTelegram" placeholder="@username">
+            </div>
+          </div>
+          <div class="dash-form-group">
+            <label>Новый пароль (оставьте пустым, чтобы не менять)</label>
+            <input type="password" id="profNewPass" placeholder="••••••••" autocomplete="new-password">
+          </div>
+          <button type="submit" class="btn btn-primary" style="margin-top:8px;">Сохранить изменения</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════
+         TAB: SETTINGS
+         ════════════════════════════════════ -->
+    <div class="dash-tab-content" id="tab-settings">
+      <div class="dash-card" data-reveal>
+        <div class="dash-card-body" data-reveal>
+
+          <div class="dash-settings-section">
+            <h3>Основные</h3>
+            <div class="dash-toggle-row">
+              <div class="dash-toggle-info">
+                <span>Тёмная тема</span>
+                <small>Переключить оформление интерфейса</small>
+              </div>
+              <button class="dash-toggle on" id="toggleTheme"></button>
+            </div>
+            <div class="dash-toggle-row">
+              <div class="dash-toggle-info">
+                <span>Анимация частиц</span>
+                <small>Фоновая анимация на страницах</small>
+              </div>
+              <button class="dash-toggle on" id="toggleParticles"></button>
+            </div>
+            <div class="dash-toggle-row">
+              <div class="dash-toggle-info">
+                <span>Автообновление курсов</span>
+                <small>Обновлять цены каждые 60 секунд</small>
+              </div>
+              <button class="dash-toggle on" id="toggleAutoRefresh"></button>
+            </div>
+          </div>
+
+          <div class="dash-settings-section">
+            <h3>Уведомления</h3>
+            <div class="dash-toggle-row">
+              <div class="dash-toggle-info">
+                <span>Email-уведомления</span>
+                <small>Получать важные обновления на email</small>
+              </div>
+              <button class="dash-toggle on" id="toggleEmail"></button>
+            </div>
+            <div class="dash-toggle-row">
+              <div class="dash-toggle-info">
+                <span>Push-уведомления</span>
+                <small>Браузерные push-уведомления</small>
+              </div>
+              <button class="dash-toggle" id="togglePush"></button>
+            </div>
+            <div class="dash-toggle-row">
+              <div class="dash-toggle-info">
+                <span>Оповещения о ценах</span>
+                <small>Уведомлять при резких изменениях цен</small>
+              </div>
+              <button class="dash-toggle on" id="togglePriceAlert"></button>
+            </div>
+          </div>
+
+          <div class="dash-settings-section">
+            <h3>Безопасность</h3>
+            <div class="dash-toggle-row">
+              <div class="dash-toggle-info">
+                <span>Двухфакторная аутентификация</span>
+                <small>Дополнительная защита аккаунта (2FA)</small>
+              </div>
+              <button class="dash-toggle" id="toggle2FA"></button>
+            </div>
+            <div class="dash-toggle-row">
+              <div class="dash-toggle-info">
+                <span>Сессия активна</span>
+                <small>Автовыход через 24 часа неактивности</small>
+              </div>
+              <button class="dash-toggle on" id="toggleSession"></button>
+            </div>
+          </div>
+
+          <div style="margin-top:32px;padding-top:20px;border-top:1px solid rgba(255,255,255,.06);">
+            <button class="btn" id="exportDataBtn" style="border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);margin-right:10px;">
+              📥 Экспорт данных
+            </button>
+            <button class="btn" id="deleteAccountBtn" style="border:1px solid rgba(239,68,68,.3);color:#ef4444;background:rgba(239,68,68,.05);">
+              🗑️ Удалить аккаунт
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /dashContent -->
+
+</div><!-- /container -->
+</section>
+
+<!-- FOOTER (injected by components.js) -->
+
+<!-- Scripts -->
+
+    </main>
+<script src="js/components.js"></script>
+    <script src="js/auth.js"></script>
+<script src="js/main.js"></script>
+
+<!-- ══════════════════════════════════════════════════════
+     DASHBOARD LOGIC — ALL-IN-ONE
+     ══════════════════════════════════════════════════════ -->
+<script>
+(function(){
+  'use strict';
+
+  /* ═══════════════════════════════════════
+     1. AUTH CHECK — detect user from any key
+     ═══════════════════════════════════════ */
+  var AUTH_KEYS = [
+    'CryptoFlow by Muravsky_user',
+    'cryptoflow_user',
+    'nx_user',
+    'user',
+    'currentUser'
+  ];
+
+  var user = null;
+  for(var k = 0; k < AUTH_KEYS.length; k++){
+    var raw = localStorage.getItem(AUTH_KEYS[k]);
+    if(raw){
+      try {
+        var parsed = JSON.parse(raw);
+        if(parsed && (parsed.name || parsed.email)){
+          user = parsed;
+          console.log('[Dashboard] Auth found via key:', AUTH_KEYS[k], user);
+          break;
+        }
+      } catch(e){}
+    }
+  }
+
+  /* Also check sessionStorage */
+  if(!user){
+    for(var s = 0; s < AUTH_KEYS.length; s++){
+      var sraw = sessionStorage.getItem(AUTH_KEYS[s]);
+      if(sraw){
+        try {
+          var sp = JSON.parse(sraw);
+          if(sp && (sp.name || sp.email)){ user = sp; break; }
+        } catch(e){}
+      }
+    }
+  }
+
+  var guardEl = document.getElementById('dashGuard');
+  var contentEl = document.getElementById('dashContent');
+
+  /* ═══════════════════════════════════════
+     2. GUARD — not logged in
+     ═══════════════════════════════════════ */
+  if(!user){
+    guardEl.style.display = 'block';
+    contentEl.style.display = 'none';
+
+    setTimeout(function(){
+      var loginBtn = document.getElementById('dashLoginBtn');
+      if(loginBtn){
+        loginBtn.addEventListener('click', function(){
+          /* Try all possible auth modal IDs */
+          var modalIds = ['auth-modal','authModal','loginModal','modal-auth'];
+          for(var m = 0; m < modalIds.length; m++){
+            var modal = document.getElementById(modalIds[m]);
+            if(modal){
+              modal.classList.add('active');
+              modal.style.display = '';
+              document.body.style.overflow = 'hidden';
+              console.log('[Dashboard] Opened modal:', modalIds[m]);
+              return;
+            }
+          }
+          /* Fallback: try NX global */
+          if(window.NX && window.NX.openModal){
+            window.NX.openModal('authModal');
+          }
+        });
+      }
+    }, 300);
+
+    console.log('[Dashboard] User not logged in — showing guard');
+    return;
+  }
+
+  /* ═══════════════════════════════════════
+     3. USER IS LOGGED IN — show dashboard
+     ═══════════════════════════════════════ */
+  guardEl.style.display = 'none';
+  contentEl.style.display = 'block';
+
+  var userName = user.name || user.email || 'Пользователь';
+  var userEmail = user.email || '—';
+  var userJoined = user.joined ? new Date(user.joined).toLocaleDateString('ru-RU') : '—';
+
+  /* Fill name in welcome */
+  document.getElementById('dashName').textContent = userName;
+
+    /* ═══════════════════════════════════════
+     4. MOCK DATA — portfolio, history, etc.
+     ═══════════════════════════════════════ */
+  var portfolio = [
+    {symbol:'BTC',  name:'Bitcoin',    color:'#F7931A', amount:0.8542, price:104500,    change:2.14},
+    {symbol:'ETH',  name:'Ethereum',   color:'#627EEA', amount:12.35,  price:3280,      change:-0.82},
+    {symbol:'SOL',  name:'Solana',     color:'#9945FF', amount:85,     price:178,       change:5.31},
+    {symbol:'USDT', name:'Tether',     color:'#26A17B', amount:15000,  price:1,         change:0.01},
+    {symbol:'BNB',  name:'BNB',        color:'#F3BA2F', amount:22.5,   price:710,       change:1.23},
+    {symbol:'LINK', name:'Chainlink',  color:'#2A5ADA', amount:200,    price:18.5,      change:3.70},
+    {symbol:'DOT',  name:'Polkadot',   color:'#E6007A', amount:340,    price:8.9,       change:-1.45}
+  ];
+
+  var totalBalance = 0;
+  portfolio.forEach(function(p){ totalBalance += p.amount * p.price; });
+
+  var pnlValue = 8432.10;
+  var pnlPercent = 7.1;
+
+  var history = [
+    {type:'exchange', from:'BTC',  to:'USDT',  desc:'0.5 BTC → 52,250 USDT',    date:'Сегодня, 14:23',   status:'done'},
+    {type:'deposit',  from:'',     to:'ETH',   desc:'+5 ETH (пополнение)',       date:'Сегодня, 11:05',   status:'done'},
+    {type:'exchange', from:'ETH',  to:'SOL',   desc:'5 ETH → 92.1 SOL',         date:'Вчера, 22:17',     status:'done'},
+    {type:'withdraw', from:'USDT', to:'',      desc:'-2,000 USDT (вывод)',       date:'Вчера, 18:40',     status:'done'},
+    {type:'exchange', from:'USDT', to:'BNB',   desc:'5,000 USDT → 7.04 BNB',    date:'20 дек, 16:33',    status:'done'},
+    {type:'exchange', from:'BTC',  to:'ETH',   desc:'0.1 BTC → 3.18 ETH',       date:'19 дек, 09:12',    status:'done'},
+    {type:'deposit',  from:'',     to:'USDT',  desc:'+10,000 USDT',              date:'18 дек, 14:00',    status:'done'},
+    {type:'exchange', from:'LINK', to:'USDT',  desc:'100 LINK → 1,845 USDT',    date:'17 дек, 11:30',    status:'done'},
+    {type:'withdraw', from:'BTC',  to:'',      desc:'-0.05 BTC (вывод)',         date:'16 дек, 20:15',    status:'done'},
+    {type:'exchange', from:'SOL',  to:'USDT',  desc:'20 SOL → 3,556 USDT',      date:'15 дек, 13:22',    status:'done'},
+    {type:'deposit',  from:'',     to:'BTC',   desc:'+0.5 BTC (пополнение)',     date:'14 дек, 10:00',    status:'done'},
+    {type:'exchange', from:'DOT',  to:'ETH',   desc:'100 DOT → 0.27 ETH',       date:'13 дек, 17:45',    status:'done'},
+    {type:'withdraw', from:'ETH',  to:'',      desc:'-1 ETH (вывод)',            date:'12 дек, 08:30',    status:'pending'},
+    {type:'exchange', from:'BNB',  to:'USDT',  desc:'10 BNB → 7,100 USDT',      date:'11 дек, 22:10',    status:'done'}
+  ];
+
+  var watchlist = [
+    {symbol:'BTC',  name:'Bitcoin',    color:'#F7931A', price:104500,  change:2.14},
+    {symbol:'ETH',  name:'Ethereum',   color:'#627EEA', price:3280,    change:-0.82},
+    {symbol:'SOL',  name:'Solana',     color:'#9945FF', price:178,     change:5.31},
+    {symbol:'XRP',  name:'Ripple',     color:'#00AAE4', price:2.38,    change:0.67},
+    {symbol:'ADA',  name:'Cardano',    color:'#0033AD', price:0.78,    change:-1.20},
+    {symbol:'DOGE', name:'Dogecoin',   color:'#C2A633', price:0.22,    change:5.40},
+    {symbol:'AVAX', name:'Avalanche',  color:'#E84142', price:38,      change:2.70},
+    {symbol:'TON',  name:'Toncoin',    color:'#0098EA', price:5.90,    change:1.95}
+  ];
+
+  var notifications = [
+    {type:'success', title:'Обмен выполнен',          text:'0.5 BTC успешно обменяно на 52,250 USDT',                   time:'5 мин назад',  unread:true},
+    {type:'info',    title:'Курс BTC обновлён',       text:'Bitcoin достиг $104,500 (+2.14% за 24ч)',                   time:'15 мин назад', unread:true},
+    {type:'warning', title:'Подтвердите вывод',        text:'Запрос на вывод 2,000 USDT ожидает подтверждения email',    time:'2 часа назад', unread:true},
+    {type:'success', title:'Пополнение получено',      text:'5 ETH успешно зачислено на баланс',                        time:'5 часов назад', unread:false},
+    {type:'info',    title:'Новая реферальная награда', text:'Ваш реферал совершил обмен. Начислено $12.50',             time:'1 день назад', unread:false},
+    {type:'error',   title:'Попытка входа',            text:'Замечена попытка входа из неизвестного устройства (Москва)', time:'2 дня назад',  unread:false}
+  ];
+
+  /* ═══════════════════════════════════════
+     5. FILL STATS
+     ═══════════════════════════════════════ */
+  document.getElementById('statBalance').textContent = '$' + totalBalance.toLocaleString('en-US', {maximumFractionDigits:2});
+  document.getElementById('statBalanceChange').textContent = '+2.4%';
+  document.getElementById('statPnl').textContent = '+$' + pnlValue.toLocaleString('en-US', {maximumFractionDigits:2});
+  document.getElementById('statPnlChange').textContent = '+' + pnlPercent + '%';
+  document.getElementById('statTrades').textContent = history.length;
+  document.getElementById('statAssets').textContent = portfolio.length;
+
+  /* ═══════════════════════════════════════
+     6. TAB SYSTEM
+     ═══════════════════════════════════════ */
+  var tabs = document.querySelectorAll('.dash-tab');
+  var contents = document.querySelectorAll('.dash-tab-content');
+
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      var target = this.getAttribute('data-tab');
+      tabs.forEach(function(t){ t.classList.remove('active'); });
+      this.classList.add('active');
+      contents.forEach(function(c){ c.classList.remove('active'); });
+      var targetEl = document.getElementById('tab-' + target);
+      if(targetEl) targetEl.classList.add('active');
+    });
+  });
+
+  /* "Все →" links inside cards */
+  document.querySelectorAll('[data-goto]').forEach(function(link){
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      var target = this.getAttribute('data-goto');
+      var tab = document.querySelector('.dash-tab[data-tab="' + target + '"]');
+      if(tab) tab.click();
+    });
+  });
+
+  /* ═══════════════════════════════════════
+     7. RENDER PORTFOLIO
+     ═══════════════════════════════════════ */
+  function renderPortfolioItem(p, total){
+    var value = p.amount * p.price;
+    var pct = total > 0 ? (value / total * 100).toFixed(1) : 0;
+    var changeClass = p.change > 0 ? 'positive' : p.change < 0 ? 'negative' : 'neutral';
+    var changeSign = p.change > 0 ? '+' : '';
+
+    var row = document.createElement('div');
+    row.className = 'dash-portfolio-item';
+    row.innerHTML =
+      '<div class="dash-port-left">' +
+        '<div class="dash-port-icon" style="background:' + p.color + '20;color:' + p.color + ';font-size:.95rem;">' +
+          p.symbol.charAt(0) +
+        '</div>' +
+        '<div class="dash-port-info">' +
+          '<span class="dash-port-name">' + p.symbol + ' <small>' + p.name + '</small></span>' +
+          '<span class="dash-port-amount">' + p.amount + ' ' + p.symbol +
+            ' · $' + p.price.toLocaleString('en-US', {maximumFractionDigits:2}) + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="dash-port-right">' +
+        '<span class="dash-port-value">$' + value.toLocaleString('en-US', {maximumFractionDigits:2}) + '</span>' +
+        '<span class="dash-port-change ' + changeClass + '">' + changeSign + p.change + '%</span>' +
+        '<div class="dash-port-bar"><div class="dash-port-bar-fill" style="width:' + pct + '%;background:' + p.color + '"></div></div>' +
+      '</div>';
+    return row;
+  }
+
+  /* Overview: top 4 */
+  var overviewPortEl = document.getElementById('overviewPortfolio');
+  portfolio.slice(0, 4).forEach(function(p){
+    overviewPortEl.appendChild(renderPortfolioItem(p, totalBalance));
+  });
+
+  /* Full portfolio */
+  var fullPortEl = document.getElementById('fullPortfolio');
+  portfolio.forEach(function(p){
+    fullPortEl.appendChild(renderPortfolioItem(p, totalBalance));
+  });
+
+  /* ═══════════════════════════════════════
+     8. RENDER HISTORY
+     ═══════════════════════════════════════ */
+  function renderHistoryItem(h){
+    var iconClass = h.type === 'deposit' ? 'deposit' : h.type === 'withdraw' ? 'withdraw' : 'exchange';
+    var iconSvg;
+    if(h.type === 'deposit'){
+      iconSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>';
+    } else if(h.type === 'withdraw'){
+      iconSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>';
+    } else {
+      iconSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>';
+    }
+
+    var pairText = h.type === 'deposit' ? ('→ ' + h.to) : h.type === 'withdraw' ? (h.from + ' →') : (h.from + ' → ' + h.to);
+    var statusClass = h.status === 'done' ? 'done' : h.status === 'pending' ? 'pending' : 'failed';
+    var statusText = h.status === 'done' ? 'Выполнено' : h.status === 'pending' ? 'В обработке' : 'Ошибка';
+
+    var row = document.createElement('div');
+    row.className = 'dash-history-item';
+    row.setAttribute('data-type', h.type);
+    row.innerHTML =
+      '<div class="dash-hist-icon ' + iconClass + '">' + iconSvg + '</div>' +
+      '<div class="dash-hist-info">' +
+        '<span class="dash-hist-pair">' + pairText + '</span>' +
+        '<span class="dash-hist-amount">' + h.desc + '</span>' +
+      '</div>' +
+      '<div class="dash-hist-meta">' +
+        '<span class="dash-hist-date">' + h.date + '</span>' +
+        '<span class="dash-hist-status ' + statusClass + '">' + statusText + '</span>' +
+      '</div>';
+    return row;
+  }
+
+  /* Overview: last 5 */
+  var overviewHistEl = document.getElementById('overviewHistory');
+  history.slice(0, 5).forEach(function(h){
+    overviewHistEl.appendChild(renderHistoryItem(h));
+  });
+
+  /* Full history */
+  var fullHistEl = document.getElementById('fullHistory');
+  function renderFullHistory(filter){
+    fullHistEl.innerHTML = '';
+    var filtered = filter === 'all' ? history : history.filter(function(h){ return h.type === filter; });
+    if(filtered.length === 0){
+      fullHistEl.innerHTML = '<div class="dash-empty"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg><p>Нет операций</p></div>';
+      return;
+    }
+    filtered.forEach(function(h){ fullHistEl.appendChild(renderHistoryItem(h)); });
+  }
+  renderFullHistory('all');
+
+  /* History filter */
+  var histFilter = document.getElementById('histFilter');
+  if(histFilter){
+    histFilter.addEventListener('change', function(){
+      renderFullHistory(this.value);
+    });
+  }
+
+  /* ═══════════════════════════════════════
+     9. WATCHLIST
+     ═══════════════════════════════════════ */
+  var watchEl = document.getElementById('watchlistContainer');
+  function renderWatchlist(){
+    watchEl.innerHTML = '';
+    if(watchlist.length === 0){
+      watchEl.innerHTML = '<div class="dash-empty"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><p>Добавьте монеты в избранное</p></div>';
+      return;
+    }
+    watchlist.forEach(function(w, idx){
+      var changeClass = w.change > 0 ? 'positive' : w.change < 0 ? 'negative' : '';
+      var changeSign = w.change > 0 ? '+' : '';
+      var item = document.createElement('div');
+      item.className = 'dash-watch-item';
+      item.innerHTML =
+        '<div class="dash-watch-left">' +
+          '<div class="dash-watch-icon" style="background:' + w.color + '20;color:' + w.color + ';">' + w.symbol.charAt(0) + '</div>' +
+          '<div>' +
+            '<div style="font-weight:600;font-size:.9rem;color:var(--text-bright,#f1f5f9);">' + w.symbol + '</div>' +
+            '<div style="font-size:.78rem;color:var(--text3,#94a3b8);">' + w.name + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="dash-watch-right">' +
+          '<span class="dash-watch-price">$' + w.price.toLocaleString('en-US', {maximumFractionDigits:2}) + '</span>' +
+          '<span class="dash-watch-change ' + changeClass + '">' + changeSign + w.change + '%</span>' +
+        '</div>' +
+        '<button class="dash-watch-remove" data-idx="' + idx + '" title="Удалить" style="background:none;border:none;color:var(--text3,#94a3b8);cursor:pointer;padding:4px 8px;font-size:1.1rem;opacity:.5;transition:opacity .2s;">&times;</button>';
+      watchEl.appendChild(item);
+    });
+
+    /* Remove buttons */
+    watchEl.querySelectorAll('.dash-watch-remove').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var idx = parseInt(this.getAttribute('data-idx'));
+        watchlist.splice(idx, 1);
+        renderWatchlist();
+        if(window.NX && window.NX.toast) window.NX.toast('Удалено из избранного', 'info');
+      });
+    });
+  }
+  renderWatchlist();
+
+  /* ═══════════════════════════════════════
+     10. NOTIFICATIONS
+     ═══════════════════════════════════════ */
+  var notifEl = document.getElementById('notificationsContainer');
+  function renderNotifications(){
+    notifEl.innerHTML = '';
+    if(notifications.length === 0){
+      notifEl.innerHTML = '<div class="dash-empty"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><p>Нет уведомлений</p></div>';
+      return;
+    }
+
+    var dotTypes = {success:'success', info:'info', warning:'warning', error:'error'};
+    notifications.forEach(function(n){
+      var item = document.createElement('div');
+      item.className = 'dash-notif-item' + (n.unread ? ' unread' : '');
+      item.innerHTML =
+        '<div class="dash-notif-dot ' + (dotTypes[n.type] || 'info') + '"></div>' +
+        '<div class="dash-notif-content">' +
+          '<div class="dash-notif-title">' + n.title + '</div>' +
+          '<div class="dash-notif-text">' + n.text + '</div>' +
+        '</div>' +
+        '<div class="dash-notif-time">' + n.time + '</div>';
+      notifEl.appendChild(item);
+    });
+  }
+  renderNotifications();
+
+  /* Update badge */
+  var unreadCount = notifications.filter(function(n){ return n.unread; }).length;
+  var notifBadge = document.getElementById('notifBadge');
+  if(notifBadge) notifBadge.textContent = unreadCount;
+
+  /* Clear all */
+  var clearNotifBtn = document.getElementById('clearNotifBtn');
+  if(clearNotifBtn){
+    clearNotifBtn.addEventListener('click', function(){
+      notifications = [];
+      renderNotifications();
+      if(notifBadge) notifBadge.style.display = 'none';
+      if(window.NX && window.NX.toast) window.NX.toast('Уведомления очищены', 'info');
+    });
+  }
+
+  /* ═══════════════════════════════════════
+     11. REFERRAL
+     ═══════════════════════════════════════ */
+  var refCode = 'CF-' + (userName.replace(/\s/g,'').substring(0,5).toUpperCase()) + '-' +
+                Math.random().toString(36).substring(2,6).toUpperCase();
+  var refInput = document.getElementById('refCodeInput');
+  if(refInput) refInput.value = refCode;
+
+  document.getElementById('refInvited').textContent = '7';
+  document.getElementById('refEarned').textContent = '$186.50';
+
+  var copyRefBtn = document.getElementById('copyRefBtn');
+  if(copyRefBtn){
+    copyRefBtn.addEventListener('click', function(){
+      if(refInput){
+        refInput.select();
+        try {
+          navigator.clipboard.writeText(refInput.value).then(function(){
+            if(window.NX && window.NX.toast) window.NX.toast('Код скопирован!', 'success');
+          });
+        } catch(e){
+          document.execCommand('copy');
+          if(window.NX && window.NX.toast) window.NX.toast('Код скопирован!', 'success');
+        }
+      }
+    });
+  }
+
+  /* ═══════════════════════════════════════
+     12. PROFILE
+     ═══════════════════════════════════════ */
+  var avatar = document.getElementById('profileAvatar');
+  if(avatar) avatar.textContent = userName.charAt(0).toUpperCase();
+
+  var profNameEl = document.getElementById('profileName');
+  if(profNameEl) profNameEl.textContent = userName;
+
+  var profEmailEl = document.getElementById('profileEmail');
+  if(profEmailEl) profEmailEl.textContent = userEmail;
+
+  var profJoinedEl = document.getElementById('profileJoined');
+  if(profJoinedEl) profJoinedEl.textContent = userJoined;
+
+  var profNameInput = document.getElementById('profName');
+  if(profNameInput) profNameInput.value = userName;
+
+  var profEmailInput = document.getElementById('profEmail');
+  if(profEmailInput) profEmailInput.value = userEmail;
+
+  /* Profile form submit */
+  var profileForm = document.getElementById('profileForm');
+  if(profileForm){
+    profileForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      var newName = document.getElementById('profName').value.trim();
+      var newPass = document.getElementById('profNewPass').value;
+      var phone = document.getElementById('profPhone').value.trim();
+      var telegram = document.getElementById('profTelegram').value.trim();
+
+      if(newName.length < 2){
+        if(window.NX && window.NX.toast) window.NX.toast('Имя должно быть минимум 2 символа', 'error');
+        return;
+      }
+
+      /* Update user in localStorage */
+      for(var k = 0; k < AUTH_KEYS.length; k++){
+        var raw = localStorage.getItem(AUTH_KEYS[k]);
+        if(raw){
+          try {
+            var u = JSON.parse(raw);
+            if(u && u.email === userEmail){
+              u.name = newName;
+              if(phone) u.phone = phone;
+              if(telegram) u.telegram = telegram;
+              localStorage.setItem(AUTH_KEYS[k], JSON.stringify(u));
+            }
+          } catch(e){}
+        }
+      }
+
+      /* Update nx_users too */
+      try {
+        var users = JSON.parse(localStorage.getItem('nx_users')) || [];
+        users.forEach(function(u){
+          if(u.email === userEmail){
+            u.name = newName;
+            if(phone) u.phone = phone;
+            if(telegram) u.telegram = telegram;
+          }
+        });
+        localStorage.setItem('nx_users', JSON.stringify(users));
+      } catch(e){}
+
+      /* Refresh UI */
+      document.getElementById('dashName').textContent = newName;
+      if(profNameEl) profNameEl.textContent = newName;
+      if(avatar) avatar.textContent = newName.charAt(0).toUpperCase();
+
+      if(window.NX && window.NX.toast) window.NX.toast('Профиль обновлён!', 'success');
+    });
+  }
+
+  /* ═══════════════════════════════════════
+     13. SETTINGS — TOGGLES
+     ═══════════════════════════════════════ */
+  document.querySelectorAll('.dash-toggle').forEach(function(toggle){
+    toggle.addEventListener('click', function(){
+      this.classList.toggle('on');
+      var id = this.id;
+
+      if(id === 'toggleTheme'){
+        var html = document.documentElement;
+        var isOn = this.classList.contains('on');
+        html.setAttribute('data-theme', isOn ? 'dark' : 'light');
+        localStorage.setItem('theme', isOn ? 'dark' : 'light');
+        if(window.NX && window.NX.toast) window.NX.toast(isOn ? 'Тёмная тема' : 'Светлая тема', 'info');
+      }
+
+      if(id === 'toggleParticles'){
+        var canvas = document.getElementById('nxParticles');
+        if(canvas) canvas.style.display = this.classList.contains('on') ? '' : 'none';
+      }
+    });
+  });
+
+  /* Sync theme toggle with current theme */
+  var themeToggle = document.getElementById('toggleTheme');
+  if(themeToggle){
+    var currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    if(currentTheme === 'dark') themeToggle.classList.add('on');
+    else themeToggle.classList.remove('on');
+  }
+
+  /* Export data */
+  var exportBtn = document.getElementById('exportDataBtn');
+  if(exportBtn){
+    exportBtn.addEventListener('click', function(){
+      var data = {
+        user: {name: userName, email: userEmail, joined: userJoined},
+        portfolio: portfolio,
+        history: history,
+        exportDate: new Date().toISOString()
+      };
+      var blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'cryptoflow-export-' + new Date().toISOString().slice(0,10) + '.json';
+      a.click();
+      URL.revokeObjectURL(url);
+      if(window.NX && window.NX.toast) window.NX.toast('Данные экспортированы!', 'success');
+    });
+  }
+
+  /* Delete account */
+  var deleteBtn = document.getElementById('deleteAccountBtn');
+  if(deleteBtn){
+    deleteBtn.addEventListener('click', function(){
+      if(!confirm('Вы уверены? Это действие нельзя отменить.')) return;
+      if(!confirm('Все данные будут удалены. Подтвердите ещё раз.')) return;
+
+      /* Remove from nx_users */
+      try {
+        var users = JSON.parse(localStorage.getItem('nx_users')) || [];
+        users = users.filter(function(u){ return u.email !== userEmail; });
+        localStorage.setItem('nx_users', JSON.stringify(users));
+      } catch(e){}
+
+      /* Remove auth keys */
+      AUTH_KEYS.forEach(function(key){ localStorage.removeItem(key); });
+
+      if(window.NX && window.NX.logout) window.NX.logout();
+      else window.location.href = 'index.html';
+    });
+  }
+
+    /* ═══════════════════════════════════════
+     14. CHARTS — Balance Line + Donut
+     ═══════════════════════════════════════ */
+  function initCharts(){
+    if(typeof Chart === 'undefined'){
+      console.warn('[Dashboard] Chart.js not loaded, retrying...');
+      setTimeout(initCharts, 500);
+      return;
+    }
+
+    /* Chart.js global defaults for dark theme */
+    Chart.defaults.color = 'rgba(148,163,184,0.7)';
+    Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+    Chart.defaults.font.family = 'Inter, system-ui, sans-serif';
+
+    /* ── 14a. Balance Line Chart (30 days) ── */
+    var balCanvas = document.getElementById('balanceLineChart');
+    if(balCanvas){
+      var labels30 = [];
+      var values30 = [];
+      var simBase = totalBalance * 0.85;
+
+      for(var d = 29; d >= 0; d--){
+        var date = new Date();
+        date.setDate(date.getDate() - d);
+        labels30.push(date.getDate() + '.' + (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1));
+
+        /* Realistic simulation: uptrend with noise */
+        var progress = (30 - d) / 30;
+        var trend = (totalBalance - simBase) * progress;
+        var noise = (Math.random() - 0.45) * totalBalance * 0.018;
+        var val = simBase + trend + noise;
+        values30.push(Math.round(val * 100) / 100);
+      }
+      /* Force last point to actual balance */
+      values30[values30.length - 1] = totalBalance;
+
+      var ctx = balCanvas.getContext('2d');
+
+      /* Gradient fill */
+      var gradientFill = ctx.createLinearGradient(0, 0, 0, 280);
+      gradientFill.addColorStop(0, 'rgba(108, 92, 231, 0.25)');
+      gradientFill.addColorStop(0.5, 'rgba(108, 92, 231, 0.08)');
+      gradientFill.addColorStop(1, 'rgba(108, 92, 231, 0.01)');
+
+      /* Gradient line */
+      var gradientLine = ctx.createLinearGradient(0, 0, ctx.canvas.width, 0);
+      gradientLine.addColorStop(0, '#6C5CE7');
+      gradientLine.addColorStop(0.5, '#a78bfa');
+      gradientLine.addColorStop(1, '#06B6D4');
+
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels30,
+          datasets: [{
+            label: 'Баланс ($)',
+            data: values30,
+            borderColor: gradientLine,
+            backgroundColor: gradientFill,
+            borderWidth: 2.5,
+            fill: true,
+            tension: 0.4,
+            pointRadius: 0,
+            pointHoverRadius: 6,
+            pointHoverBackgroundColor: '#6C5CE7',
+            pointHoverBorderColor: '#fff',
+            pointHoverBorderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: {
+            duration: 1200,
+            easing: 'easeOutQuart'
+          },
+          interaction: {
+            mode: 'index',
+            intersect: false
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(15, 11, 30, 0.95)',
+              titleColor: '#f1f5f9',
+              bodyColor: '#94a3b8',
+              borderColor: 'rgba(108,92,231,0.3)',
+              borderWidth: 1,
+              cornerRadius: 12,
+              padding: 14,
+              displayColors: false,
+              titleFont: { size: 13, weight: '600' },
+              bodyFont: { size: 12 },
+              callbacks: {
+                title: function(items){
+                  return '📅 ' + items[0].label;
+                },
+                label: function(item){
+                  return '💰 $' + item.parsed.y.toLocaleString('en-US', {maximumFractionDigits: 2});
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: {
+                maxRotation: 0,
+                maxTicksLimit: 8,
+                font: { size: 11 }
+              }
+            },
+            y: {
+              grid: {
+                color: 'rgba(255,255,255,0.04)',
+                drawBorder: false
+              },
+              ticks: {
+                font: { size: 11 },
+                callback: function(val){
+                  if(val >= 1000) return '$' + (val / 1000).toFixed(0) + 'K';
+                  return '$' + val;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    /* ── 14b. Donut Chart (asset allocation) ── */
+    var donutCanvas = document.getElementById('allocationDonut');
+    if(donutCanvas){
+      var donutLabels = [];
+      var donutValues = [];
+      var donutColors = [];
+
+      portfolio.forEach(function(p){
+        donutLabels.push(p.symbol);
+        donutValues.push(Math.round(p.amount * p.price));
+        donutColors.push(p.color);
+      });
+
+      var donutCtx = donutCanvas.getContext('2d');
+
+      new Chart(donutCtx, {
+        type: 'doughnut',
+        data: {
+          labels: donutLabels,
+          datasets: [{
+            data: donutValues,
+            backgroundColor: donutColors,
+            borderColor: 'rgba(15, 11, 30, 0.8)',
+            borderWidth: 3,
+            hoverBorderColor: '#fff',
+            hoverBorderWidth: 2,
+            hoverOffset: 8
+          }]
+        },
+        options: {
+          responsive: false,
+          cutout: '65%',
+          animation: {
+            animateRotate: true,
+            duration: 1000,
+            easing: 'easeOutQuart'
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(15, 11, 30, 0.95)',
+              titleColor: '#f1f5f9',
+              bodyColor: '#94a3b8',
+              borderColor: 'rgba(108,92,231,0.3)',
+              borderWidth: 1,
+              cornerRadius: 12,
+              padding: 14,
+              callbacks: {
+                label: function(item){
+                  var total = item.dataset.data.reduce(function(a, b){ return a + b; }, 0);
+                  var pct = ((item.parsed / total) * 100).toFixed(1);
+                  return item.label + ': $' + item.parsed.toLocaleString('en-US') + ' (' + pct + '%)';
+                }
+              }
+            }
+          }
+        }
+      });
+
+      /* ── Donut Legend ── */
+      var legendEl = document.getElementById('donutLegend');
+      if(legendEl){
+        portfolio.forEach(function(p){
+          var value = p.amount * p.price;
+          var pct = ((value / totalBalance) * 100).toFixed(1);
+          var item = document.createElement('div');
+          item.className = 'dash-donut-item';
+          item.innerHTML =
+            '<div class="dash-donut-dot" style="background:' + p.color + ';"></div>' +
+            '<span class="dash-donut-label">' + p.symbol + '</span>' +
+            '<span class="dash-donut-val">$' + value.toLocaleString('en-US', {maximumFractionDigits:0}) + ' <small style="color:var(--text3,#64748b);font-weight:400;">(' + pct + '%)</small></span>';
+          legendEl.appendChild(item);
+        });
+      }
+    }
+  }
+
+  /* Init charts when ready */
+  if(document.readyState === 'complete'){
+    initCharts();
+  } else {
+    window.addEventListener('load', initCharts);
+  }
+
+  /* ═══════════════════════════════════════
+     15. SORT PORTFOLIO
+     ═══════════════════════════════════════ */
+  var sortAsc = false;
+  var sortBtn = document.getElementById('portSortBtn');
+  if(sortBtn){
+    sortBtn.addEventListener('click', function(){
+      sortAsc = !sortAsc;
+      this.textContent = sortAsc ? 'Сортировка ↑' : 'Сортировка ↓';
+
+      portfolio.sort(function(a, b){
+        var valA = a.amount * a.price;
+        var valB = b.amount * b.price;
+        return sortAsc ? valA - valB : valB - valA;
+      });
+
+      var el = document.getElementById('fullPortfolio');
+      el.innerHTML = '';
+      portfolio.forEach(function(p){
+        el.appendChild(renderPortfolioItem(p, totalBalance));
+      });
+    });
+  }
+
+  /* ═══════════════════════════════════════
+     16. LIVE PRICE SIMULATION (updates every 60s)
+     ═══════════════════════════════════════ */
+  function simulatePriceUpdates(){
+    portfolio.forEach(function(p){
+      var delta = (Math.random() - 0.48) * 0.8;
+      p.price = Math.max(p.price * (1 + delta / 100), 0.01);
+      p.price = Math.round(p.price * 100) / 100;
+      p.change = Math.round((p.change + delta * 0.3) * 100) / 100;
+    });
+
+    /* Recalculate total */
+    totalBalance = 0;
+    portfolio.forEach(function(p){ totalBalance += p.amount * p.price; });
+
+    /* Update stats */
+    var balEl = document.getElementById('statBalance');
+    if(balEl) balEl.textContent = '$' + totalBalance.toLocaleString('en-US', {maximumFractionDigits:2});
+
+    /* Update overview portfolio */
+    var ovPortEl = document.getElementById('overviewPortfolio');
+    if(ovPortEl){
+      ovPortEl.innerHTML = '';
+      portfolio.slice(0, 4).forEach(function(p){
+        ovPortEl.appendChild(renderPortfolioItem(p, totalBalance));
+      });
+    }
+
+    /* Flash animation on balance */
+    if(balEl){
+      balEl.style.transition = 'color 0.3s';
+      balEl.style.color = '#a78bfa';
+      setTimeout(function(){ balEl.style.color = ''; }, 600);
+    }
+  }
+
+  /* Run every 60 seconds */
+  setInterval(simulatePriceUpdates, 60000);
+
+  /* ═══════════════════════════════════════
+     17. ANIMATED COUNTERS ON LOAD
+     ═══════════════════════════════════════ */
+  function animateCounter(el, target, prefix, suffix, decimals){
+    prefix = prefix || '';
+    suffix = suffix || '';
+    decimals = decimals || 0;
+    var start = 0;
+    var duration = 1200;
+    var startTime = null;
+
+    function step(timestamp){
+      if(!startTime) startTime = timestamp;
+      var progress = Math.min((timestamp - startTime) / duration, 1);
+      /* easeOutQuart */
+      var ease = 1 - Math.pow(1 - progress, 4);
+      var current = start + (target - start) * ease;
+
+      if(decimals > 0){
+        el.textContent = prefix + current.toLocaleString('en-US', {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: decimals
+        }) + suffix;
+      } else {
+        el.textContent = prefix + Math.round(current).toLocaleString('en-US') + suffix;
+      }
+
+      if(progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* Animate main stats */
+  var balanceEl = document.getElementById('statBalance');
+  if(balanceEl) animateCounter(balanceEl, totalBalance, '$', '', 2);
+
+  var pnlEl = document.getElementById('statPnl');
+  if(pnlEl) animateCounter(pnlEl, pnlValue, '+$', '', 2);
+
+  var tradesEl = document.getElementById('statTrades');
+  if(tradesEl) animateCounter(tradesEl, history.length, '', '', 0);
+
+  var assetsEl = document.getElementById('statAssets');
+  if(assetsEl) animateCounter(assetsEl, portfolio.length, '', '', 0);
+
+  /* ═══════════════════════════════════════
+     18. KEYBOARD NAVIGATION
+     ═══════════════════════════════════════ */
+  document.addEventListener('keydown', function(e){
+    /* Alt+1..8 switch tabs */
+    if(e.altKey && e.key >= '1' && e.key <= '8'){
+      e.preventDefault();
+      var idx = parseInt(e.key) - 1;
+      var allTabs = document.querySelectorAll('.dash-tab');
+      if(allTabs[idx]) allTabs[idx].click();
+    }
+  });
+
+  /* ═══════════════════════════════════════
+     19. URL HASH TAB ROUTING
+     ═══════════════════════════════════════ */
+  function checkHash(){
+    var hash = window.location.hash.replace('#', '');
+    if(hash){
+      var tab = document.querySelector('.dash-tab[data-tab="' + hash + '"]');
+      if(tab) tab.click();
+    }
+  }
+  checkHash();
+  window.addEventListener('hashchange', checkHash);
+
+  /* Update hash when tab clicked */
+  document.querySelectorAll('.dash-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      var target = this.getAttribute('data-tab');
+      history.replaceState && history.replaceState(null, '', '#' + target);
+    });
+  });
+
+  /* ═══════════════════════════════════════
+     20. GREETING BASED ON TIME
+     ═══════════════════════════════════════ */
+  var hour = new Date().getHours();
+  var greeting = 'Добро пожаловать';
+  if(hour >= 5 && hour < 12) greeting = 'Доброе утро';
+  else if(hour >= 12 && hour < 17) greeting = 'Добрый день';
+  else if(hour >= 17 && hour < 22) greeting = 'Добрый вечер';
+  else greeting = 'Доброй ночи';
+
+  var titleEl = document.querySelector('.dash-title');
+  if(titleEl){
+    titleEl.innerHTML = greeting + ', <span>' + userName + '</span>!';
+  }
+
+  /* ═══════════════════════════════════════
+     21. ADD TO WATCHLIST BUTTON
+     ═══════════════════════════════════════ */
+  var addWatchBtn = document.getElementById('addWatchBtn');
+  if(addWatchBtn){
+    addWatchBtn.addEventListener('click', function(){
+      var available = [
+        {symbol:'MATIC', name:'Polygon',   color:'#8247E5', price:0.62,  change:1.8},
+        {symbol:'ATOM',  name:'Cosmos',    color:'#2E3148', price:9.15,  change:-0.5},
+        {symbol:'UNI',   name:'Uniswap',   color:'#FF007A', price:11.2,  change:2.1},
+        {symbol:'FTM',   name:'Fantom',    color:'#1969FF', price:0.48,  change:4.5},
+        {symbol:'NEAR',  name:'NEAR',      color:'#00C08B', price:5.20,  change:3.2},
+        {symbol:'APT',   name:'Aptos',     color:'#00B4D8', price:12.3,  change:1.6},
+        {symbol:'ARB',   name:'Arbitrum',  color:'#213147', price:0.95,  change:-0.3},
+        {symbol:'OP',    name:'Optimism',  color:'#FF0420', price:2.10,  change:2.9}
+      ];
+
+      /* Filter out already in watchlist */
+      var existing = watchlist.map(function(w){ return w.symbol; });
+      var canAdd = available.filter(function(a){ return existing.indexOf(a.symbol) === -1; });
+
+      if(canAdd.length === 0){
+        if(window.NX && window.NX.toast) window.NX.toast('Все доступные монеты уже добавлены', 'info');
+        return;
+      }
+
+      /* Add random one */
+      var random = canAdd[Math.floor(Math.random() * canAdd.length)];
+      watchlist.push(random);
+      renderWatchlist();
+      if(window.NX && window.NX.toast) window.NX.toast(random.symbol + ' добавлен в избранное!', 'success');
+    });
+  }
+
+  /* ═══════════════════════════════════════
+     22. CONSOLE WELCOME
+     ═══════════════════════════════════════ */
+  console.log('%c🚀 CryptoFlow Dashboard Loaded', 'color:#6C5CE7;font-size:14px;font-weight:bold;');
+  console.log('%cUser: ' + userName + ' | Assets: ' + portfolio.length + ' | Balance: $' + totalBalance.toLocaleString('en-US', {maximumFractionDigits:2}), 'color:#94a3b8;font-size:11px;');
+  console.log('%c💡 Tip: Alt+1..8 для быстрого переключения вкладок', 'color:#06B6D4;font-size:11px;');
+
+})();
+</script>
+
+<!-- Particles Background -->
+    <script src="js/dashboard.js"></script>
+<script src="js/particles.js"></script>
+
+</body>
+</html>

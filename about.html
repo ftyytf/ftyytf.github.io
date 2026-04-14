@@ -1,0 +1,289 @@
+﻿<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+    <meta name="description" content="Узнайте о команде CryptoFlow by Muravsky — криптообменник с передовыми технологиями безопасности.">
+    <meta name="keywords" content="о компании, CryptoFlow by Muravsky, криптовалютный обменник, команда">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="О нас — CryptoFlow by Muravsky">
+    <meta property="og:description" content="Узнайте о команде CryptoFlow by Muravsky — криптообменник с передовыми технологиями безопасности.">
+    <meta property="og:site_name" content="CryptoFlow by Muravsky">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:image" content="img/og-cover.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="О нас — CryptoFlow by Muravsky">
+    <meta name="twitter:description" content="Узнайте о команде CryptoFlow by Muravsky — криптообменник с передовыми технологиями безопасности.">
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+    <title>О нас — CryptoFlow by Muravsky</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dropdown-fix.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style id="preloader-style">
+  /* === PRELOADER === */
+  .nx-preloader {
+    position: fixed; inset: 0; z-index: 99999;
+    background: #0F0B1E;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 24px;
+    transition: opacity 0.5s, visibility 0.5s;
+  }
+  .nx-preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  .nx-preloader-logo {
+    width: 72px; height: 72px;
+    animation: nx-pulse 1.5s ease-in-out infinite;
+  }
+  .nx-preloader-bar {
+    width: 200px; height: 3px; background: rgba(108,92,231,0.2);
+    border-radius: 4px; overflow: hidden;
+  }
+  .nx-preloader-bar::after {
+    content: ''; display: block; height: 100%; width: 40%;
+    background: linear-gradient(90deg, #6C5CE7, #06B6D4);
+    border-radius: 4px;
+    animation: nx-slide 1s ease-in-out infinite;
+  }
+  @keyframes nx-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.08); opacity: 0.7; }
+  }
+  @keyframes nx-slide {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(350%); }
+  }
+</style>
+<style id="zfix-global">
+  /* Global z-index fix — контент поверх particles canvas */
+  header, .header, nav, .navbar, main, .main,
+  section, .container, .content, footer, .footer,
+  .modal, .overlay, form, button, a, input,
+  select, textarea, details, summary {
+    position: relative;
+    z-index: 2;
+  }
+  #nxParticles {
+    z-index: 0 !important;
+    pointer-events: none !important;
+  }
+  .nx-preloader.hidden {
+    pointer-events: none !important;
+  }
+</style>
+    <link rel="canonical" href="https://cryptoflow-muravsky.com/about">
+</head>
+<body>
+<!-- PRELOADER -->
+<div class="nx-preloader" id="nxPreloader">
+  <img src="img/favicon.svg" alt="CryptoFlow by Muravsky" class="nx-preloader-logo">
+  <div class="nx-preloader-bar"></div>
+</div>
+<script>
+window.addEventListener('load', function() {
+  var p = document.getElementById('nxPreloader');
+  if (p) { setTimeout(function(){ p.classList.add('hidden'); }, 400); }
+});
+</script>
+
+<main id="main-content" role="main">
+    <!-- HERO -->
+    <section class="page-hero about-hero">
+      <div class="container">
+        <h1 class="page-hero-title">О платформе <span class="gradient-text">CryptoFlow by Muravsky</span></h1>
+        <p class="page-hero-subtitle">Мы создаём будущее финансов — быстрый, безопасный и прозрачный обмен криптовалют для каждого</p>
+      </div>
+    </section>
+
+    <!-- MISSION -->
+    <section class="section" data-reveal>
+      <div class="container">
+        <div class="about-mission">
+          <div class="about-mission-text">
+            <h2 class="section-title" data-reveal>Наша миссия</h2>
+            <p class="about-desc">CryptoFlow by Muravsky — это криптовалютная платформа нового поколения. Мы верим, что каждый человек заслуживает доступ к современным финансовым инструментам без сложных процедур и скрытых комиссий.</p>
+            <p class="about-desc">Наша цель — сделать обмен криптовалют таким же простым, как отправка сообщения. Мы объединяем передовые технологии, прозрачность и лучший пользовательский опыт.</p>
+          </div>
+          <div class="about-mission-visual">
+            <div class="mission-card" data-reveal>
+              <div class="mission-card-icon" data-reveal>&#9889;</div>
+              <div class="mission-card-num" data-reveal>2M+</div>
+              <div class="mission-card-label" data-reveal>Транзакций</div>
+            </div>
+            <div class="mission-card" data-reveal>
+              <div class="mission-card-icon" data-reveal>&#127758;</div>
+              <div class="mission-card-num" data-reveal>150+</div>
+              <div class="mission-card-label" data-reveal>Стран</div>
+            </div>
+            <div class="mission-card" data-reveal>
+              <div class="mission-card-icon" data-reveal>&#128176;</div>
+              <div class="mission-card-num" data-reveal>$500M+</div>
+              <div class="mission-card-label" data-reveal>Объём обменов</div>
+            </div>
+            <div class="mission-card" data-reveal>
+              <div class="mission-card-icon" data-reveal>&#11088;</div>
+              <div class="mission-card-num" data-reveal>4.9</div>
+              <div class="mission-card-label" data-reveal>Средний рейтинг</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADVANTAGES -->
+    <section class="section section-alt" data-reveal>
+      <div class="container">
+        <h2 class="section-title text-center" data-reveal>Почему CryptoFlow by Muravsky?</h2>
+        <p class="section-subtitle text-center">Преимущества, которые выделяют нас среди конкурентов</p>
+        <div class="advantages-grid">
+          <div class="advantage-card" data-reveal>
+            <div class="advantage-icon">&#128274;</div>
+            <h3 class="advantage-title">Безопасность</h3>
+            <p class="advantage-desc">Многоуровневая защита: 2FA, холодные кошельки, шифрование данных и регулярный аудит безопасности.</p>
+          </div>
+          <div class="advantage-card" data-reveal>
+            <div class="advantage-icon">&#9889;</div>
+            <h3 class="advantage-title">Скорость</h3>
+            <p class="advantage-desc">Обмен за 30 секунд. Автоматическое сопоставление ордеров и мгновенное исполнение сделок.</p>
+          </div>
+          <div class="advantage-card" data-reveal>
+            <div class="advantage-icon">&#128200;</div>
+            <h3 class="advantage-title">Лучшие курсы</h3>
+            <p class="advantage-desc">Агрегируем ликвидность с 10+ бирж для предоставления самого выгодного курса обмена.</p>
+          </div>
+          <div class="advantage-card" data-reveal>
+            <div class="advantage-icon">&#127760;</div>
+            <h3 class="advantage-title">35+ валют</h3>
+            <p class="advantage-desc">Поддержка популярных криптовалют и фиатных валют. Новые активы добавляются регулярно.</p>
+          </div>
+          <div class="advantage-card" data-reveal>
+            <div class="advantage-icon">&#128241;</div>
+            <h3 class="advantage-title">Удобный интерфейс</h3>
+            <p class="advantage-desc">Интуитивный дизайн для новичков и продвинутые инструменты для профессиональных трейдеров.</p>
+          </div>
+          <div class="advantage-card" data-reveal>
+            <div class="advantage-icon">&#129309;</div>
+            <h3 class="advantage-title">Поддержка 24/7</h3>
+            <p class="advantage-desc">Команда поддержки доступна круглосуточно через чат, email и Telegram.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM -->
+    <section class="section" data-reveal>
+      <div class="container">
+        <h2 class="section-title text-center" data-reveal>Наша команда</h2>
+        <p class="section-subtitle text-center">Профессионалы с опытом в финтехе, блокчейне и кибербезопасности</p>
+        <div class="team-grid">
+          <div class="team-card" data-reveal>
+            <div class="team-avatar" style="background: linear-gradient(135deg, #6366f1, #8b5cf6)">АИ</div>
+            <h3 class="team-name">Алексей Иванов</h3>
+            <p class="team-role">CEO & Founder</p>
+            <p class="team-bio">10+ лет в финтехе. Ex-Binance, ex-Tinkoff.</p>
+          </div>
+          <div class="team-card" data-reveal>
+            <div class="team-avatar" style="background: linear-gradient(135deg, #ec4899, #f43f5e)">МК</div>
+            <h3 class="team-name">Мария Козлова</h3>
+            <p class="team-role">CTO</p>
+            <p class="team-bio">Блокчейн-архитектор. 15+ лет в разработке.</p>
+          </div>
+          <div class="team-card" data-reveal>
+            <div class="team-avatar" style="background: linear-gradient(135deg, #22c55e, #16a34a)">ДС</div>
+            <h3 class="team-name">Дмитрий Смирнов</h3>
+            <p class="team-role">Head of Security</p>
+            <p class="team-bio">Эксперт кибербезопасности. Ex-Kaspersky.</p>
+          </div>
+          <div class="team-card" data-reveal>
+            <div class="team-avatar" style="background: linear-gradient(135deg, #f59e0b, #d97706)">ЕП</div>
+            <h3 class="team-name">Елена Петрова</h3>
+            <p class="team-role">Head of Design</p>
+            <p class="team-bio">UX/UI дизайнер. Создатель интерфейсов для 50+ продуктов.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="section section-alt" data-reveal>
+      <div class="container">
+        <h2 class="section-title text-center" data-reveal>Наш путь</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <span class="timeline-date">Q1 2023</span>
+              <h3 class="timeline-title">Основание компании</h3>
+              <p class="timeline-desc">Идея родилась из потребности в простом и надёжном криптообменнике.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <span class="timeline-date">Q3 2023</span>
+              <h3 class="timeline-title">Запуск бета-версии</h3>
+              <p class="timeline-desc">Первые 10,000 пользователей. Поддержка 15 криптовалют.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <span class="timeline-date">Q1 2024</span>
+              <h3 class="timeline-title">Полный запуск</h3>
+              <p class="timeline-desc">35+ валют, фиат-крипто обмен, мобильное приложение.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <span class="timeline-date">Q4 2024</span>
+              <h3 class="timeline-title">Глобальная экспансия</h3>
+              <p class="timeline-desc">150+ стран, 2M+ транзакций, партнёрства с крупными биржами.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section" data-reveal>
+      <div class="container">
+        <div class="cta-block">
+          <h2 class="cta-title">Готовы начать?</h2>
+          <p class="cta-desc">Присоединяйтесь к 500,000+ пользователей, которые уже выбрали CryptoFlow by Muravsky</p>
+          <a href="exchange.html" class="btn btn-primary btn-lg">Начать обмен</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  </div>
+  <script src="js/app.js"></script>
+  <!-- Auth Modal (unified) -->
+
+  <script src="js/components.js"></script>
+<script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+<script src="js/particles.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+  <title>Обмен криптовалют — CryptoFlow by Muravsky</title>
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Мгновенный обмен криптовалют на CryptoFlow by Muravsky. Лучшие курсы BTC, ETH, SOL.">
+  <meta name="keywords" content="обмен криптовалют, swap, конвертер, BTC, ETH">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Обмен криптовалют — CryptoFlow by Muravsky">
+  <meta property="og:description" content="Мгновенный обмен криптовалют. Лучшие курсы.">
+  <meta property="og:site_name" content="CryptoFlow by Muravsky">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:image" content="img/og-cover.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="canonical" href="https://cryptoflow-muravsky.com/exchange">
+  <style id="exchange-page-styles">
+
+.popular-pairs{max-width:520px;margin:0 auto 48px}.popular-pairs-title{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text2);margin-bottom:14px;text-align:center}.popular-pairs-grid{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}.pair-chip{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:100px;background:var(--glass);border:1px solid var(--glass-border);font-size:.82rem;font-weight:600;color:var(--text-bright);cursor:pointer;transition:all .25s;white-space:nowrap}.pair-chip:hover{border-color:var(--accent);background:var(--accent-dim);transform:translateY(-2px);box-shadow:0 4px 16px rgba(99,102,241,.15)}.pair-chip .pair-icons{display:flex;align-items:center}.pair-chip .mini-icon{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#fff}.pair-chip .mini-icon:nth-child(2){margin-left:-6px;border:2px solid var(--bg1)}.pair-chip .pair-arrow{opacity:.4;font-size:.7rem}
+.live-ticker{max-width:900px;margin:0 auto 48px;overflow:hidden;position:relative;border-radius:var(--radius-lg);background:var(--glass);border:1px solid var(--glass-border)}.live-ticker-track{display:flex;animation:tickerScroll 30s linear infinite;width:max-content}.live-ticker:hover .live-ticker-track{animation-play-state:paused}.ticker-item{display:flex;align-items:center;gap:10px;padding:14px 28px;white-space:nowrap;border-right:1px solid var(--glass-border)}.ticker-coin{font-weight:700;color:var(--text-bright);font-size:.9rem}.ticker-price{color:var(--text2);font-size:.85rem}.ticker-change{font-size:.8rem;font-weight:600}.ticker-change.up{color:#22c55e}.ticker-change.down{color:#ef4444}@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+  
+/* ===== EXCHANGE CARD ===== */
+.exchange-card{background:var(--glass,rgba(255,255,255,.04));border:1px solid var(--glass-border,rgba(255,255,255,.08));border-radius:24px;padding:32px;backdrop-filter:blur(20px);box-shadow:0 8px 32px rgba(0,0,0,.2)}
+.exchange-row{margin-bottom:20px}
+.exchange-label{display:block;font-size:.8rem;font-weight:600;color:var(--text2,#94a3b8);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em}
+.exchange-input-group{display:flex;align-items:center;gap:12px;background:var(--bg2,rgba(255,255,255,.03));border:1px solid var(--glass-border,rgba(255,255,255,.08));border-radius:16px;padding:12px 16px;transition:border-color .3s}
+.exchange-input-group:focus-within{border-color:var(--accent,#6366f1)}
+.exchange-amount{flex:1;background:none;border:none;color:var(--text-bright,#f1f5f9);font-size:1.4rem;font-weight:700;outline:none;min-width:0;font-family:inherit}
+.exchange-amount::placeholder{color:var(--text3,#475569)}
+.exchange-amount::-webkit-outer-spin-button,.exchange-amount::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.exchange-amount[type=number]{-moz-appearance:textfield}
+.exchange-swap{display:flex;justify-content:center;margin:8px 0}
+.swap-btn{width:48px;height:48px;border-radius:50%;border:1px solid var(--glass-border,rgba(255,255,255,.08));background:var(--glass,rgba(255,255,255,.04));color:var(--accent,#6366f1);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s}
+.swap-btn:hover{background:var(--accent,#6366f1);color:#fff;transform:rotate(180deg);box-shadow:0 4px 20px rgba(99,102,241,.3)}
+.exchange-info{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-top:1px solid var(--glass-border,rgba(255,255,255,.06));margin-top:8px;margin-bottom:16px;font-size:.85rem;color:var(--text2,#94a3b8)}
+.exchange-rate{font-weight:600}
+.exchange-fee .accent{color:var(--accent,#6366f1);font-weight:700}
+.exchange-submit{width:100%;padding:16px;font-size:1rem;font-weight:700;border-radius:16px;display:flex;align-items:center;justify-content:center;gap:10px}
+
+/* ===== SELECTS / DROPDOWNS ===== */
+.ex-select{position:relative}
+.ex-select-btn{display:flex;align-items:center;gap:8px;background:none;border:none;color:var(--text-bright,#f1f5f9);cursor:pointer;font-size:.95rem;font-weight:600;padding:4px 8px;border-radius:10px;transition:background .2s;white-space:nowrap;font-family:inherit}
+.ex-select-btn:hover{background:rgba(99,102,241,.1)}
+.ex-select-btn svg{opacity:.5}
+.coin-icon-wrap{display:flex;align-items:center}
+.coin-icon{width:32px;height:32px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;flex-shrink:0}
+.coin-btc{background:linear-gradient(135deg,#f7931a,#e8850b)}.coin-eth{background:linear-gradient(135deg,#627eea,#4a67cf)}.coin-usdt{background:linear-gradient(135deg,#26a17b,#1e8c6a)}.coin-bnb{background:linear-gradient(135deg,#f3ba2f,#d4a228)}.coin-sol{background:linear-gradient(135deg,#9945ff,#14f195)}.coin-xrp{background:linear-gradient(135deg,#00aae4,#0085c7)}.coin-ada{background:linear-gradient(135deg,#0033ad,#002280)}.coin-doge{background:linear-gradient(135deg,#c2a633,#ba9f33)}.coin-dot{background:linear-gradient(135deg,#e6007a,#c5006a)}.coin-matic{background:linear-gradient(135deg,#8247e5,#6b3cc9)}.coin-link{background:linear-gradient(135deg,#2a5ada,#1f48b8)}.coin-avax{background:linear-gradient(135deg,#e84142,#c73738)}.coin-uni{background:linear-gradient(135deg,#ff007a,#d40066)}.coin-ltc{background:linear-gradient(135deg,#bfbbbb,#a0a0a0)}.coin-atom{background:linear-gradient(135deg,#2e3148,#1c1e32)}.coin-ton{background:linear-gradient(135deg,#0098ea,#007acc)}.coin-trx{background:linear-gradient(135deg,#ff0013,#cc0010)}.coin-shib{background:linear-gradient(135deg,#ffa409,#e08c00)}.coin-near{background:linear-gradient(135deg,#00c1de,#009bb5)}.coin-arb{background:linear-gradient(135deg,#28a0f0,#1e88cc)}.coin-op{background:linear-gradient(135deg,#ff0420,#cc0319)}.coin-apt{background:linear-gradient(135deg,#4ae8c4,#3bc4a6)}.coin-sui{background:linear-gradient(135deg,#6fbcf0,#5aa0d0)}.coin-inj{background:linear-gradient(135deg,#00f2fe,#00c4cc)}.coin-pepe{background:linear-gradient(135deg,#3caa1f,#2e8818)}
+.coin-usd{background:linear-gradient(135deg,#22c55e,#16a34a)}.coin-eur{background:linear-gradient(135deg,#3b82f6,#2563eb)}.coin-rub{background:linear-gradient(135deg,#ef4444,#dc2626)}.coin-gbp{background:linear-gradient(135deg,#a855f7,#9333ea)}.coin-cny{background:linear-gradient(135deg,#f97316,#ea580c)}.coin-jpy{background:linear-gradient(135deg,#ec4899,#db2777)}.coin-try{background:linear-gradient(135deg,#ef4444,#b91c1c)}.coin-uah{background:linear-gradient(135deg,#3b82f6,#facc15)}.coin-kzt{background:linear-gradient(135deg,#06b6d4,#0891b2)}.coin-aed{background:linear-gradient(135deg,#10b981,#059669)}.coin-inr{background:linear-gradient(135deg,#f97316,#ea580c)}.coin-chf{background:linear-gradient(135deg,#ef4444,#dc2626)}.coin-pln{background:linear-gradient(135deg,#dc2626,#f1f5f9)}.coin-gel{background:linear-gradient(135deg,#dc2626,#1e3a5f)}
+.ex-dropdown{position:absolute;top:calc(100% + 8px);left:0;width:320px;max-height:420px;background:var(--bg1,#0f0b1e);border:1px solid var(--glass-border,rgba(255,255,255,.1));border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.5);z-index:1000;display:none;overflow:hidden;flex-direction:column}
+.ex-dropdown.open{display:flex}
+.ex-dropdown-search{padding:12px}
+.ex-dropdown-search input{width:100%;padding:10px 14px;background:var(--bg2,rgba(255,255,255,.05));border:1px solid var(--glass-border,rgba(255,255,255,.08));border-radius:10px;color:var(--text-bright,#f1f5f9);font-size:.85rem;outline:none;font-family:inherit}
+.ex-dropdown-search input:focus{border-color:var(--accent,#6366f1)}
+.ex-dropdown-tabs{display:flex;gap:4px;padding:0 12px 8px}
+.ex-dropdown-tab{flex:1;padding:8px;border-radius:8px;border:none;background:var(--bg2,rgba(255,255,255,.05));color:var(--text2,#94a3b8);font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+.ex-dropdown-tab.active{background:var(--accent,#6366f1);color:#fff}
+.ex-dropdown-tab .tab-count{opacity:.6;font-size:.7rem;margin-left:2px}
+.ex-dropdown-list{overflow-y:auto;max-height:300px;padding:0 8px 8px}
+.ex-dropdown-list::-webkit-scrollbar{width:4px}
+.ex-dropdown-list::-webkit-scrollbar-thumb{background:var(--accent,#6366f1);border-radius:4px}
+.ex-coin-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;cursor:pointer;transition:background .2s}
+.ex-coin-item:hover{background:rgba(99,102,241,.1)}
+.coin-info{display:flex;flex-direction:column;flex:1;min-width:0}
+.coin-ticker{font-weight:700;color:var(--text-bright,#f1f5f9);font-size:.9rem}
+.coin-fullname{font-size:.75rem;color:var(--text3,#475569)}
+.coin-price{font-size:.8rem;color:var(--text2,#94a3b8);font-weight:500}
+
+/* ===== GLASS CARD ===== */
+.glass-card{background:var(--glass,rgba(255,255,255,.04));border:1px solid var(--glass-border,rgba(255,255,255,.08));border-radius:20px;padding:24px;backdrop-filter:blur(12px)}
+
+/* ===== RECENT EXCHANGES ===== */
+.ex-recent-item{display:flex;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid var(--glass-border,rgba(255,255,255,.06));transition:background .2s}
+.ex-recent-item:last-child{border-bottom:none}
+.ex-recent-item:hover{background:rgba(99,102,241,.04)}
+.ex-recent-icon{flex-shrink:0}
+.ex-recent-info{flex:1;min-width:0}
+.ex-recent-pair{font-weight:700;color:var(--text-bright,#f1f5f9);font-size:.9rem}
+.ex-recent-detail{font-size:.8rem;color:var(--text3,#475569);margin-top:2px}
+.ex-recent-time{font-size:.75rem;color:var(--text3,#475569);white-space:nowrap}
+.ex-recent-status{font-size:.75rem;color:#22c55e;font-weight:600;white-space:nowrap;margin-left:8px}
+
+/* ===== STEPS ===== */
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+@media(max-width:900px){.steps-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:500px){.steps-grid{grid-template-columns:1fr}}
+.step-card{text-align:center;padding:32px 20px;border-radius:20px;background:var(--glass,rgba(255,255,255,.04));border:1px solid var(--glass-border,rgba(255,255,255,.08))}
+.step-num{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--accent,#6366f1),#8b5cf6);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;margin-bottom:16px}
+.step-title{color:var(--text-bright,#f1f5f9);font-size:1rem;font-weight:700;margin-bottom:8px}
+.step-text{color:var(--text2,#94a3b8);font-size:.85rem}
+
+/* ===== BUTTONS ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 28px;border-radius:12px;font-weight:600;font-size:.95rem;border:none;cursor:pointer;transition:all .3s;text-decoration:none;font-family:inherit}
+.btn-primary{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;box-shadow:0 4px 16px rgba(99,102,241,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(99,102,241,.4)}
+.btn-lg{padding:16px 36px;font-size:1.05rem}
+
+/* ===== SECTION BADGE/TITLE ===== */
+.section-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:100px;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.2);color:var(--accent,#6366f1);font-size:.8rem;font-weight:600;margin-bottom:12px}
+.section-title{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:800;color:var(--text-bright,#f1f5f9);margin-bottom:12px}
+.gradient-text{background:linear-gradient(135deg,#6366f1,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pulse-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;animation:pulse-d 2s ease-in-out infinite}
+@keyframes pulse-d{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+
+/* ===== RESPONSIVE STATS ===== */
+@media(max-width:768px){
+.steps-grid{grid-template-columns:repeat(2,1fr)}
+div[style*="grid-template-columns:repeat(4"]{grid-template-columns:repeat(2,1fr)!important}
+div[style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr!important}
+.exchange-card{margin:0 16px;padding:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div id="header-placeholder"></div>
+
+<!-- Main Content -->
+<main class="main-content">
+
+<section class="hero-mini" style="padding:120px 0 40px;text-align:center">
+<div class="container">
+<div class="section-badge" style="display:inline-flex;align-items:center;gap:8px;margin-bottom:16px"><span class="pulse-dot"></span> Мгновенный обмен</div>
+<h1 style="font-size:clamp(2rem,5vw,3rem);font-weight:800;color:var(--text-bright);margin-bottom:12px">Обмен <span class="gradient-text">криптовалют</span></h1>
+<p style="color:var(--text2);font-size:1.1rem;max-width:600px;margin:0 auto 40px">25+ криптовалют и 14 фиатных валют. Лучшие курсы, комиссия 0.1%</p>
+</div>
+</section>
+
+<section style="padding:0 0 48px">
+<div class="container" style="max-width:520px">
+<div class="exchange-card">
+<div class="exchange-row">
+<label class="exchange-label">Вы отдаёте</label>
+<div class="exchange-input-group">
+<div class="ex-select" id="fromSelect">
+<button type="button" class="ex-select-btn" id="fromSelectBtn">
+<span class="coin-icon-wrap"><span class="coin-icon coin-btc">&#8383;</span></span>
+<span class="coin-name" id="fromCoinName">BTC</span>
+<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M2 4l4 4 4-4"/></svg>
+</button>
+<div class="ex-dropdown" id="fromDropdown">
+<div class="ex-dropdown-search"><input type="text" id="fromSearch" placeholder="Поиск..." autocomplete="off"></div>
+<div class="ex-dropdown-list" id="fromList"></div>
+</div>
+</div>
+<input type="number" class="exchange-amount" id="fromAmount" placeholder="0.00" step="any" value="1">
+</div>
+</div>
+<div class="exchange-swap">
+<button type="button" class="swap-btn" id="swapBtn" title="Поменять местами">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+</button>
+</div>
+<div class="exchange-row">
+<label class="exchange-label">Вы получаете</label>
+<div class="exchange-input-group">
+<div class="ex-select" id="toSelect">
+<button type="button" class="ex-select-btn" id="toSelectBtn">
+<span class="coin-icon-wrap"><span class="coin-icon coin-usdt">&#8366;</span></span>
+<span class="coin-name" id="toCoinName">USDT</span>
+<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M2 4l4 4 4-4"/></svg>
+</button>
+<div class="ex-dropdown" id="toDropdown">
+<div class="ex-dropdown-search"><input type="text" id="toSearch" placeholder="Поиск..." autocomplete="off"></div>
+<div class="ex-dropdown-list" id="toList"></div>
+</div>
+</div>
+<input type="number" class="exchange-amount" id="toAmount" placeholder="0.00" readonly>
+</div>
+</div>
+<div class="exchange-info">
+<div class="exchange-rate" id="exchangeRate">1 BTC &#8776; 104,500 USDT</div>
+<div class="exchange-fee">Комиссия: <span class="accent">0.1%</span></div>
+</div>
+<button class="btn btn-primary exchange-submit" onclick="doExchange()">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+Обменять
+</button>
+</div>
+</div>
+</section>
+
+<section style="padding:0 0 48px">
+<div class="container">
+<div class="popular-pairs">
+<div class="popular-pairs-title">&#128293; Популярные пары</div>
+<div class="popular-pairs-grid" id="popularPairs"></div>
+</div>
+</div>
+</section>
+
+<section style="padding:0 0 48px">
+<div class="container">
+<div class="live-ticker"><div class="live-ticker-track" id="tickerTrack"></div></div>
+</div>
+</section>
+
+<section style="padding:0 0 60px">
+<div class="container" style="max-width:700px">
+<h2 style="font-size:1.3rem;font-weight:700;color:var(--text-bright);margin-bottom:20px;text-align:center">&#128260; Недавние обмены</h2>
+<div class="glass-card" style="padding:0;overflow:hidden" id="recentExchanges"></div>
+</div>
+</section>
+
+<section style="padding:0 0 60px">
+<div class="container">
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">
+<div class="glass-card" style="text-align:center;padding:28px 16px"><div style="font-size:2rem;margin-bottom:8px">&#128200;</div><div style="font-size:1.8rem;font-weight:800;color:var(--text-bright)">156,000+</div><div style="font-size:.85rem;color:var(--text2)">Обменов за месяц</div></div>
+<div class="glass-card" style="text-align:center;padding:28px 16px"><div style="font-size:2rem;margin-bottom:8px">&#128176;</div><div style="font-size:1.8rem;font-weight:800;color:var(--text-bright)">$2.4M+</div><div style="font-size:.85rem;color:var(--text2)">Объём торгов</div></div>
+<div class="glass-card" style="text-align:center;padding:28px 16px"><div style="font-size:2rem;margin-bottom:8px">&#128101;</div><div style="font-size:1.8rem;font-weight:800;color:var(--text-bright)">89,000+</div><div style="font-size:.85rem;color:var(--text2)">Пользователей</div></div>
+<div class="glass-card" style="text-align:center;padding:28px 16px"><div style="font-size:2rem;margin-bottom:8px">&#9889;</div><div style="font-size:1.8rem;font-weight:800;color:var(--text-bright)">39</div><div style="font-size:.85rem;color:var(--text2)">Валют</div></div>
+</div>
+</div>
+</section>
+
+<section style="padding:0 0 60px">
+<div class="container">
+<div style="text-align:center;margin-bottom:40px">
+<div class="section-badge">Почему CryptoFlow</div>
+<h2 class="section-title">Преимущества обмена</h2>
+</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+<div class="glass-card" style="text-align:center;padding:32px 20px"><div style="font-size:2.5rem;margin-bottom:12px">&#9889;</div><h3 style="color:var(--text-bright);margin-bottom:8px">Мгновенный обмен</h3><p style="color:var(--text2);font-size:.9rem">Среднее время менее 3 минут</p></div>
+<div class="glass-card" style="text-align:center;padding:32px 20px"><div style="font-size:2.5rem;margin-bottom:12px">&#128274;</div><h3 style="color:var(--text-bright);margin-bottom:8px">Безопасность</h3><p style="color:var(--text2);font-size:.9rem">AES-256 шифрование и 2FA</p></div>
+<div class="glass-card" style="text-align:center;padding:32px 20px"><div style="font-size:2.5rem;margin-bottom:12px">&#128178;</div><h3 style="color:var(--text-bright);margin-bottom:8px">Низкие комиссии</h3><p style="color:var(--text2);font-size:.9rem">Всего 0.1% от суммы</p></div>
+<div class="glass-card" style="text-align:center;padding:32px 20px"><div style="font-size:2.5rem;margin-bottom:12px">&#127760;</div><h3 style="color:var(--text-bright);margin-bottom:8px">39 валют</h3><p style="color:var(--text2);font-size:.9rem">25 крипто и 14 фиат</p></div>
+<div class="glass-card" style="text-align:center;padding:32px 20px"><div style="font-size:2.5rem;margin-bottom:12px">&#128241;</div><h3 style="color:var(--text-bright);margin-bottom:8px">Мобильная версия</h3><p style="color:var(--text2);font-size:.9rem">Адаптивный дизайн</p></div>
+<div class="glass-card" style="text-align:center;padding:32px 20px"><div style="font-size:2.5rem;margin-bottom:12px">&#128172;</div><h3 style="color:var(--text-bright);margin-bottom:8px">Поддержка 24/7</h3><p style="color:var(--text2);font-size:.9rem">Живые операторы</p></div>
+</div>
+</div>
+</section>
+
+<section style="padding:0 0 60px">
+<div class="container">
+<div style="text-align:center;margin-bottom:40px">
+<div class="section-badge">Как это работает</div>
+<h2 class="section-title">4 простых шага</h2>
+</div>
+<div class="steps-grid">
+<div class="step-card"><div class="step-num">1</div><h3 class="step-title">Выберите пару</h3><p class="step-text">Укажите валюту для обмена</p></div>
+<div class="step-card"><div class="step-num">2</div><h3 class="step-title">Введите сумму</h3><p class="step-text">Расчёт мгновенно</p></div>
+<div class="step-card"><div class="step-num">3</div><h3 class="step-title">Отправьте средства</h3><p class="step-text">На указанный адрес</p></div>
+<div class="step-card"><div class="step-num">4</div><h3 class="step-title">Получите результат</h3><p class="step-text">За 1-5 минут</p></div>
+</div>
+</div>
+</section>
+
+<section style="padding:0 0 60px">
+<div class="container">
+<div style="text-align:center;padding:64px 32px;border-radius:24px;background:linear-gradient(135deg,rgba(108,92,231,.12),rgba(6,182,212,.08));border:1px solid rgba(108,92,231,.15)">
+<h2 style="font-size:2rem;font-weight:800;color:var(--text-bright);margin-bottom:12px">Готовы к обмену?</h2>
+<p style="color:var(--text2);margin-bottom:24px">Присоединяйтесь к 89,000+ пользователей</p>
+<a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false" class="btn btn-primary btn-lg">Начать обмен</a>
+</div>
+</div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<div id="footer-placeholder"></div>
+
+<!-- Scripts -->
+<script>
+(function(){
+var coins=[
+{id:"btc",name:"Bitcoin",symbol:"BTC",icon:"\u20BF",price:104500,cls:"coin-btc",type:"crypto"},
+{id:"eth",name:"Ethereum",symbol:"ETH",icon:"\u039E",price:3280,cls:"coin-eth",type:"crypto"},
+{id:"usdt",name:"Tether",symbol:"USDT",icon:"\u20AE",price:1,cls:"coin-usdt",type:"crypto"},
+{id:"bnb",name:"BNB",symbol:"BNB",icon:"B",price:710,cls:"coin-bnb",type:"crypto"},
+{id:"sol",name:"Solana",symbol:"SOL",icon:"S",price:178,cls:"coin-sol",type:"crypto"},
+{id:"xrp",name:"Ripple",symbol:"XRP",icon:"X",price:2.48,cls:"coin-xrp",type:"crypto"},
+{id:"ada",name:"Cardano",symbol:"ADA",icon:"A",price:0.82,cls:"coin-ada",type:"crypto"},
+{id:"doge",name:"Dogecoin",symbol:"DOGE",icon:"D",price:0.24,cls:"coin-doge",type:"crypto"},
+{id:"dot",name:"Polkadot",symbol:"DOT",icon:"\u25CF",price:8.9,cls:"coin-dot",type:"crypto"},
+{id:"matic",name:"Polygon",symbol:"MATIC",icon:"M",price:0.58,cls:"coin-matic",type:"crypto"},
+{id:"link",name:"Chainlink",symbol:"LINK",icon:"\u2B21",price:18.5,cls:"coin-link",type:"crypto"},
+{id:"avax",name:"Avalanche",symbol:"AVAX",icon:"A",price:42,cls:"coin-avax",type:"crypto"},
+{id:"uni",name:"Uniswap",symbol:"UNI",icon:"U",price:12.4,cls:"coin-uni",type:"crypto"},
+{id:"ltc",name:"Litecoin",symbol:"LTC",icon:"\u0141",price:115,cls:"coin-ltc",type:"crypto"},
+{id:"atom",name:"Cosmos",symbol:"ATOM",icon:"\u269B",price:11.2,cls:"coin-atom",type:"crypto"},
+{id:"ton",name:"Toncoin",symbol:"TON",icon:"T",price:7.2,cls:"coin-ton",type:"crypto"},
+{id:"trx",name:"TRON",symbol:"TRX",icon:"T",price:0.27,cls:"coin-trx",type:"crypto"},
+{id:"shib",name:"Shiba Inu",symbol:"SHIB",icon:"S",price:0.000027,cls:"coin-shib",type:"crypto"},
+{id:"near",name:"NEAR",symbol:"NEAR",icon:"N",price:6.5,cls:"coin-near",type:"crypto"},
+{id:"arb",name:"Arbitrum",symbol:"ARB",icon:"A",price:1.1,cls:"coin-arb",type:"crypto"},
+{id:"op",name:"Optimism",symbol:"OP",icon:"O",price:2.3,cls:"coin-op",type:"crypto"},
+{id:"apt",name:"Aptos",symbol:"APT",icon:"A",price:8.2,cls:"coin-apt",type:"crypto"},
+{id:"sui",name:"Sui",symbol:"SUI",icon:"S",price:3.6,cls:"coin-sui",type:"crypto"},
+{id:"inj",name:"Injective",symbol:"INJ",icon:"I",price:24,cls:"coin-inj",type:"crypto"},
+{id:"pepe",name:"Pepe",symbol:"PEPE",icon:"P",price:0.0000088,cls:"coin-pepe",type:"crypto"},
+{id:"usd",name:"US Dollar",symbol:"USD",icon:"$",price:1,cls:"coin-usd",type:"fiat"},
+{id:"eur",name:"Euro",symbol:"EUR",icon:"\u20AC",price:1.09,cls:"coin-eur",type:"fiat"},
+{id:"rub",name:"Russian Ruble",symbol:"RUB",icon:"\u20BD",price:0.0106,cls:"coin-rub",type:"fiat"},
+{id:"gbp",name:"British Pound",symbol:"GBP",icon:"\u00A3",price:1.27,cls:"coin-gbp",type:"fiat"},
+{id:"cny",name:"Chinese Yuan",symbol:"CNY",icon:"\u00A5",price:0.138,cls:"coin-cny",type:"fiat"},
+{id:"jpy",name:"Japanese Yen",symbol:"JPY",icon:"\u00A5",price:0.0067,cls:"coin-jpy",type:"fiat"},
+{id:"try",name:"Turkish Lira",symbol:"TRY",icon:"\u20BA",price:0.031,cls:"coin-try",type:"fiat"},
+{id:"uah",name:"Ukrainian Hryvnia",symbol:"UAH",icon:"\u20B4",price:0.024,cls:"coin-uah",type:"fiat"},
+{id:"kzt",name:"Kazakh Tenge",symbol:"KZT",icon:"\u20B8",price:0.002,cls:"coin-kzt",type:"fiat"},
+{id:"aed",name:"UAE Dirham",symbol:"AED",icon:"\u062F",price:0.272,cls:"coin-aed",type:"fiat"},
+{id:"inr",name:"Indian Rupee",symbol:"INR",icon:"\u20B9",price:0.012,cls:"coin-inr",type:"fiat"},
+{id:"chf",name:"Swiss Franc",symbol:"CHF",icon:"Fr",price:1.13,cls:"coin-chf",type:"fiat"},
+{id:"pln",name:"Polish Zloty",symbol:"PLN",icon:"z\u0142",price:0.257,cls:"coin-pln",type:"fiat"},
+{id:"gel",name:"Georgian Lari",symbol:"GEL",icon:"\u20BE",price:0.366,cls:"coin-gel",type:"fiat"}
+];
+var geckoMap={btc:"bitcoin",eth:"ethereum",usdt:"tether",bnb:"binancecoin",sol:"solana",xrp:"ripple",ada:"cardano",doge:"dogecoin",dot:"polkadot",matic:"matic-network",link:"chainlink",avax:"avalanche-2",uni:"uniswap",ltc:"litecoin",atom:"cosmos",ton:"the-open-network",trx:"tron",shib:"shiba-inu",near:"near",arb:"arbitrum",op:"optimism",apt:"aptos",sui:"sui",inj:"injective-protocol",pepe:"pepe"};
+var fromCoin=coins[0],toCoin=coins[2];
+function fetchPrices(){var ids=[];for(var k in geckoMap)ids.push(geckoMap[k]);fetch("https://api.coingecko.com/api/v3/simple/price?ids="+ids.join(",")+"&vs_currencies=usd").then(function(r){return r.json()}).then(function(d){coins.forEach(function(c){if(c.type!=="crypto")return;var g=geckoMap[c.id];if(g&&d[g]&&d[g].usd)c.price=d[g].usd});calc();buildTicker()}).catch(function(){});fetch("https://api.exchangerate-api.com/v4/latest/USD").then(function(r){return r.json()}).then(function(d){if(d&&d.rates)coins.forEach(function(c){if(c.type!=="fiat")return;if(d.rates[c.symbol])c.price=1/d.rates[c.symbol]});calc()}).catch(function(){});}
+fetchPrices();setInterval(fetchPrices,60000);
+function renderList(listEl,searchEl,exclude,onSelect,filterType){var q=(searchEl.value||"").toLowerCase();var ft=filterType||"crypto";listEl.innerHTML="";var count=0;coins.forEach(function(c){if(c.id===exclude)return;if(c.type!==ft)return;if(q&&c.name.toLowerCase().indexOf(q)===-1&&c.symbol.toLowerCase().indexOf(q)===-1)return;count++;var it=document.createElement("div");it.className="ex-coin-item";var ps=c.price<0.01?c.price.toFixed(6):c.price.toLocaleString("en-US",{maximumFractionDigits:2});it.innerHTML="<span class=\"coin-icon "+c.cls+"\">"+c.icon+"</span><div class=\"coin-info\"><span class=\"coin-ticker\">"+c.symbol+"</span><span class=\"coin-fullname\">"+c.name+"</span></div><span class=\"coin-price\">$"+ps+"</span>";it.addEventListener("click",function(){onSelect(c)});listEl.appendChild(it)});if(count===0){var em=document.createElement("div");em.className="ex-coin-item";em.style.justifyContent="center";em.style.opacity="0.4";em.innerHTML="<span>Ничего не найдено</span>";listEl.appendChild(em)}}
+function buildTabs(dd,searchEl,listEl,exclude,onSelect){var old=dd.querySelector(".ex-dropdown-tabs");if(old)old.remove();var tabsDiv=document.createElement("div");tabsDiv.className="ex-dropdown-tabs";var cc=0,fc=0;coins.forEach(function(c){if(c.id===exclude)return;if(c.type==="crypto")cc++;if(c.type==="fiat")fc++});var bC=document.createElement("button");bC.type="button";bC.className="ex-dropdown-tab active";bC.innerHTML="\u26D3 Крипто <span class=\"tab-count\">"+cc+"</span>";var bF=document.createElement("button");bF.type="button";bF.className="ex-dropdown-tab";bF.innerHTML="\uD83C\uDFE6 Фиат <span class=\"tab-count\">"+fc+"</span>";tabsDiv.appendChild(bC);tabsDiv.appendChild(bF);dd.insertBefore(tabsDiv,dd.firstChild);var at=dd._activeType||"crypto";bC.classList.toggle("active",at==="crypto");bF.classList.toggle("active",at==="fiat");function sw2(type){at=type;dd._activeType=type;bC.classList.toggle("active",type==="crypto");bF.classList.toggle("active",type==="fiat");renderList(listEl,searchEl,exclude,onSelect,type)}bC.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();sw2("crypto")});bF.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();sw2("fiat")});return at}
+function setFrom(c){fromCoin=c;document.getElementById("fromCoinName").textContent=c.symbol;document.querySelector("#fromSelectBtn .coin-icon-wrap").innerHTML="<span class=\"coin-icon "+c.cls+"\">"+c.icon+"</span>";closeAll();calc()}
+function setTo(c){toCoin=c;document.getElementById("toCoinName").textContent=c.symbol;document.querySelector("#toSelectBtn .coin-icon-wrap").innerHTML="<span class=\"coin-icon "+c.cls+"\">"+c.icon+"</span>";closeAll();calc()}
+function closeAll(){var f=document.getElementById("fromDropdown"),t=document.getElementById("toDropdown");if(f){f.classList.remove("open");var x=f.querySelector(".ex-dropdown-tabs");if(x)x.remove()}if(t){t.classList.remove("open");var y=t.querySelector(".ex-dropdown-tabs");if(y)y.remove()}}
+function calc(){var a=parseFloat(document.getElementById("fromAmount").value)||0;var r=fromCoin.price/toCoin.price;var res=a*r*0.999;document.getElementById("toAmount").value=res?res.toFixed(6):"";var rs=r<0.001?r.toFixed(8):(r<1?r.toFixed(6):r.toLocaleString("en-US",{maximumFractionDigits:2}));document.getElementById("exchangeRate").textContent="1 "+fromCoin.symbol+" \u2248 "+rs+" "+toCoin.symbol}
+function openDD(ddId,searchId,listId,exclude,onSelect){var dd=document.getElementById(ddId);if(!dd)return;dd.classList.add("open");var se=document.getElementById(searchId);if(se)se.value="";var list=document.getElementById(listId);var at=buildTabs(dd,se,list,exclude,onSelect);renderList(list,se,exclude,onSelect,at);if(se)se.focus()}
+document.addEventListener("click",function(e){var fb=document.getElementById("fromSelectBtn"),tb=document.getElementById("toSelectBtn");var fd=document.getElementById("fromDropdown"),td=document.getElementById("toDropdown");if(!fb||!tb)return;if(fb.contains(e.target)){e.preventDefault();e.stopPropagation();var w=fd.classList.contains("open");closeAll();if(!w)openDD("fromDropdown","fromSearch","fromList",toCoin.id,setFrom);return}if(tb.contains(e.target)){e.preventDefault();e.stopPropagation();var w2=td.classList.contains("open");closeAll();if(!w2)openDD("toDropdown","toSearch","toList",fromCoin.id,setTo);return}if(fd&&!fd.contains(e.target)&&td&&!td.contains(e.target))closeAll()},true);
+var fs=document.getElementById("fromSearch");if(fs)fs.addEventListener("input",function(){var fd=document.getElementById("fromDropdown");renderList(document.getElementById("fromList"),this,toCoin.id,setFrom,fd._activeType||"crypto")});
+var ts=document.getElementById("toSearch");if(ts)ts.addEventListener("input",function(){var td=document.getElementById("toDropdown");renderList(document.getElementById("toList"),this,fromCoin.id,setTo,td._activeType||"crypto")});
+var fa=document.getElementById("fromAmount");if(fa)fa.addEventListener("input",calc);
+var swb=document.getElementById("swapBtn");if(swb)swb.addEventListener("click",function(){var t=fromCoin;setFrom(toCoin);setTo(t);calc()});
+document.getElementById("fromAmount").value=1;calc();
+var params=new URLSearchParams(window.location.search);var pF=params.get("from"),pT=params.get("to"),pA=params.get("amount");if(pF){var fc2=coins.find(function(c){return c.symbol===pF});if(fc2)setFrom(fc2)}if(pT){var tc2=coins.find(function(c){return c.symbol===pT});if(tc2)setTo(tc2)}if(pA){document.getElementById("fromAmount").value=pA;calc()}
+window.exFromCoin=function(){return fromCoin};window.exToCoin=function(){return toCoin};var popularPairsData=[{from:"BTC",to:"USDT"},{from:"ETH",to:"USDT"},{from:"BTC",to:"ETH"},{from:"SOL",to:"USDT"},{from:"BNB",to:"USDT"},{from:"XRP",to:"USDT"},{from:"DOGE",to:"USDT"},{from:"BTC",to:"RUB"},{from:"ETH",to:"RUB"},{from:"USDT",to:"RUB"}];
+function buildPopularPairs(){var el=document.getElementById("popularPairs");if(!el)return;el.innerHTML="";popularPairsData.forEach(function(p){var fc=coins.find(function(c){return c.symbol===p.from});var tc=coins.find(function(c){return c.symbol===p.to});if(!fc||!tc)return;var chip=document.createElement("button");chip.className="pair-chip";chip.innerHTML='<span class="pair-icons"><span class="mini-icon '+fc.cls+'">'+fc.icon+'</span><span class="mini-icon '+tc.cls+'">'+tc.icon+'</span></span><span>'+fc.symbol+'</span><span class="pair-arrow">\u2192</span><span>'+tc.symbol+'</span>';chip.addEventListener("click",function(){setFrom(fc);setTo(tc);document.getElementById("fromAmount").value=1;calc();window.scrollTo({top:document.querySelector(".exchange-card").offsetTop-100,behavior:"smooth"})});el.appendChild(chip)})}
+buildPopularPairs();
+function buildTicker(){var el=document.getElementById("tickerTrack");if(!el)return;var tc2=coins.filter(function(c){return c.type==="crypto"}).slice(0,12);var html="";var changes=[2.4,-1.2,0.1,3.8,-0.5,1.7,-2.1,5.2,0.8,-0.3,1.1,-1.8];tc2.forEach(function(c,i){var ch=changes[i%changes.length];var cls=ch>=0?"up":"down";var sign=ch>=0?"+":"";var ps=c.price<0.01?c.price.toFixed(6):"$"+c.price.toLocaleString("en-US",{maximumFractionDigits:2});html+='<div class="ticker-item"><span class="coin-icon '+c.cls+'" style="width:28px;height:28px;font-size:.7rem;display:inline-flex;align-items:center;justify-content:center;border-radius:50%">'+c.icon+'</span><span class="ticker-coin">'+c.symbol+'</span><span class="ticker-price">'+ps+'</span><span class="ticker-change '+cls+'">'+sign+ch+'%</span></div>'});el.innerHTML=html+html}
+buildTicker();
+function buildRecent(){var el=document.getElementById("recentExchanges");if(!el)return;var recents=[{from:"BTC",to:"USDT",amount:"0.5432",result:"56,789",time:"2 мин назад",icon:"\u20BF",cls:"coin-btc"},{from:"ETH",to:"USDT",amount:"12.5",result:"41,000",time:"5 мин назад",icon:"\u039E",cls:"coin-eth"},{from:"SOL",to:"BTC",amount:"150",result:"0.2553",time:"8 мин назад",icon:"S",cls:"coin-sol"},{from:"USDT",to:"RUB",amount:"5,000",result:"475,000",time:"12 мин назад",icon:"\u20AE",cls:"coin-usdt"},{from:"BNB",to:"ETH",amount:"25",result:"5.413",time:"15 мин назад",icon:"B",cls:"coin-bnb"},{from:"DOGE",to:"USDT",amount:"50,000",result:"12,000",time:"18 мин назад",icon:"D",cls:"coin-doge"},{from:"XRP",to:"USDT",amount:"10,000",result:"24,800",time:"22 мин назад",icon:"X",cls:"coin-xrp"}];var html="";recents.forEach(function(r){html+='<div class="ex-recent-item"><div class="ex-recent-icon"><span class="coin-icon '+r.cls+'" style="width:32px;height:32px;font-size:.75rem;display:flex;align-items:center;justify-content:center;border-radius:50%">'+r.icon+'</span></div><div class="ex-recent-info"><div class="ex-recent-pair">'+r.from+' \u2192 '+r.to+'</div><div class="ex-recent-detail">'+r.amount+' '+r.from+' \u2192 '+r.result+' '+r.to+'</div></div><div class="ex-recent-time">'+r.time+'</div><div class="ex-recent-status">\u2713 \u0412\u044B\u043F\u043E\u043B\u043D\u0435\u043D</div></div>'});el.innerHTML=html}
+buildRecent();
+console.log("exchange loaded: "+coins.length+" coins");
+})();
+function doExchange(){var amt=document.getElementById("fromAmount").value;if(!amt||parseFloat(amt)<=0){alert("\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0441\u0443\u043C\u043C\u0443");return}var result=document.getElementById("toAmount").value;var fc=window.exFromCoin(),tc=window.exToCoin();var o=document.createElement("div");o.style.cssText="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:10000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)";o.innerHTML='<div style="background:linear-gradient(135deg,rgba(99,102,241,.15),rgba(139,92,246,.1));border:1px solid rgba(99,102,241,.3);border-radius:24px;padding:48px;text-align:center;max-width:480px;width:90%"><div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:36px;color:#fff">\u2713</div><h2 style="color:#fff;margin-bottom:12px">\u041E\u0431\u043C\u0435\u043D \u0443\u0441\u043F\u0435\u0448\u0435\u043D!</h2><p style="color:rgba(255,255,255,.7);font-size:18px;margin-bottom:8px"><span class="coin-icon '+fc.cls+'" style="display:inline-flex;width:24px;height:24px;font-size:12px;vertical-align:middle;margin-right:4px">'+fc.icon+'</span>'+parseFloat(amt).toFixed(6)+' '+fc.symbol+'</p><p style="color:rgba(99,102,241,.8);font-size:24px;margin-bottom:8px">\u2193</p><p style="color:rgba(255,255,255,.7);font-size:18px;margin-bottom:24px"><span class="coin-icon '+tc.cls+'" style="display:inline-flex;width:24px;height:24px;font-size:12px;vertical-align:middle;margin-right:4px">'+tc.icon+'</span>'+parseFloat(result).toFixed(6)+' '+tc.symbol+'</p><button onclick="this.closest(\'div[style]\').parentElement.remove()" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border:none;padding:14px 40px;border-radius:12px;font-size:16px;cursor:pointer;font-weight:600">\u0417\u0430\u043A\u0440\u044B\u0442\u044C</button></div>';document.body.appendChild(o)}
+</script>
+
+<script src="js/components.js"></script>
+<script src="js/main.js"></script>
+<script src="js/particles.js"></script>
+
+<script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+  <title>FAQ — CryptoFlow by Muravsky</title>
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Ответы на частые вопросы о работе криптообменника CryptoFlow by Muravsky.">
+  <meta name="keywords" content="FAQ, вопросы, помощь, криптовалюта, обмен">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="FAQ — CryptoFlow by Muravsky">
+  <meta property="og:description" content="Ответы на частые вопросы о работе криптообменника CryptoFlow by Muravsky.">
+  <meta property="og:site_name" content="CryptoFlow by Muravsky">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:image" content="img/og-cover.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="FAQ — CryptoFlow by Muravsky">
+  <meta name="twitter:description" content="Ответы на частые вопросы о работе криптообменника CryptoFlow by Muravsky.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dropdown-fix.css">
+  <style>
+    .nx-preloader{position:fixed;inset:0;z-index:99999;background:#0F0B1E;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px;transition:opacity .5s,visibility .5s}
+    .nx-preloader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+    .nx-preloader-logo{width:72px;height:72px;animation:nx-pulse 1.5s ease-in-out infinite}
+    .nx-preloader-bar{width:200px;height:3px;background:rgba(108,92,231,.2);border-radius:4px;overflow:hidden}
+    .nx-preloader-bar::after{content:'';display:block;height:100%;width:40%;background:linear-gradient(90deg,#6C5CE7,#06B6D4);border-radius:4px;animation:nx-slide 1s ease-in-out infinite}
+    @keyframes nx-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.08);opacity:.7}}
+    @keyframes nx-slide{0%{transform:translateX(-100%)}100%{transform:translateX(350%)}}
+    header,.header,nav,.navbar,main,section,.container,.content,.faq-section,.faq-list,.faq-item,.faq-question,.faq-answer,.faq-categories,.faq-search,footer,.footer,button,a,input,select,textarea{position:relative;z-index:2}
+    #nxParticles{z-index:0!important;pointer-events:none!important}
+    .faq-answer{max-height:0;opacity:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1),opacity .3s ease,padding .3s ease;padding-top:0;padding-bottom:0}
+    .faq-item.open .faq-answer{opacity:1}
+    .faq-chevron{transition:transform .3s ease}
+    .faq-item.open .faq-chevron{transform:rotate(180deg)}
+    .faq-item{transition:background .3s ease,border-color .3s ease}
+    .faq-item:hover{background:rgba(108,92,231,.05);border-color:rgba(108,92,231,.3)}
+  </style>
+    <link rel="canonical" href="https://cryptoflow-muravsky.com/faq">
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div class="nx-preloader" id="nxPreloader">
+  <img src="img/favicon.svg" alt="CryptoFlow by Muravsky" class="nx-preloader-logo">
+  <div class="nx-preloader-bar"></div>
+</div>
+<script>
+window.addEventListener('load',function(){var p=document.getElementById('nxPreloader');if(p)setTimeout(function(){p.classList.add('hidden')},400)});
+</script>
+
+<!-- ========== HEADER ========== -->
+<!-- ========== MOBILE NAV ========== -->
+
+    <main id="main-content" role="main">
+
+<section class="section faq-section" data-reveal>
+  <div class="container">
+    <div class="section-header" style="text-align:center;margin-bottom:48px;">
+      <h1 class="section-title" data-reveal>Часто задаваемые вопросы</h1>
+      <p class="section-subtitle">Ответы на популярные вопросы о платформе CryptoFlow by Muravsky</p>
+    </div>
+
+    <!-- Search -->
+    <div class="faq-search-wrap">
+      <div class="faq-search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="faqSearch" placeholder="Поиск по вопросам..." autocomplete="off">
+      </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="faq-categories">
+      <button class="faq-cat active" data-cat="all">Все</button>
+      <button class="faq-cat" data-cat="general">Общие</button>
+      <button class="faq-cat" data-cat="account">Аккаунт</button>
+      <button class="faq-cat" data-cat="exchange">Обмен</button>
+      <button class="faq-cat" data-cat="security">Безопасность</button>
+      <button class="faq-cat" data-cat="fees">Комиссии</button>
+    </div>
+
+    <!-- FAQ Items -->
+    <div class="faq-list" id="faqList">
+
+      <!-- ===== GENERAL ===== -->
+      <div class="faq-item" data-cat="general">
+        <button class="faq-question">
+          <span>Что такое CryptoFlow by Muravsky?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><p>CryptoFlow by Muravsky — современная платформа для обмена криптовалют. Мы предоставляем актуальные рыночные данные, удобный обмен между криптовалютами и фиатными валютами, а также инструменты для анализа рынка.</p></div>
+      </div>
+
+      <div class="faq-item" data-cat="general">
+        <button class="faq-question">
+          <span>Какие криптовалюты поддерживаются?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><p>Более 50 криптовалют: Bitcoin, Ethereum, Solana, XRP, BNB, Cardano, Polkadot, Polygon, TON и многие другие. Список постоянно расширяется.</p></div>
+      </div>
+
+      <div class="faq-item" data-cat="general">
+        <button class="faq-question">
+          <span>Как связаться с поддержкой?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><p>Перейдите на страницу <a href="contact.html" style="color:var(--accent)">Контакты</a> или напишите на support@cryptoflow.io. Среднее время ответа — 2 часа. Поддержка работает 24/7.</p></div>
+      </div>
+
+      <div class="faq-item" data-cat="general">
+        <button class="faq-question">
+          <span>В каких странах доступен сервис?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><p>CryptoFlow by Muravsky доступен в 140+ странах мира. Ограничения действуют для юрисдикций под санкциями. Полный список доступных стран — в разделе «О нас».</p></div>
+      </div>
+
+      <!-- ===== ACCOUNT ===== -->
+      <div class="faq-item" data-cat="account">
+        <button class="faq-question">
+          <span>Как создать аккаунт?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><p>Нажмите «Войти» → «Зарегистрироваться». Введите имя, email и пароль. После регистрации вы получите доступ к личному кабинету.</p></div>
+      </div>
+
+      <div class="faq-item" data-cat="account">
+        <button class="faq-question">
+          <span>Как восстановить пароль?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><p>На странице входа нажмите «Забыли пароль?» и введите email. Мы отправим ссылку для сброса. Она действительна 24 часа.</p></div>
+      </div>
+
+      <div class="faq-item" data-cat="account">
+        <button class="faq-question">
+          <span>Нужна ли верификация (KYC)?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><p>Для обменов до $1 000/день — нет. Для увеличения лимитов требуется базовая верификация: загрузите документ и сделайте селфи. Процедура занимает до 10 минут.</p></div>
+      </div>
+
+      <div class="faq-item" data-cat="account">
+        <button class="faq-question">
+          <span>Как удалить аккаунт?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><p>Напишите в поддержку с привязанного email с темой «Удаление аккаунта». Мы удалим данные в течение 72 часов согласно GDPR.</p></div>
+      </div>
+
+      <!-- ===== EXCHANGE ===== -->
+      <div class="faq-item" data-cat="exchange">
+        <button class="faq-question">
+          <span>Как происходит обмен?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><p>Выберите пару, укажите сумму, нажмите «Обменять». Курс фиксируется на 30 секунд. После подтверждения операция занимает 1–30 минут.</p></div>
+      </div>
+
+      <div class="faq-item" data-cat="exchange">
+        <button class="faq-question">
+          <span>Минимальная и максимальная сумма обмена?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><p>Минимум — $10. Максимум зависит от верификации: без KYC — $1 000/день, уровень 2 — $50 000/день, уровень 3 — без ограничений.</p></div>
+      </div>
+
+      <div class="faq-item" data-cat="exchange">
+        <button class="faq-question">
+          <span>Сколько времени занимает обмен?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><p>Большинство — 5–15 минут. Bitcoin может занимать до 30 минут, Solana и XRP — менее 1 минуты.</p></div>
+      </div>
+
+      <div class="faq-item" data-cat="exchange">
+        <button class="faq-question">
+          <span>Можно ли отменить обмен?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><p>До отправки средств — да. После отправки блокчейн-транзакции отменить обмен невозможно. Свяжитесь с поддержкой, если возникли проблемы.</p></div>
+      </div>
+
+      <!-- ===== SECURITY ===== -->
+      <div class="faq-item" data-cat="security">
+        <button class="faq-question">
+          <span>Как защищены мои данные?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><p>Шифрование AES-256, TLS 1.3, двухфакторная аутентификация (2FA), холодное хранение криптоактивов и регулярные аудиты безопасности.</p></div>
+      </div>
+
+      <div class="faq-item" data-cat="security">
+        <button class="faq-question">
+          <span>Что такое двухфакторная аутентификация (2FA)?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><p>Дополнительная защита: при входе нужен одноразовый код из Google Authenticator или Authy. Настраивается в разделе «Настройки».</p></div>
+      </div>
+
+      <div class="faq-item" data-cat="security">
+        <button class="faq-question">
+          <span>Что делать при подозрительной активности?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><p>Немедленно смените пароль и включите 2FA. Свяжитесь с поддержкой — мы заблокируем аккаунт до выяснения обстоятельств.</p></div>
+      </div>
+
+      <div class="faq-item" data-cat="security">
+        <button class="faq-question">
+          <span>Где хранятся средства пользователей?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><p>95% средств хранятся на холодных кошельках офлайн. Горячие кошельки используются только для оперативных обменов и защищены мультиподписью.</p></div>
+      </div>
+
+      <!-- ===== FEES ===== -->
+      <div class="faq-item" data-cat="fees">
+        <button class="faq-question">
+          <span>Какие комиссии на платформе?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><p>От 0.1% до 0.5% в зависимости от пары и объёма. Сетевые комиссии блокчейна оплачиваются отдельно. Всё отображается перед подтверждением.</p></div>
+      </div>
+
+      <div class="faq-item" data-cat="fees">
+        <button class="faq-question">
+          <span>Есть ли скрытые комиссии?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><p>Нет. Все комиссии прозрачно отображаются до подтверждения. Вы видите итоговую сумму к получению с учётом всех сборов.</p></div>
+      </div>
+
+      <div class="faq-item" data-cat="fees">
+        <button class="faq-question">
+          <span>Есть ли скидки на комиссию?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><p>Да. При объёме обменов свыше $10 000/месяц комиссия снижается до 0.1%. Постоянные клиенты получают персональные условия.</p></div>
+      </div>
+
+      <div class="faq-item" data-cat="fees">
+        <button class="faq-question">
+          <span>Берётся ли комиссия за вывод?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><p>Мы не берём комиссию за вывод. Оплачивается только сетевая комиссия блокчейна (gas fee), которая зависит от загруженности сети.</p></div>
+      </div>
+
+    </div>
+
+    <!-- No results -->
+    <div class="faq-empty" id="faqEmpty" style="display:none;">
+      <p>По вашему запросу ничего не найдено. Попробуйте изменить запрос или <a href="contact.html" style="color:var(--accent)">свяжитесь с нами</a>.</p>
+    </div>
+
+  </div>
+</section>
+
+    </main>
+
+<script src="js/components.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/main.js"></script>
+<script src="js/particles.js"></script>
+
+
+</body>
+</html>
+
